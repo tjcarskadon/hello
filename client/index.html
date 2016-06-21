@@ -28,7 +28,7 @@
 
         if(_(hand.fingers).every(finger => !finger.extended)) {
           hand.fingers.forEach(finger => {
-            // console.log(finger.type, finger.extended, finger.direction);
+            console.log(finger.type, finger.extended, finger.direction);
             data.push(finger.extended, finger.direction);
           });
           var diff = hand.fingers[0].stabilizedTipPosition[2] > hand.fingers[1].stabilizedTipPosition[2];
