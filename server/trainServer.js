@@ -59,7 +59,7 @@ app.get('/brain', (req, res) => {
       } else {
         //check if index is out
         let IP_checkNet = require('./neurons/isIndexExtended.js');
-        let isIP = IP_checkNet.run([false]);
+        let isIP = IP_checkNet.run([true]);
         if (isIP.true > isIP.false) {
           //check if middle is out
            let MP_checkNet = require('./neurons/isMiddleExtended.js');
@@ -122,9 +122,8 @@ app.get('/brain', (req, res) => {
               console.log('L');
             } else {
               //Check for X
-              //TODO: This logic works but the test is wrong.  After checking all logic fix this.
               let XD_checkNet = require('./neurons/thumbMiddle_zTipRangeFinder.js');
-              let isXD = XD_checkNet.run([12.8292]);
+              let isXD = XD_checkNet.run([-23.054]);
               console.log(isXD.true, isXD.false);
               if (isXD.true > isXD.false) {
                 console.log('D');
