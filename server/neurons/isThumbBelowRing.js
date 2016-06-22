@@ -6,7 +6,7 @@ var net = new brain.NeuralNetwork();
 //Check difference between thumb tip y and ring mcp y.  If thumb tip is less than ring MCP
 net.train([
   {input:[7.232], output:{true: 1}}, 
-  {input:[56.78], output:{false: 0}}
+  {input:[56.78], output:{false: 1}}
 ]);
 
 module.exports = net;
