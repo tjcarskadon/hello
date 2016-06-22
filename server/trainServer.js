@@ -77,12 +77,57 @@ app.get('/brain', (req, res) => {
               }
             } else {
               //Check if Index is below M
+              let TBM_checkNet = require('./isIndexBelowMiddle.js');
+              let isTBR = TBM_checkNet.run(/*DATA*/);
+              if (isTBR.true > isTBR.false) {
+                //R
+              } else {
+                //check to see if the tips of the index and middle are close together.
+                let UVK_checkNet = require('./indexMiddle_xRangeFinder.js');
+                let isUVK = UVK_checkNet.run(/*Data*/);
+                if (isUVK.true > isUVK.false) {
+                  //U
+                } else {
+                  //check thumb position for V and K
+                  let VK_checkNet = require('./thumbRing_yRangerFinder.js');
+                  let isVK = VK_checkNet.run(/*DATA*/);
+                  if (isVK.true > isVK.false) {
+                    //V
+                  } else {
+                    //K
+                  }
+                }
+              }
             }
            } else {
             //check to see if the thumb is out
+            let TE_checkNet = require('./isThumbExtended.js');
+            let isTE = TE_checkNet.run(/*DATA*/);
+            if (isTE.true > isTE.false) {
+              //L
+            } else {
+              //Check for X
+              let XD_checkNet = require('./thumbMiddle_zTipRangerFinder.js');
+              let isXD = XD_checkNet.run(/*DATA*/);
+              if (isXD.true > isXD.false) {
+                //D
+              } else {
+                //check index tip y against index tip index pip y
+                let X_checkNet = require('./isIndexTipBelowIndexPip.js');
+                let isX = X_checkNet.run(/*DATA*/);
+                if(isX.true > isX.false) {
+                  //X
+                }
+              }
+            }
            }
         } else {
-          //check is only middle is out
+          //check if thumb is below index
+          let TI_checkNet= require('./thumbIndexTip_yRangeFinder.js');
+          let isTI = TI_checkNet.run(/*Data*/);
+          if (isTI.True > isTE.false) {
+            //F
+          }
         }
       }
     }
