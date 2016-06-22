@@ -51,6 +51,39 @@ app.get('/brain', (req, res) => {
 
       } else {
         //check if index is out
+        let IP_checkNet = require('./isIndexExtended.js');
+        let isIP = IP_checkNet.run(/*DATA - BOOLEAN*/)
+        if (isIP.true > isIP.false) {
+          //check if middle is out
+           let MP_checkNet = require('./isMiddleExtended.js');
+           let isMP = MP_checkNet.run(/*DATA - BOOLEAN*/)
+           if(isMP.true > isMP.false) {
+            //middle is out - check if ringfinger is out
+            let RP_checkNet = require('./isRingExtended.js');
+            let isRP = RP_checkNet.run(/*DATA - BOOLEAN*/)
+            if(isRP.true > isRP.false) {
+            //ring is out - check if pinky is out
+              let PK_checkNet = require('./isPinkyExtended.js');
+              let isPK = PK_checkNet.run(/*DATA - BOOLEAN*/)
+              if(isPK.true > isPK.false) {
+              //pinky is out - check thumb
+                let TBR_checkNet = require('./isThumbBelowRing.js');
+                let isTBR = TBR_checkNet.run(/*DATA*/)
+                if (isTBR.true < isTBR.false) {
+                  //B
+                }
+              } else {
+                //W
+              }
+            } else {
+              //Check if Index is below M
+            }
+           } else {
+            //check to see if the thumb is out
+           }
+        } else {
+          //check is only middle is out
+        }
       }
     }
 
