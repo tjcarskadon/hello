@@ -15,8 +15,10 @@
   },
   "private": true,
   "dependencies": {
+    "bluebird": "^3.4.1",
     "body-parser": "^1.15.1",
     "brain": "^0.7.0",
+    "chron": "0.0.4",
     "express": "^4.14.0",
     "machine_learning": "0.0.8",
     "@angular/common": "2.0.0-rc.1",
@@ -61,5 +63,7 @@
     "tslint": "3.11.0",
     "typescript": "1.8.10",
     "typings": "0.8.1"
+    "redis": "^2.6.2",
+    "request-promise": "^3.0.0"
   }
 }
