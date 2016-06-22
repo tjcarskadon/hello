@@ -16,32 +16,39 @@ var brain = require('brain');
 app.get('/brain', (req, res) => {
 
   var checkExtendedNet = require('./neurons/checkExtended.js');
-  var extendedCheckResults = checkExtendedNet.run([0,0,0,0,0]);
+  var extendedCheckResults = checkExtendedNet.run([1,1,1,1,1]);
   if (extendedCheckResults.true > extendedCheckResults.false) {
     //is extdended
     //rotated?
     let rotated_checkNet = require('./neurons/isRotated.js');
-    let isRotated = rotated_checkNet.run(/*DATA*/);
+    let isRotated = rotated_checkNet.run([12.115]);
     if(isRotated.true > isRotated.false) {
       let GH_checkNet = require('./neurons/gh_yRangeFinder.js');
       //takes diff between index tip and mid tip
-      let isGH = GH_checkNet.run(/*DATA*/);
+      //This check is working with dummy data
+      let isGH = GH_checkNet.run([6.3415]) ;
       if(isGH.g > isGH.h) {
+        console.log('G');
         //G
       } else {
-        //H
+        //H 
+       console.log('H');
       }
     } else {
+      console.log('______NOT ROTATED______');
       //Check for down fingers
       let TD_checkNet = require('./neurons/isThumbDown.js');
-      let isTD = TD_checkNet.run(/*DATA*/);
-      if (isThumbDown.true > isThumbDown.false) {
+      let isTD = TD_checkNet.run([69.187]);
+      if (isTD.true > isTD.false) {
         //thumb is down check for p or q
+        console.log('Thumb down');
         let MD_checkNet = require('./neurons/isMiddleDown.js');
-        let isMD = MD_checkNet.run(/*DATA*/);
+        let isMD = MD_checkNet.run([8.151]); 
         if (isMD.true > isMD.false) {
+          console.log('P');
           //P
         } else {
+          console.log('check for Q');
           let ID_checkNet = require('./neurons/isIndexDown.js');
           let isID = ID_checkNet.run(/*DATA*/);
           if (isTD.true > isTD.false) {
