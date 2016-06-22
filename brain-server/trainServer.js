@@ -33,7 +33,25 @@ app.get('/brain', (req, res) => {
       }
     } else {
       //Check for down fingers
-      
+      let TD_checkNet = require('./neurons/isThumbDown.js');
+      let isTD = TD_checkNet.run(/*DATA*/);
+      if (isThumbDown.true > isThumbDown.false) {
+        //thumb is down check for p or q
+        let MD_checkNet = require('./neurons/isMiddleDown.js');
+        let isMD = MD_checkNet.run(/*DATA*/);
+        if (isMD.true > isMD.false) {
+          //P
+        } else {
+          let ID_checkNet = require('./neurons/isIndexDown.js');
+          let isID = ID_checkNet.run(/*DATA*/);
+          if (isTD.true > isTD.false) {
+            //Q
+          }
+        }
+
+      } else {
+        //check if index is out
+      }
     }
 
   } else {
