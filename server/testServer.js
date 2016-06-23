@@ -4,6 +4,40 @@ const rp = require('request-promise');
 
 const app = express();
 
+//this is not a live endpoint....this is old code from how I was parsing data from redis
+app.get('/input' (req, res) => {
+
+  let keys = [];
+  let data = [];
+
+    let params = [];
+    let len1 = result.length;
+    // console.log(len1);
+    for (let i=0; i < len1; i++) {
+      let len2 = result[i].length;
+      let letter = result[i][len1 - 1];
+      for (let j=0; j < len2 - 1; j++) {
+        let hand = JSON.parse(result[i][j]);
+        let status = [];
+        for (var k in hand) {
+          if (hand[k].extended) {
+            status.push(1);
+          } else {
+            status.push(0);
+          }
+        }
+        for (var k in hand) {
+         status = status.concat(hand[k].direction);
+        }
+        status.push(hand.thumb.tipPosition[1] - hand.index.dipPosition[1]);
+        let obj = {};
+        obj.input = status;
+        obj.output = {};
+        obj.output[letter] = 1;
+        params.push(obj);
+      }
+    }
+});
 
 app.get('/test', (r, rr) => {
 
