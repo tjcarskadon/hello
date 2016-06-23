@@ -13,20 +13,25 @@ app.use(express.static(path.resolve(__dirname,'../client')));
 
 var brain = require('brain');
 
-app.get('/brain', (req, res) => {
+app.use(express.static(path.join(__dirname, '../client/')))
 
+app.post('/brain', (req, res) => {
+      // console.log(typeof req.body);
+      input = req.body;
   var checkExtendedNet = require('./neurons/checkExtended.js');
   var extendedCheckResults = checkExtendedNet.run([1,1,1,1,1]);
   if (extendedCheckResults.true > extendedCheckResults.false) {
     //is extdended
     //rotated?
     let rotated_checkNet = require('./neurons/isRotated.js');
-    let isRotated = rotated_checkNet.run([12.115]);
+    let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
     if(isRotated.true > isRotated.false) {
-      let GH_checkNet = require('./neurons/gh_yRangeFinder.js');
+      console.log('---------ROTATED--------------');
+      let GH_checkNet = require('./neurons/gh_yRangeFinder.js');  
       //takes diff between index tip and mid tip
       //This check is working with dummy data
-      let isGH = GH_checkNet.run([6.3415]) ;
+      console.log(input.gh);
+      let isGH = GH_checkNet.run([input.gh]) ;  //input.gh
       if(isGH.g > isGH.h) {
         console.log('G');
         //G
@@ -38,18 +43,19 @@ app.get('/brain', (req, res) => {
       console.log('______NOT ROTATED______');
       //Check for down fingers
       let TD_checkNet = require('./neurons/isThumbDown.js');
-      let isTD = TD_checkNet.run([4.69]);
+      let isTD = TD_checkNet.run([input.td]); //input.td
       if (isTD.true > isTD.false) {
         //thumb is down check for p or q
-        console.log('Thumb down');
+        console.log('thumb down')
+        console.log(input.md)
         let MD_checkNet = require('./neurons/isMiddleDown.js');
-        let isMD = MD_checkNet.run([8.151]); 
+        let isMD = MD_checkNet.run([input.md]); 
         if (isMD.true > isMD.false) {
           console.log('P');
           //P
         } else {
           let ID_checkNet = require('./neurons/isIndexDown.js');
-          let isID = ID_checkNet.run([85.93]);
+          let isID = ID_checkNet.run([input.id]);
           if (isTD.true > isTD.false) {
             //Q
           console.log('Q');
@@ -59,26 +65,29 @@ app.get('/brain', (req, res) => {
       } else {
         //check if index is out
         let IP_checkNet = require('./neurons/isIndexExtended.js');
-        let isIP = IP_checkNet.run([true]);
+        let isIP = IP_checkNet.run([input.indexExtended]);
         if (isIP.true > isIP.false) {
           //check if middle is out
+          console.log('index extended');
            let MP_checkNet = require('./neurons/isMiddleExtended.js');
-           let isMP = MP_checkNet.run([false]);
+           let isMP = MP_checkNet.run([input.middleExtended]);
            if(isMP.true > isMP.false) {
-                console.log('middle is extended');
+                // console.log('middle is extended');
             //middle is out - check if ringfinger is out
             let RP_checkNet = require('./neurons/isRingExtended.js');
-            let isRP = RP_checkNet.run([false]);
+            let isRP = RP_checkNet.run([input.ringExtended]);
             if(isRP.true > isRP.false) {
             //ring is out - check if pinky is out
+              // console.log('ring extended');
               let PK_checkNet = require('./neurons/isPinkyExtended.js');
-              let isPK = PK_checkNet.run([false])
+              let isPK = PK_checkNet.run([input.pinkyExtended])
               if(isPK.true > isPK.false) {
               //pinky is out - check thumb
                 let TBR_checkNet = require('./neurons/isThumbBelowRing.js');
-                let isTBR = TBR_checkNet.run([7.232]);
+                let isTBR = TBR_checkNet.run([input.tbr]);
                 if (isTBR.true > isTBR.false) {
                   //B
+                  // console.log('thumb extended');
                   console.log('B');
                 }
               } else {
@@ -87,24 +96,25 @@ app.get('/brain', (req, res) => {
               }
             } else {
               //Check if Index is below M
-              let TBM_checkNet = require('./neurons/isIndexBelowMiddle.js');
-              let isTBR = TBM_checkNet.run([12.925]);
-              if (isTBR.true > isTBR.false) {
+              let IBM_checkNet = require('./neurons/isIndexBelowMiddle.js');
+              let isIBM = IBM_checkNet.run([input.ibm]);
+              if (isIBM.true > isIBM.false) {
                 //R
                 console.log('R');
               } else {
                 //check to see ifthe tips of the index and middle are close together.
                 let UVK_checkNet = require('./neurons/indexMiddle_xRangeFinder.js');
-                let isUVK = UVK_checkNet.run([6.4908]);
+                let isUVK = UVK_checkNet.run([input.uvk]);
+                console.log(input.uvk);
                 if (isUVK.true > isUVK.false) {
                   //U
                   console.log('U');
                 } else {
                   //check thumb position for V and K
-                  let VK_checkNet = require('./neurons/thumbRing_yRangeFinder.js');
-                  let isVK = VK_checkNet.run([6.009]);
-                  if (isVK.true > isVK.false) {
                     console.log('V');
+                  let VK_checkNet = require('./neurons/thumbRing_yRangeFinder.js');
+                  let isVK = VK_checkNet.run([input.vk]);
+                  if (isVK.true > isVK.false) {
                     //V
                   } else {
                     //K
@@ -116,24 +126,24 @@ app.get('/brain', (req, res) => {
            } else {
             //check to see if the thumb is out
             let TE_checkNet = require('./neurons/isThumbExtended.js');
-            let isTE = TE_checkNet.run([false]);
+            let isTE = TE_checkNet.run([input.thumbExtended]);
             if (isTE.true > isTE.false) {
               //L
               console.log('L');
             } else {
               //Check for X
               let XD_checkNet = require('./neurons/thumbMiddle_zTipRangeFinder.js');
-              let isXD = XD_checkNet.run([-23.054]);
-              console.log(isXD.true, isXD.false);
+              let isXD = XD_checkNet.run([input.xd]);
+              // console.log(isXD.true, isXD.false);
               if (isXD.true > isXD.false) {
                 console.log('D');
                 //D
               } else {
                 //check index tip y against index tip index pip y
                 let X_checkNet = require('./neurons/isIndexTipBelowIndexPip.js');
-                let isX = X_checkNet.run([25.636]);
+                let isX = X_checkNet.run([input.x]);
                 if(isX.true > isX.false) {
-                  //X
+                  //X  this is super hard
                   console.log('X');
                 }
               }
@@ -142,7 +152,7 @@ app.get('/brain', (req, res) => {
         } else {
           //check if thumb is below index
           let TI_checkNet= require('./neurons/thumbIndexTip_yRangeFinder.js');
-          let isTI = TI_checkNet.run([-6.4016]);
+          let isTI = TI_checkNet.run([input.f]);
           if (isTI.true > isTI.false) {
             //F
             console.log('F');
