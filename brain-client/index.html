@@ -25,12 +25,14 @@
 
       frame.hands.forEach((hand) => {
         var data = [];
-
         if(_(hand.fingers).every(finger => !finger.extended)) {
           hand.fingers.forEach(finger => {
             console.log(finger.type, finger.extended, finger.direction);
             data.push(finger.extended, finger.direction);
           });
+
+            
+
           var diff = hand.fingers[0].stabilizedTipPosition[2] > hand.fingers[1].stabilizedTipPosition[2];
           console.log(diff);
           
@@ -44,13 +46,35 @@
           //     headers: {"Content-type": "application/json"}
           //   });
         } else {
-          // console.log('stmn: ', hand.fingers[0].stabilizedTipPosition[1] - hand.fingers[1].stabilizedTipPosition[1]);
-          // console.log('thumb: ', hand.fingers[0].extended);
-          // if (!hand.fingers[0].extended) {
-          //   hand.fingers.forEach(finger => {
-          //     console.log(finger.extended,  finger.direction);
-          //   });
-          // }
+          //This starts the section for if not all fingers are closed 
+          console.log(hand);
+          let input = {};
+          input.rotated = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
+          input.thumbExtended = hand.thumb.stabilizedTipPosition[2] - hand.indexFinger.mcpPosition[2]; //this could be wrong
+          input.indexExtended = hand.indexFinger.extended;
+          input.middleExtended = hand.middleFinger.extended;
+          input.ringExtended = hand.ringFinger.extended;
+          input.pinkyExtended = hand.pinky.extended;
+
+          input.gh = hand.indexFinger.stabilizedTipPosition[0] - hand.middleFinger.stabilizedTipPosition[0];
+          input.td = hand.thumb.stabilizedTipPosition[1] - hand.indexFinger.mcpPosition[1];
+          input.md = hand.indexFinger.mcpPosition[1] - hand.middleFinger.stabilizedTipPosition[1];
+          input.id = hand.middleFinger.mcpPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
+          input.tbr = hand.ringFinger.stabilizedTipPosition[0] - hand.thumb.stabilizedTipPosition[0];        
+          input.ibm = hand.middleFinger.stabilizedTipPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
+          input.uvk = hand.indexFinger.stabilizedTipPosition[0] = hand.indexFinger.stabilizedTipPosition[0];
+          input.vk = hand.ringFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
+          input.xd = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
+          input.x = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
+          input.f = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
+          
+          fetch('http://localhost:3000/brain', {
+              method: 'POST',
+              body: JSON.stringify(input),
+              headers:{"Content-type": "application/json"}
+          })
+
+      
         }
       });
     }
