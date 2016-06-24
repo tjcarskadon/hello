@@ -10,36 +10,74 @@
 </head>
 <body>
   <button id='saveGesture'>Save!</button>
+  <button id='testGesture'>Test!</button>
 <script>
 
-  $('#saveGesture').click(() => {
-    var gestureController = new Leap.Controller({enableGestures: true});
+$('#testGesture').click(() => {
 
-    gestureController.on('gesture', (gesture) => {
-      console.log('connecting custom'/*3 sec...*/);
-      customController.connect();
+  console.log('testing custom in'/*3 sec...*/);
+       for(var i = 1; i<=3; i++) {
+           ( (c) => {
+               setTimeout(() => {
+                   console.log(c)}, c*1000);
+           })(i);
+       }
+        setTimeout(() => {testController.connect()},3000);
+  // var gestureController = new Leap.Controller({enableGestures: true});
+
+  //   gestureController.on('gesture', (gesture) => {
+  //     console.log('connecting test in'3 sec...);
+  //     testController.connect();
+  //     //probably will want to replace above line with below line
+  //     // setTimeout(customController.connect, 3000);
+  //   });
+
+  // gestureController.connect();
+  const testController = new Leap.Controller({enableGestures: true});
+  
+  testController.on('frame', (frame) => {
+    console.log('testing');
+    // gestureController.disconnect()
+    if (_(frame.pointables).every(finger => !finger.extended)) {
+        fetch('http://localhost:8000/test', {
+          method: 'POST',
+          body: JSON.stringify(formatData(frame)),
+          headers: {"Content-type": "application/json"}
+        });
+        console.log('closed')
+        testController.disconnect();
+        // gestureController.connect();
+    }
+  });
+
+
+});
+
+
+  $('#saveGesture').click(() => {
+    // var gestureController = new Leap.Controller({enableGestures: true});
+
+    // gestureController.on('gesture', (gesture) => {
+      console.log('connecting custom in'/*3 sec...*/);
+       for(var i = 1; i<=3; i++) {
+           ( (c) => {
+               setTimeout(() => {
+                   console.log(c)}, c*1000);
+           })(i);
+       }
+        setTimeout(() => {customController.connect()},3000);
       //probably will want to replace above line with below line
       // setTimeout(customController.connect, 3000);
     });
 
-    gestureController.connect();
+    // gestureController.connect();
 
     var customController = new Leap.Controller({enableGestures: true});
 
     customController.on('frame', (frame) => {
-      gestureController.disconnect();
-      //stop listening for custom gesture
-      // console.log(frame.fingers);
-      let fingerDirections = frame.fingers.reduce((acc, finger) => {
-          // console.log(finger);
-        return acc = acc.concat(finger.direction);
-      },[])
-
-      let data = [];
-      if(frame.hands[0].palmPosition && frame.hands[0].palmVelocity && fingerDirections) {
-        data = data.concat(frame.hands[0].palmPosition, frame.hands[0].palmVelocity, fingerDirections);
-        console.log(data);
-      }
+      console.log('recording')
+      // gestureController.disconnect();
+     let data = formatData(frame); 
       if (_(frame.pointables).every(finger => !finger.extended)) {
         fetch('http://localhost:8000/gest', {
           method: 'POST',
@@ -48,14 +86,28 @@
         });
         console.log('disconnecting custom and connecting gesture');
         customController.disconnect();
-        gestureController.connect();
+        // gestureController.connect();
       }
 
       var indexF = frame.hands[0].indexFinger;
       // console.log(indexF.direction[0]);
 
     });
-  });
+  // });
+
+  const formatData = (frame) => {
+    let fingerDirections = frame.fingers.reduce((acc, finger) => {
+          // console.log(finger);
+        return acc = acc.concat(finger.direction);
+      },[])
+
+      let data = [];
+      if(frame.hands[0].palmPosition && frame.hands[0].palmVelocity && fingerDirections) {
+        data = data.concat(frame.hands[0].palmPosition, frame.hands[0].palmVelocity, fingerDirections);
+        // console.log(data);
+      }
+      return data;
+  }; 
 
 </script>
 
