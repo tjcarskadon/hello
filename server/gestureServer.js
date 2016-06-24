@@ -29,7 +29,8 @@ app.post('/gest', (req, res) => {
 });
 
 app.post('/test', (req, res) => {
-
+  let result = net.run(req.body);
+  console.log(result);
 });
 
 
