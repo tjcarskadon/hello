@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test page</title>
+  <script src="http://js.leapmotion.com/leap-0.6.3.min.js"></script>
+  <script src="http://js.leapmotion.com/leap-plugins-0.1.11.js"></script>
+  <!-- <script src='../bower_components/underscore/underscore.js'></script> -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+
+</head>
+<body>
+<!-- <script>
+  
+
+  var paused = false ;
+  function togglePause() {
+    paused = !paused;
+  }
+
+  var controllerOptions = {enableGestures:true};
+
+  Leap.loop(controllerOptions, (frame) =>{
+    
+    if(!paused) {
+
+      frame.hands.forEach((hand) => {
+        var data = [];
+        if(_(hand.fingers).every(finger => !finger.extended)) {
+          hand.fingers.forEach(finger => {
+            // console.log(finger.type, finger.extended, finger.direction);
+            data.push(finger.extended, finger.direction);
+          });
+
+
+
+          var diff = hand.fingers[0].stabilizedTipPosition[2] > hand.fingers[1].stabilizedTipPosition[2];
+          // console.log(diff);
+          
+          data.push(diff);
+
+          var obj = {data: data};
+
+          // fetch('http://localhost:3000/run', {
+          //     method: 'POST', 
+          //     body: JSON.stringify(obj),
+          //     headers: {"Content-type": "application/json"}
+          //   });
+        } else {
+          //This starts the section for if not all fingers are closed 
+          // console.log(frame.gestures[1]);
+          let input = {};
+          input.rotated = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
+          input.thumbExtended = hand.thumb.stabilizedTipPosition[2] - hand.indexFinger.mcpPosition[2]; //this could be wrong
+          input.indexExtended = hand.indexFinger.extended;
+          input.middleExtended = hand.middleFinger.extended;
+          input.ringExtended = hand.ringFinger.extended;
+          input.pinkyExtended = hand.pinky.extended;
+
+          input.gh = hand.indexFinger.stabilizedTipPosition[0] - hand.middleFinger.stabilizedTipPosition[0];
+          input.td = hand.thumb.stabilizedTipPosition[1] - hand.indexFinger.mcpPosition[1];
+          input.md = hand.indexFinger.mcpPosition[1] - hand.middleFinger.stabilizedTipPosition[1];
+          input.id = hand.middleFinger.mcpPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
+          input.tbr = hand.ringFinger.stabilizedTipPosition[0] - hand.thumb.stabilizedTipPosition[0];        
+          input.ibm = hand.middleFinger.stabilizedTipPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
+          input.uvk = hand.indexFinger.stabilizedTipPosition[0] = hand.indexFinger.stabilizedTipPosition[0];
+          input.vk = hand.ringFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
+          input.xd = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
+          input.x = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
+          input.f = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
+          
+          fetch('http://localhost:3000/brain', {
+              method: 'POST',
+              body: JSON.stringify(input),
+              headers:{"Content-type": "application/json"}
+          })
+
+      
+        }
+      });
+    }
+  });
+</script> -->
+
+<script>
+  let controller = new Leap.Controller();
+
+  controller.on('frame', (frame) => {
+    console.log('frame');
+  });
+
+</script>
+<button id="pause" onclick="togglePause()">Pause</button>
+
+</body>
+</html>
