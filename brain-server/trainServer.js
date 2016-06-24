@@ -5,7 +5,7 @@ const app = express();
 const redis = require('redis');
 const bluebird = require('bluebird');
 bluebird.promisifyAll(redis.RedisClient.prototype);
-const client = redis.createClient();
+// const client = redis.createClient();
 
 
 app.use(bodyparser.json());

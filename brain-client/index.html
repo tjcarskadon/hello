@@ -9,7 +9,7 @@
 
 </head>
 <body>
-<script>
+<!-- <script>
   
 
   var paused = false ;
@@ -27,14 +27,14 @@
         var data = [];
         if(_(hand.fingers).every(finger => !finger.extended)) {
           hand.fingers.forEach(finger => {
-            console.log(finger.type, finger.extended, finger.direction);
+            // console.log(finger.type, finger.extended, finger.direction);
             data.push(finger.extended, finger.direction);
           });
 
-            
+
 
           var diff = hand.fingers[0].stabilizedTipPosition[2] > hand.fingers[1].stabilizedTipPosition[2];
-          console.log(diff);
+          // console.log(diff);
           
           data.push(diff);
 
@@ -47,7 +47,7 @@
           //   });
         } else {
           //This starts the section for if not all fingers are closed 
-          console.log(hand);
+          // console.log(frame.gestures[1]);
           let input = {};
           input.rotated = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
           input.thumbExtended = hand.thumb.stabilizedTipPosition[2] - hand.indexFinger.mcpPosition[2]; //this could be wrong
@@ -79,6 +79,15 @@
       });
     }
   });
+</script> -->
+
+<script>
+  let controller = new Leap.Controller();
+
+  controller.on('frame', (frame) => {
+    console.log('frame');
+  });
+
 </script>
 <button id="pause" onclick="togglePause()">Pause</button>
 
