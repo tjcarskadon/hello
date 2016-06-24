@@ -36,8 +36,10 @@
       },[])
 
       let data = [];
-      data = data.concat(frame.hands[0].palmPosition, frame.hands[0].palmVelocity, fingerDirections);
-      console.log(data);
+      if(frame.hands[0].palmPosition && frame.hands[0].palmVelocity && fingerDirections) {
+        data = data.concat(frame.hands[0].palmPosition, frame.hands[0].palmVelocity, fingerDirections);
+        console.log(data);
+      }
       if (_(frame.pointables).every(finger => !finger.extended)) {
         fetch('http://localhost:8000/gest', {
           method: 'POST',
