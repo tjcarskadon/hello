@@ -11,6 +11,7 @@ pids
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 dist
+tmp
 
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git

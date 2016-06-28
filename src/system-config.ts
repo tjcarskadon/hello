@@ -57,6 +57,8 @@ const barrels: string[] = [
   'app/dashboard/learn',
   'app/dashboard/create',
   'app/dashboard/connect',
+  'app/dashboard/play',
+  'app/dashboard/spell',
   /** @cli-barrel */
 ];
 
