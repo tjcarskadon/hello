@@ -37,6 +37,8 @@
 From within the root directory:
 
 ```sh
+brew install watchman
+npm i -g angular-cli
 sudo npm install -g bower
 npm install
 bower install

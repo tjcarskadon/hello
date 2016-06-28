@@ -1,14 +1,7 @@
-<h1>
+<!-- <h1>
   {{title}}
 </h1>
+ -->
+<app-welcome *ngIf="!userService.authenticated"></app-welcome>
 
-
-<h4>Component Router</h4>
-<nav>
-  <a [routerLink]="['/welcome']">Welcome</a>
-  <a [routerLink]="['/dashboard']">Dashboard</a>
-</nav>
-
-<!-- Routed views go here -->
-<router-outlet></router-outlet>
-
+<app-dashboard *ngIf="userService.authenticated"></app-dashboard>
