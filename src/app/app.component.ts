@@ -1,32 +1,63 @@
-// Import Angular 2 component and routing
-import { Component } from '@angular/core';
-// import { ROUTER_DIRECTIVES } from '@angular/router';
+/*
+ * Angular 2 decorators and services
+ */
+import { Component, ViewEncapsulation } from '@angular/core';
+import { RouteConfig, Router } from '@angular/router-deprecated';
 
-// Import routes we defined
-// import { APP_ROUTER_PROVIDERS } from './app.routes';
+import { AppState } from './app.service';
+import { Home } from './home';
+import { Welcome } from './welcome';
+import { RouterActive } from './router-active';
 
-// Import stateful data
-import { UserService } from './user.service';
-
-// Import custom components to be used as directives
-import { WelcomeComponent } from './welcome/welcome.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-
+/*
+ * App Component
+ * Top Level Component
+ */
 @Component({
-  moduleId: module.id,
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
-  directives: [
-    // ROUTER_DIRECTIVES,
-    WelcomeComponent,
-    DashboardComponent
-  ]
+  selector: 'app',
+  pipes: [ ],
+  providers: [ ],
+  directives: [ RouterActive, Welcome ],
+  encapsulation: ViewEncapsulation.None,
+  styles: [
+    require('normalize.css'),
+    require('./app.css')
+  ],
+  template: require('./app.html')
 })
+@RouteConfig([
+  { path: '/',      name: 'Index', component: Home, useAsDefault: true },
+  { path: '/home',  name: 'Home',  component: Home },
+  // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
+  // { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
+  { path: '/learn', name: 'Learn', loader: () => require('es6-promise!./learn')('Learn') },
+  { path: '/spell', name: 'Spell', loader: () => require('es6-promise!./spell')('Spell') },
+  { path: '/play', name: 'Play', loader: () => require('es6-promise!./play')('Play') },
+   { path: '/create', name: 'Create', loader: () => require('es6-promise!./create')('Create') },
+  { path: '/welcome', name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') }
 
-export class AppComponent {
-  constructor(public userService:UserService) {
-    console.log(userService);
+])
+export class App {
+  angularclassLogo = 'assets/img/angularclass-avatar.png';
+  loading = false;
+  name = 'Angular 2 Webpack Starter';
+  url = 'https://twitter.com/AngularClass';
+
+  constructor(
+    public appState: AppState) {
+
   }
-  title = 'root app works!';
+
+  ngOnInit() {
+    // console.log('Initial App State', this.appState.state);
+  }
+
 }
+
+/*
+ * Please review the https://github.com/AngularClass/angular2-examples/ repo for
+ * more angular app examples that you may copy/paste
+ * (The examples may not be updated as quickly. Please open an issue on github for us to update it)
+ * For help or questions please contact us at @AngularClass on twitter
+ * or our chat on Slack at https://AngularClass.com/slack-join
+ */
