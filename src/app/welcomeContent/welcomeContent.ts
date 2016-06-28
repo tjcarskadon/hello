@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AppState } from '../app.service';
 @Component({
   selector: 'welcomeContent',
   template: require('./welcomeContent.html'),

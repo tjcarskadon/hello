@@ -1,7 +1,8 @@
 <div id="main-container" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
   
-<welcomeContent></welcomeContent>
 
+<welcomeContent *ngIf="!appState.signup"></welcomeContent>
+<signup *ngIf="appState.signup"></signup>
   <!-- <div class="content-container">
      <h1>hello....</h1>
      <p>
