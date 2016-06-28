@@ -1,12 +1,4 @@
-#main-container {
-  height: 100%;
-  width: 100%;
-  background-size: cover; 
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-
-/*h1 {
+h1 {
   color: #F4A846;
 }
 
@@ -36,10 +28,10 @@ button {
   border-radius: 5px;
 }
 
-button.signin {*/
+button.signin {
     /*margin-left: 800px;*/
-/*}
+}
 button.learn {
   position: relative;
   margin-left: 50px;
-}*/
+}
