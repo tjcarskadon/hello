@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test page</title>
+  <script src="http://js.leapmotion.com/leap-0.6.3.min.js"></script>
+  <script src="http://js.leapmotion.com/leap-plugins-0.1.11.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+  <script   src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <button id='saveGesture'>Save!</button>
+  <button id='testGesture'>Test!</button>
+<script>
+
+$('#testGesture').click(() => {
+
+  console.log('testing custom in'/*3 sec...*/);
+       for(var i = 1; i<=3; i++) {
+           ( (c) => {
+               setTimeout(() => {
+                   console.log(c)}, c*1000);
+           })(i);
+       }
+        setTimeout(() => {testController.connect()},3000);
+  // var gestureController = new Leap.Controller({enableGestures: true});
+
+  //   gestureController.on('gesture', (gesture) => {
+  //     console.log('connecting test in'3 sec...);
+  //     testController.connect();
+  //     //probably will want to replace above line with below line
+  //     // setTimeout(customController.connect, 3000);
+  //   });
+
+  // gestureController.connect();
+  const testController = new Leap.Controller({enableGestures: true});
+  
+  testController.on('frame', (frame) => {
+    console.log('testing');
+    // gestureController.disconnect()
+    if (_(frame.pointables).every(finger => !finger.extended)) {
+        fetch('http://localhost:8000/test', {
+          method: 'POST',
+          body: JSON.stringify(formatData(frame)),
+          headers: {"Content-type": "application/json"}
+        });
+        console.log('closed')
+        testController.disconnect();
+        // gestureController.connect();
+    }
+  });
+
+
+});
+
+
+  $('#saveGesture').click(() => {
+    // var gestureController = new Leap.Controller({enableGestures: true});
+
+    // gestureController.on('gesture', (gesture) => {
+      console.log('connecting custom in'/*3 sec...*/);
+       for(var i = 1; i<=3; i++) {
+           ( (c) => {
+               setTimeout(() => {
+                   console.log(c)}, c*1000);
+           })(i);
+       }
+        setTimeout(() => {customController.connect()},3000);
+      //probably will want to replace above line with below line
+      // setTimeout(customController.connect, 3000);
+    });
+
+    // gestureController.connect();
+
+    var customController = new Leap.Controller({enableGestures: true});
+
+    customController.on('frame', (frame) => {
+      console.log('recording')
+      // gestureController.disconnect();
+     let data = formatData(frame); 
+      if (_(frame.pointables).every(finger => !finger.extended)) {
+        fetch('http://localhost:8000/gest', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {"Content-type": "application/json"}
+        });
+        console.log('disconnecting custom and connecting gesture');
+        customController.disconnect();
+        // gestureController.connect();
+      }
+
+      var indexF = frame.hands[0].indexFinger;
+      // console.log(indexF.direction[0]);
+
+    });
+  // });
+
+  const formatData = (frame) => {
+    let fingerDirections = frame.fingers.reduce((acc, finger) => {
+          // console.log(finger);
+        return acc = acc.concat(finger.direction);
+      },[])
+
+      let data = [];
+      if(frame.hands[0].palmPosition && frame.hands[0].palmVelocity && fingerDirections) {
+        data = data.concat(frame.hands[0].palmPosition, frame.hands[0].palmVelocity, fingerDirections);
+        // console.log(data);
+      }
+      return data;
+  }; 
+
+</script>
+
+</body>
+</html>
+
+

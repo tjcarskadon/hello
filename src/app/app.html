@@ -1,0 +1,38 @@
+ <welcome *ngIf="!appState.authenticated"></welcome>
+
+ <md-content *ngIf="appState.authenticated">
+ <!-- <md-content> -->
+      <md-toolbar color="primary">
+          <span>{{ name }}</span>
+          <span class="fill"></span>
+          <button md-button router-active [routerLink]=" ['Index'] ">
+            Home
+          </button>
+          <button md-button router-active [routerLink]=" ['Play'] ">
+            Play
+          </button>
+          <button md-button router-active [routerLink]=" ['Spell'] ">
+            Spell
+          </button>
+          <button md-button router-active [routerLink]=" ['Create'] ">
+            Create
+          </button>
+          <button md-button router-active [routerLink]=" ['Learn'] ">
+            Learn
+          </button>
+          <button md-button router-active [routerLink]=" ['Welcome'] ">
+            Welcome
+          </button>
+      </md-toolbar>
+
+      <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
+
+      <router-outlet></router-outlet>
+
+     <!-- <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>  -->
+
+     <!--  <footer>
+        <img [src]="angularclassLogo" width="6%">
+        <span id="footerText">WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a></span>
+      </footer> -->
+      </md-content>
