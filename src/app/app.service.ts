@@ -3,8 +3,12 @@ import { HmrState } from 'angular2-hmr';
 
 @Injectable()
 export class AppState {
- authenticated: boolean = false;
+ authenticated: boolean = true;
  signup: boolean = false;
+
+ myName: string = 'Richard';
+ title: string = 'hello.';
+
   // @HmrState() is used by HMR to track the state of any object during a hot module replacement
   @HmrState() _state = { };
 

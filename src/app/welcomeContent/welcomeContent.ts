@@ -6,12 +6,12 @@ import { RouterActive } from '../router-active';
   selector: 'welcomeContent',
   directives: [ RouterActive ],
   template: require('./welcomeContent.html'),
-  styles: [require('./welcomeContent.css')]
+  styles: [ require('./welcomeContent.css') ]
 })
 
 export class WelcomeContent implements OnInit {
-  constructor(public appState: AppState) {}
+  constructor(public appState: AppState) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 }
