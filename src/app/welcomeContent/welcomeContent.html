@@ -19,10 +19,10 @@
  <!-- /content -->
  
  <div class="button-container">
-  <button class='signin'>
+  <button class='signin' (click)="appState.signup=true">
     Sign in / up
   </button>
-   <button class='learn'>
+   <button class='learn' (click)="appState.authenticated=true" router-active [routerLink]=" ['Learn']">
     Learn
   </button>
  </div>

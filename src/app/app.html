@@ -20,8 +20,8 @@
           <button md-button router-active [routerLink]=" ['Learn'] ">
             Learn
           </button>
-          <button md-button router-active [routerLink]=" ['Welcome'] ">
-            Welcome
+           <button md-button (click)="appState.authenticated=false">
+            Logout
           </button>
       </md-toolbar>
 
