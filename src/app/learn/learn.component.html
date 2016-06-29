@@ -1,66 +1,79 @@
 <div class="animated fadeIn">
-  
 </div>
+
 <div class = 'container'>
   <div class = 'alphabets'> 
     <md-tab-group class='alphabets-container'>
-  <md-tab>
-    <template md-tab-label> Alphabets </template>
-    <template md-tab-content>
-      <div class='row'>
-        <button md-raised-button color="primary" (click) = "clicked('a');"> A </button>
-        <button md-raised-button color="primary" (click) = "clicked('b');"> B </button>
-        <button md-raised-button color="primary" (click) = "clicked('c');"> C </button>
-        <button md-raised-button color="primary" (click) = "clicked('d');"> D </button>
-      </div>
-      <div class='row'>
-        <button md-raised-button color="primary" (click) = "clicked('e');">E</button>
-        <button md-raised-button color="primary" (click) = "clicked('f');">F</button>
-        <button md-raised-button color="primary" (click) = "clicked('g');">G</button>
-        <button md-raised-button color="primary" (click) = "clicked('h');">H</button>
-      </div>
-      <div class='row'>
-        <button md-raised-button color="primary" (click) = "clicked('i');">I</button>
-        <button md-raised-button color="primary" (click) = "clicked('j');">J</button>
-        <button md-raised-button color="primary" (click) = "clicked('k');">K</button>
-        <button md-raised-button color="primary" (click) = "clicked('l');">L</button>
-      </div>
-      <div class='row'>
-        <button md-raised-button color="primary" (click) = "clicked('m');">M</button>
-        <button md-raised-button color="primary" (click) = "clicked('n');">N</button>
-        <button md-raised-button color="primary" (click) = "clicked('o');">O</button>
-        <button md-raised-button color="primary" (click) = "clicked('p');">P</button>
-      </div>
-      <div class='row'>
-        <button md-raised-button color="primary" (click) = "clicked('q');">Q</button>
-        <button md-raised-button color="primary" (click) = "clicked('r');">R</button>
-        <button md-raised-button color="primary" (click) = "clicked('s');">S</button>
-        <button md-raised-button color="primary" (click) = "clicked('t');">T</button>
-      </div>
-      <div class='row'>
-        <button md-raised-button color="primary" (click) = "clicked('u');">U</button>
-        <button md-raised-button color="primary" (click) = "clicked('v');">V</button>
-        <button md-raised-button color="primary" (click) = "clicked('w');">W</button>
-        <button md-raised-button color="primary" (click) = "clicked('x');">X</button>
-      </div>
-      <div class='row'>
-        <button md-raised-button color="primary" (click) = "clicked('y');">Y</button>
-        <button md-raised-button color="primary" (click) = "clicked('z');">Z</button>
-      </div>
-    </template>
-  </md-tab>
-  <md-tab>
-    <template md-tab-label> Gestures </template>
-    <template md-tab-content></template>
-  </md-tab>
-</md-tab-group>
+      <md-tab>
+        <template md-tab-label> Alphabets </template>
+        <template md-tab-content>
+          <div class='row'>
+            <button md-raised-button [ngStyle]="{'color': color }" (click) = "clicked('a');"> A </button>
+            <button md-raised-button color="primary" (click) = "clicked('b');"> B </button>
+            <button md-raised-button color="primary" (click) = "clicked('c');"> C </button>
+            <button md-raised-button color="primary" (click) = "clicked('d');"> D </button>
+          </div>
+          <div class='row'>
+            <button md-raised-button color="primary" (click) = "clicked('e');">E</button>
+            <button md-raised-button color="primary" (click) = "clicked('f');">F</button>
+            <button md-raised-button color="primary" (click) = "clicked('g');">G</button>
+            <button md-raised-button color="primary" (click) = "clicked('h');">H</button>
+          </div>
+          <div class='row'>
+            <button md-raised-button color="primary" (click) = "clicked('i');">I</button>
+            <button md-raised-button color="primary" (click) = "clicked('j');">J</button>
+            <button md-raised-button color="primary" (click) = "clicked('k');">K</button>
+            <button md-raised-button color="primary" (click) = "clicked('l');">L</button>
+          </div>
+          <div class='row'>
+            <button md-raised-button color="primary" (click) = "clicked('m');">M</button>
+            <button md-raised-button color="primary" (click) = "clicked('n');">N</button>
+            <button md-raised-button color="primary" (click) = "clicked('o');">O</button>
+            <button md-raised-button color="primary" (click) = "clicked('p');">P</button>
+          </div>
+          <div class='row'>
+            <button md-raised-button color="primary" (click) = "clicked('q');">Q</button>
+            <button md-raised-button color="primary" (click) = "clicked('r');">R</button>
+            <button md-raised-button color="primary" (click) = "clicked('s');">S</button>
+            <button md-raised-button color="primary" (click) = "clicked('t');">T</button>
+          </div>
+          <div class='row'>
+            <button md-raised-button color="primary" (click) = "clicked('u');">U</button>
+            <button md-raised-button color="primary" (click) = "clicked('v');">V</button>
+            <button md-raised-button color="primary" (click) = "clicked('w');">W</button>
+            <button md-raised-button color="primary" (click) = "clicked('x');">X</button>
+          </div>
+          <div class='row'>
+            <button md-raised-button color="primary" (click) = "clicked('y');">Y</button>
+            <button md-raised-button color="primary" (click) = "clicked('z');">Z</button>
+          </div>
+        </template>
+      </md-tab>
+      <md-tab>
+        <template md-tab-label> Gestures </template>
+        <template md-tab-content></template>
+      </md-tab>
+    </md-tab-group>
   </div>
-  <div class = 'image'>
+
+  <div *ngIf="showImgDiv" class = 'image'>
     <div class = 'image-container'>
-  <div *ngIf="clickedLtr" class = 'image-display'>
-    <img [src] =  "imageUrl" />
+      <div class = 'capture-button'>
+        <button md-button color='primary' (click) = "hideImgDiv();"> Click when READY </button>
+      </div>
+      <div *ngIf="clickedLtr" class='image-display'>
+        <img [src] = "imageUrl"/>
+      </div>
+    </div>
   </div>
-</div>
+
+  <div *ngIf="showCaptureDiv" class = 'capture'>
+    <div class = 'capture-container'>
+    <button md-button color='primary' (click) = "hideCaptureDiv()"> DONE </button>
+    </div>
   </div>
+
 </div>
+
+
 
