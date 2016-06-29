@@ -5,6 +5,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, Router } from '@angular/router-deprecated';
 
 import { AppState } from './app.service';
+import { Profile } from './profile';
 import { Home } from './home';
 import { Welcome } from './welcome';
 import { RouterActive } from './router-active';
@@ -17,7 +18,7 @@ import { RouterActive } from './router-active';
   selector: 'app',
   pipes: [ ],
   providers: [ ],
-  directives: [ RouterActive, Welcome ],
+  directives: [ RouterActive, Welcome, Home, Profile ],
   encapsulation: ViewEncapsulation.None,
   styles: [
     require('normalize.css'),
@@ -25,25 +26,26 @@ import { RouterActive } from './router-active';
   ],
   template: require('./app.html')
 })
-@RouteConfig([
-  { path: '/',      name: 'Index', component: Home, useAsDefault: true },
-  { path: '/home',  name: 'Home',  component: Home },
-  // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  // { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
-  { path: '/learn', name: 'Learn', loader: () => require('es6-promise!./learn')('Learn') },
-  { path: '/spell', name: 'Spell', loader: () => require('es6-promise!./spell')('Spell') },
-  { path: '/play', name: 'Play', loader: () => require('es6-promise!./play')('Play') },
-   { path: '/create', name: 'Create', loader: () => require('es6-promise!./create')('Create') },
 
-])
+// @RouteConfig([
+//   { path: '/',        name: 'Profile', component: Profile, useAsDefault: true },
+//   { path: '/home',    name: 'Home',    component: Home },
+//   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
+//   // { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
+//   { path: '/learn',   name: 'Learn',   loader: () => require('es6-promise!./learn')('Learn') },
+//   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
+//   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
+//   { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
+//   { path: '/welcome', name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') }
+// ])
+
 export class App {
-  angularclassLogo = 'assets/img/angularclass-avatar.png';
+  angularclassLogo = 'assets/img/asl-d.png';
   loading = false;
-  name = 'Angular 2 Webpack Starter';
+  name = 'hello.';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(
-    public appState: AppState) {
+  constructor(public appState: AppState) {
 
   }
 

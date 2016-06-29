@@ -1,38 +1,82 @@
- <welcome *ngIf="!appState.authenticated"></welcome>
+<welcome *ngIf="!appState.authenticated"></welcome>
 
- <md-content *ngIf="appState.authenticated">
- <!-- <md-content> -->
-      <md-toolbar color="primary">
-          <span>{{ name }}</span>
-          <span class="fill"></span>
-          <button md-button router-active [routerLink]=" ['Index'] ">
-            Home
-          </button>
-          <button md-button router-active [routerLink]=" ['Play'] ">
-            Play
-          </button>
-          <button md-button router-active [routerLink]=" ['Spell'] ">
-            Spell
-          </button>
-          <button md-button router-active [routerLink]=" ['Create'] ">
-            Create
-          </button>
-          <button md-button router-active [routerLink]=" ['Learn'] ">
-            Learn
-          </button>
-           <button md-button (click)="appState.authenticated=false">
-            Logout
-          </button>
-      </md-toolbar>
 
-      <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
 
-      <router-outlet></router-outlet>
+<md-content *ngIf="appState.authenticated">
+  <md-toolbar color="primary">
+    <span>Hello, {{ appState.myName}}.</span>
+    <span class="fill"></span>
+    <!-- <button md-button router-active [routerLink]=" ['Index'] ">
+      Home
+    </button>
+    <button md-button router-active [routerLink]=" ['Play'] ">
+      Play
+    </button>
+    <button md-button router-active [routerLink]=" ['Spell'] ">
+      Spell
+    </button>
+    <button md-button router-active [routerLink]=" ['Create'] ">
+      Create
+    </button>
+    <button md-button router-active [routerLink]=" ['Learn'] ">
+      Learn
+    </button> -->
+    <button md-button router-active (click)="appState.authenticated = false">
+      Log Out
+    </button>
+  </md-toolbar>
 
-     <!-- <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>  -->
+  <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
 
-     <!--  <footer>
-        <img [src]="angularclassLogo" width="6%">
-        <span id="footerText">WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a></span>
-      </footer> -->
-      </md-content>
+  <md-tab-group [alignTabs]="stretch">
+    <md-tab>
+      <template md-tab-label>Profile</template>
+      <template md-tab-content>
+        <profile></profile>
+        <!-- <h1>Some profile content</h1> -->
+        <!-- <p>You don't know me.</p> -->
+      </template>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>Learn</template>
+      <template md-tab-content>
+        <learn></learn>
+        <h1>Some learning content</h1>
+        <p>You can't learn me.</p>
+      </template>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>Spell</template>
+      <template md-tab-content>
+        <spell></spell>
+        <h1>Some spelling content</h1>
+        <p>No bee puns allowed.</p>
+      </template>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>Play</template>
+      <template md-tab-content>
+        <play></play>
+        <h1>Some playground content</h1>
+        <p>Don't be a player.</p>
+      </template>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>Create</template>
+      <template md-tab-content>
+        <create></create>
+        <h1>Some creative tab content</h1>
+        <p>So you think you're creative.</p>
+      </template>
+    </md-tab>
+  </md-tab-group>
+
+  <!-- <router-outlet></router-outlet> -->
+
+  <!-- <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>  -->
+
+  <footer>
+    <img [src]="angularclassLogo" width="6%">
+    <span id="footerText">hello by <a [href]="url">@digi-talk</a></span>
+  </footer>
+</md-content>
