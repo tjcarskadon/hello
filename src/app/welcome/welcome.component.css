@@ -1,0 +1,15 @@
+#main-container {
+  height: 100%;
+  width: 100%;
+  /*background: url('./assests/img/bg.png');*/
+  background-color: #000;
+}
+
+#img-container {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-size: cover; 
+  background-repeat: no-repeat;
+  overflow: hidden;
+}

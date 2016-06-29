@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-
+import { WelcomeContent } from '../welcomeContent/welcomeContent.ts';
+import { Signup } from '../signup/signup.ts'
+import { AppState } from '../app.service';
 @Component({
   selector: 'welcome',
-  template: require('./welcome.component.html')
+  directives: [ WelcomeContent, Signup ],
+  template: require('./welcome.component.html'),
+  styles: [
+    require('./welcome.component.css')
+  ]
 })
 export class Welcome implements OnInit {
 
-  constructor() {}
+  hands: string = 'assets/img/hands.png'
 
-  ngOnInit() {
-  }
+  constructor(public appState: AppState) {}
+
+  ngOnInit() {}
 
 }

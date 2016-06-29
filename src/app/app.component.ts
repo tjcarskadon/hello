@@ -34,7 +34,6 @@ import { RouterActive } from './router-active';
   { path: '/spell', name: 'Spell', loader: () => require('es6-promise!./spell')('Spell') },
   { path: '/play', name: 'Play', loader: () => require('es6-promise!./play')('Play') },
    { path: '/create', name: 'Create', loader: () => require('es6-promise!./create')('Create') },
-  { path: '/welcome', name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') }
 
 ])
 export class App {
