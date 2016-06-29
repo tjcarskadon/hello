@@ -13,7 +13,7 @@ import { LoginService } from '../login.service';
 export class Login implements OnInit {
   myForm: ControlGroup;
 
-  constructor(private loginService: LoginService, fb: FormBuilder, public appState: AppState) {
+  constructor(public loginService: LoginService, fb: FormBuilder, public appState: AppState) {
     this.myForm = fb.group({
       'email': [],
       'password': []
@@ -24,8 +24,10 @@ export class Login implements OnInit {
   ngOnInit() {}  
 
   onSubmit(form: any): void {
-    console.log('success', form);
-    this.checkUser();
+    console.log('success', form.email);
+    this.loginService.url = `http://127.0.0.1:3333/users?email=${form.email}`;
+    console.log(this.loginService.email);
+    this.checkUser(form.email);
   }
 
   checkUser() {
