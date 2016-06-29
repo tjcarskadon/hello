@@ -5,12 +5,11 @@
   border: solid black;
   margin-left: 5px;
   position: relative;
-  background-color: transparent;
+  background-color: black;
   float: left;
 }
 
 #createOptions {
-  /*background-color: solid black;*/
   border: solid black;
   position: relative;
   width: 20vw;

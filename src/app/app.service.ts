@@ -3,7 +3,7 @@ import { HmrState } from 'angular2-hmr';
 
 @Injectable()
 export class AppState {
- authenticated: boolean = false;
+ authenticated: boolean = true;
  signup: boolean = false;
  myName: string = 'Richard';
  title: string = 'hello.';
@@ -47,4 +47,11 @@ export class AppState {
     // simple object clone
     return JSON.parse(JSON.stringify( object ));
   }
+
+  _initRiggedHand() {
+    require('leapjs-plugins/main/leap-plugins-0.1.11.js');
+    require('leapjs-rigged-hand/build/leap.rigged-hand-0.1.7.js');
+  }
+
+
 }

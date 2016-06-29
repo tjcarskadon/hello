@@ -1,36 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { RecordService } from './services/record.service';
-
-var Leap = require('leapjs');
-require('leapjs-plugins/main/leap-plugins-0.1.11.js');
-var t = require('leapjs-rigged-hand/build/leap.rigged-hand-0.1.7.js');
-var LeapTrainer = require('lt/leaptrainer.js');
-
-
+import { AppState } from '../app.service';
 
 @Component({
   selector: 'create',
   template: require('./create.component.html'), 
   styles: [require('./create.component.css')], 
-  providers: [RecordService]
+  providers: [RecordService, AppState]
 })
 export class Create implements OnInit {
 
   trainerCtrl;
   trainer;
-  options = ['Record', 'Test', 'Save'];
+  context = this;
+  options = [
+  {name: 'Record', fn: this.recordGesture, context: this},
+  {name: 'Test', fn: this.testGesture},
+  {name: 'Save', fn: this.saveGesture}
+  ];
+  Leap;
+  LeapTrainer;
+  gestureName: string;
 
-  constructor(private recordService: RecordService) {
-    
+  constructor(private recordService: RecordService, private appState: AppState) {
+    this.Leap = require('leapjs');
+    this.appState._initRiggedHand();
+    this.LeapTrainer = require('lt/leaptrainer.js');
   }
 
   recordGesture(name) {
-    this.recordService.record(this.trainer, name);
+    //TODO: handle no user input for gesture name
+    this.context.recordService.record(this.context.trainer, this.context.gestureName);
+  }
+
+  testGesture(name) {
+    console.log('test')
+  }
+
+  saveGesture(name) {
+    console.log('save')
   }
 
   ngOnInit() {
-    this.trainerCtrl = new Leap.Controller();
-    this.trainer = new LeapTrainer.Controller({controller: this.trainerCtrl});
+    this.trainerCtrl = new this.Leap.Controller();
+    this.trainer = new this.LeapTrainer.Controller({controller: this.trainerCtrl});
     console.log(this.trainerCtrl);
     this.trainerCtrl.on('connect', () => console.log('connected'));
     // trainerCtrl.connect();

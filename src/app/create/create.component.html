@@ -5,13 +5,14 @@
   <div id='mainLTContainer'>
     <div id='createOptions'>
       <ul id='createOptionsList'>
-        <li><md-input placeholder='Gesture Name'></md-input>
+        <li><md-input [(ngModel)]='gestureName' placeholder='Gesture Name'></md-input>
           <button md-icon-button>Create!</button></li>
         <li *ngFor="let option of options">
-          <button md-raised-button color='accent'>{{option}}</button>
+          <button (click)="option.fn(option.name)" md-raised-button color='accent'>{{option.name}}</button>
         </li>
       </ul>
     </div>
     <div id="ltContainer"></div>
   </div>
 </div>
+
