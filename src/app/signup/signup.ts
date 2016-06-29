@@ -10,4 +10,11 @@ import { AppState } from '../app.service';
 export class Signup implements OnInit {
   constructor(public appState: AppState) {}
   ngOnInit() {}  
+
+  loginRoute () {
+    this.appState.login = true;
+    this.appState.signup = false;
+  }
+
+  
 }

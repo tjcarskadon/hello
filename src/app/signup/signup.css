@@ -7,8 +7,14 @@
   width: 500px;
   color: #fff;
 }
-h1 {
+h1, h3 {
   color: #F4A846;
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.alt{
+  margin-left: 170px;
 }
 input {
   margin: 10px;
@@ -38,6 +44,12 @@ button {
   border-radius: 5px;
 }
 
-.cancel {
-
+button.login {
+  text-transform: none;
+  height: 0;
+  width: 0;
+  border-radius: 0;
+  border: 0;
+  margin-bottom: 0;
+  color: #F4A846;
 }

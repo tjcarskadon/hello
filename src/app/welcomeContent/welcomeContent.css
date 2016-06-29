@@ -5,8 +5,8 @@ h1 {
 .content-container {
   position: relative;
   font-family: 'Neuton';
-  top: 100px  ;
-  margin-left: 750px;
+  top: 100px;
+  left: 60%;
   height: 500px;
   width: 500px;
   color: #fff;
