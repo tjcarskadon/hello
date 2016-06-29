@@ -8,6 +8,10 @@ import { AppState } from './app.service';
 import { Profile } from './profile';
 import { Home } from './home';
 import { Welcome } from './welcome';
+import { Learn } from './learn';
+import { Spell } from './spell';
+import { Play } from './play';
+import { Create } from './create';
 import { RouterActive } from './router-active';
 
 /*
@@ -18,7 +22,7 @@ import { RouterActive } from './router-active';
   selector: 'app',
   pipes: [ ],
   providers: [ ],
-  directives: [ RouterActive, Welcome, Home, Profile ],
+  directives: [ RouterActive, Welcome, Home, Profile, Learn, Spell, Play, Create ],
   encapsulation: ViewEncapsulation.None,
   styles: [
     require('normalize.css'),
