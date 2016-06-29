@@ -16,6 +16,16 @@ h1, h3 {
 .alt{
   margin-left: 170px;
 }
+
+button.login {
+  text-transform: none;
+  height: 0;
+  width: 0;
+  border-radius: 0;
+  border: 0;
+  margin-bottom: 0;
+  color: #F4A846;
+}
 input {
   margin: 10px;
   text-align: center;
@@ -44,12 +54,6 @@ button {
   border-radius: 5px;
 }
 
-button.login {
-  text-transform: none;
-  height: 0;
-  width: 0;
-  border-radius: 0;
-  border: 0;
-  margin-bottom: 0;
-  color: #F4A846;
+.cancel {
+
 }
