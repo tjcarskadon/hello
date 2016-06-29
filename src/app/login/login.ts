@@ -27,7 +27,7 @@ export class Login implements OnInit {
     console.log('success', form.email);
     this.loginService.url = `http://127.0.0.1:3333/users?email=${form.email}`;
     console.log(this.loginService.email);
-    this.checkUser(form.email);
+    this.checkUser();
   }
 
   checkUser() {
