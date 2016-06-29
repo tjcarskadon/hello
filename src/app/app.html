@@ -6,21 +6,22 @@
   <md-toolbar color="primary">
     <span>Hello, {{ appState.myName}}.</span>
     <span class="fill"></span>
-    <button md-button router-active [routerLink]=" ['Home'] ">
-      Home
-    </button>
-    <button md-button router-active [routerLink]=" ['Play'] ">
-      Play
-    </button>
-    <button md-button router-active [routerLink]=" ['Spell'] ">
-      Spell
-    </button>
-    <button md-button router-active [routerLink]=" ['Create'] ">
-      Create
+    <button md-button router-active [routerLink]=" ['Profile'] ">
+      Profile
     </button>
     <button md-button router-active [routerLink]=" ['Learn'] ">
       Learn
     </button>
+    <button md-button router-active [routerLink]=" ['Spell'] ">
+      Spell
+    </button>
+    <button md-button router-active [routerLink]=" ['Play'] ">
+      Play
+    </button>
+    <button md-button router-active [routerLink]=" ['Create'] ">
+      Create
+    </button>
+    <span class="fill"></span>
     <button md-button router-active (click)="appState.authenticated = false">
       Log Out
     </button>
@@ -28,7 +29,7 @@
 
   <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
 
- <!--  <md-tab-group [alignTabs]="stretch">
+<!--   <md-tab-group [alignTabs]="stretch">
     <md-tab>
       <template md-tab-label>Profile</template>
       <template md-tab-content>
