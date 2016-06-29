@@ -9,7 +9,7 @@ export class LoginService {
 
   constructor(private http: Http) {}
   public email: string;
-  private url: string;
+  public url: string;
   
   checkUser(): Observable<Response> {
     return this.http.get(this.url).map(this.parseData).catch(this.handleError);
