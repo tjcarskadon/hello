@@ -6,10 +6,11 @@ import { Login } from './login/login.ts';
 @Injectable () 
 export class LoginService {
   
+
   constructor(private http: Http) {}
-
-  private url = 'http://127.0.0.1:3333/users?username=tj';
-
+  public email: string;
+  private url: string;
+  
   checkUser(): Observable<Response> {
     return this.http.get(this.url).map(this.parseData).catch(this.handleError);
   }
