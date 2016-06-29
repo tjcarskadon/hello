@@ -3,7 +3,7 @@ import { HmrState } from 'angular2-hmr';
 
 @Injectable()
 export class AppState {
- authenticated: boolean = true;
+ authenticated: boolean = false;
  signup: boolean = false;
  myName: string = 'Richard';
  title: string = 'hello.';
