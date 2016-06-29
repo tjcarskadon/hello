@@ -9,6 +9,7 @@ export class Learn implements OnInit {
 
   public imageUrl:string = '';
   public clickedLtr:string;
+  public timedOut = true;
 
   constructor() {}
 
@@ -18,6 +19,7 @@ export class Learn implements OnInit {
   clicked(ltr) {
     this.imageUrl = `assets/img/${ltr}.png`;
     this.clickedLtr = ltr;
+    this.timedOut = false;
   }
 
 }

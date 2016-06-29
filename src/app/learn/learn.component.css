@@ -27,10 +27,14 @@
   border-color: #b3b3b3;
   background-color: #e6e6e6;
   padding: 20px;
+  position: relative;
 }
 
 .image-display {
-  align: bottom;
+  width: 70%;
+  margin: 0 auto;
+  bottom: 0px;
+  position: absolute;
 }
 
 .alphabets-container {
