@@ -1,4 +1,18 @@
 <div class="animated fadeIn">
   <h1>Some creative tab content</h1>
   <p>So you think you're creative.</p>
+
+  <div id='mainLTContainer'>
+    <div id='createOptions'>
+      <ul id='createOptionsList'>
+        <li><md-input [(ngModel)]='gestureName' placeholder='Gesture Name'></md-input>
+          <button md-icon-button>Create!</button></li>
+        <li *ngFor="let option of options">
+          <button (click)="option.fn(option.name)" md-raised-button color='accent'>{{option.name}}</button>
+        </li>
+      </ul>
+    </div>
+    <div id="ltContainer"></div>
+  </div>
 </div>
+

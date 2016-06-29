@@ -1,0 +1,27 @@
+
+#ltContainer {
+  width: 60vw;
+  height: 80vh;
+  border: solid black;
+  margin-left: 5px;
+  position: relative;
+  background-color: black;
+  float: left;
+}
+
+#createOptions {
+  border: solid black;
+  position: relative;
+  width: 20vw;
+  height: 80vh;
+  margin-left: 5%;
+  float: left;
+}
+
+#createOptionsList {
+  list-style-type: none
+}
+#createOptionsList li {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}

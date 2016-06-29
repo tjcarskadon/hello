@@ -31,17 +31,17 @@ import { RouterActive } from './router-active';
   template: require('./app.html')
 })
 
-// @RouteConfig([
-//   { path: '/',        name: 'Profile', component: Profile, useAsDefault: true },
-//   { path: '/home',    name: 'Home',    component: Home },
-//   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-//   // { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
-//   { path: '/learn',   name: 'Learn',   loader: () => require('es6-promise!./learn')('Learn') },
-//   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
-//   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
-//   { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
-//   { path: '/welcome', name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') }
-// ])
+@RouteConfig([
+  { path: '/',        name: 'Profile', component: Profile, useAsDefault: true },
+  { path: '/home',    name: 'Home',    component: Home },
+  // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
+  // { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
+  { path: '/learn',   name: 'Learn',   loader: () => require('es6-promise!./learn')('Learn') },
+  { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
+  { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
+  { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
+  { path: '/welcome', name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') }
+])
 
 export class App {
   angularclassLogo = 'assets/img/asl-d.png';
