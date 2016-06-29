@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup } from '@angular/common';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'login',
@@ -12,7 +13,7 @@ import { FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup } from '@angular
 export class Login implements OnInit {
   myForm: ControlGroup;
 
-  constructor(fb: FormBuilder, public appState: AppState) {
+  constructor(private loginService: LoginService, fb: FormBuilder, public appState: AppState) {
     this.myForm = fb.group({
       'email': [],
       'password': []
@@ -24,6 +25,13 @@ export class Login implements OnInit {
 
   onSubmit(form: any): void {
     console.log('success', form);
+    this.checkUser();
+  }
+
+  checkUser() {
+    this.loginService.checkUser().subscribe(
+                                  user => console.log('user:', user),
+                                  error => console.log('ERROR:',error))
   }
 
   signupRoute() {

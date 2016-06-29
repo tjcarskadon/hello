@@ -13,7 +13,7 @@ import { Spell } from './spell';
 import { Play } from './play';
 import { Create } from './create';
 import { RouterActive } from './router-active';
-
+import './rxjs-operators';
 /*
  * App Component
  * Top Level Component
