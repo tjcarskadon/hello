@@ -1,0 +1,52 @@
+.container {
+  float: left;
+  margin-top: 30px;
+  margin-left: 30px;
+  width: 1000px;
+  height: 550px;
+  overflow: hidden;
+}
+
+.alphabets {
+  float: left;
+  width: 380px;
+  height: 350px;
+}
+
+.image {
+  float: left;
+  width: 500px;
+  height: 500px;
+  margin-left: 70px;
+}
+
+.image-container {
+  width: 380px;
+  height: 350px;
+  border: 0.2px solid;
+  border-color: #b3b3b3;
+  background-color: #e6e6e6;
+  padding: 20px;
+}
+
+.image-display {
+
+}
+
+.alphabets-container {
+  width: 380px;
+  height: 350px;
+  border: 0.2px solid;
+  border-color: #b3b3b3;
+  background-color: #e6e6e6;
+  padding: 20px;
+}
+
+.alphabet {
+  padding-right: 10px;
+}
+
+.row {
+  padding: 2px;
+}
+
