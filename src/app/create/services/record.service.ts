@@ -17,7 +17,7 @@ export class RecordService {
   }
 
   record(trainer, name) {
-    trainer.create(name.toUpperCase());
+    // trainer.create(name.toUpperCase());
   }
 
   save() {

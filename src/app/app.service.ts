@@ -33,7 +33,7 @@ export class AppState {
 
   get(prop?: any) {
     // use our state getter for the clone
-    const state = this.state;
+    const state = this._state;
     return state[prop] || state;
   }
 

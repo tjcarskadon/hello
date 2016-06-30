@@ -5,14 +5,22 @@
   <div id='mainLTContainer'>
     <div id='createOptions'>
       <ul id='createOptionsList'>
-        <li><md-input [(ngModel)]='gestureName' placeholder='Gesture Name'></md-input>
-          <button md-icon-button>Create!</button></li>
-        <li *ngFor="let option of options">
-          <button (click)="option.fn(option.name)" md-raised-button color='accent'>{{option.name}}</button>
+        <li><md-input id='gestureInput' [(ngModel)]='gestureNameInput' placeholder='Gesture Name'></md-input>
+          <button md-icon-button (click)="recordGesture(gestureNameInput)">Create!</button></li>
+        <li *ngFor="let key of gestureListKeys">
+          <button md-raised-button color="{{setActiveGesture(key)}}" (click)="playback(key)">{{key}}</button>
+          {{gestureList[key].hit}}
         </li>
       </ul>
     </div>
-    <div id="ltContainer"></div>
+    <div id="ltContainer">
+      <div id='recognizedGesture'>{{recognizedGesture}}</div>
+      <div *ngIf="trainingComplete" id='gestureOptions'>
+        <button md-raised-button color='primary'>Update</button>
+        <button md-raised-button color='primary'>Reset</button>
+        <button md-raised-button color='primary'>Save</button>
+      </div>
+    </div>
   </div>
 </div>
 
