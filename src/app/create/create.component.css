@@ -1,5 +1,5 @@
 
-#ltContainer {
+#ltMainContainer {
   width: 60vw;
   height: 80vh;
   border: solid black;
@@ -7,6 +7,10 @@
   position: relative;
   background-color: black;
   float: left;
+}
+
+canvas {
+  pointer-events: none;
 }
 
 #createOptions {

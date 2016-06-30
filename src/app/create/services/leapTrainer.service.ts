@@ -25,7 +25,7 @@ export class LeapTrainerService {
 
     this.trainerCtrl.on('connect', () => console.log('connected'));
     this.trainer.on('gesture-created', (gestureName, trainingSkipped) => {
-       //handle gesture-created UI event
+
        //TODO: change input of gesture name to a form so user can hit enter instead of clicking create
        s.set("trainingComplete", false);
        s.set("gestureName", gestureName);
@@ -46,6 +46,14 @@ export class LeapTrainerService {
        s.set("trainingComplete", true);
        
      });
+
+     this.trainer.on('training-countdown', (countdown) => {
+       console.log(countdown);
+     });
+
+     this.trainer.on('training-started', () => {
+       console.log('training has started');
+     })
 
      //training gesture saved will only happen if we need more training gestures --> probably can manually change that
      this.trainer.on('training-gesture-saved', (/*PARAMS*/) => {
