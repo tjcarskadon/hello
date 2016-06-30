@@ -3,26 +3,26 @@
 
 
 <md-content *ngIf="appState.authenticated">
-  <md-toolbar color="primary">
-    <span>Hello, {{ appState.myName}}.</span>
+  <md-toolbar color="primary" class="animated fadeInDown">
+    <span class="animated fadeInLeft">Hello, {{ appState.myName}}.</span>
     <span class="fill"></span>
-    <button md-button router-active [routerLink]=" ['Profile'] ">
+    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Profile'] ">
       Profile
     </button>
-    <button md-button router-active [routerLink]=" ['Learn'] ">
+    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Learn'] ">
       Learn
     </button>
-    <button md-button router-active [routerLink]=" ['Spell'] ">
+    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Spell'] ">
       Spell
     </button>
-    <button md-button router-active [routerLink]=" ['Play'] ">
+    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Play'] ">
       Play
     </button>
-    <button md-button router-active [routerLink]=" ['Create'] ">
+    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Create'] ">
       Create
     </button>
     <span class="fill"></span>
-    <button md-button router-active (click)="appState.authenticated = false" [routerLink]=" ['Welcome'] ">
+    <button md-button router-active (click)="appState.authenticated = false" class="animated fadeInRight" [routerLink]=" ['Welcome'] ">
       Log Out
     </button>
   </md-toolbar>
