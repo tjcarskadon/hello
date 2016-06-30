@@ -49,8 +49,8 @@ export class AppState {
   }
 
   _initRiggedHand() {
-    require('leapjs-plugins/main/leap-plugins-0.1.11.js');
-    require('leapjs-rigged-hand/build/leap.rigged-hand-0.1.7.js');
+    require('./lib/leap-plugins.js');
+    require('./lib/riggedHand.js');
   }
 
 
