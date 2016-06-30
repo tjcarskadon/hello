@@ -77,12 +77,26 @@
 }
 
 .row {
-  padding: 2px;
+  padding: 5px;
 }
 
 .capture-button {
   right: 10px;
   margin-top: 10px;
   position: absolute;
+}
+
+.score-container {
+  height: 30px;
+  width: 880px;
+  top: 450px;
+  background-color: white;
+  position: absolute;
+  padding: 20px;
+}
+
+.score {
+  text-align: center;
+  font-size: 18px;
 }
 
