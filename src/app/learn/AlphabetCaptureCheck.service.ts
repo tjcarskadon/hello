@@ -6,9 +6,9 @@ export class AlphabetCaptureCheck {
   constructor() {}
 
   getResult() {
-    let result:boolean;
-    
-    return result;
+   // let result:number;
+     
+    return Math.random() > 0.5 ? true : false;
   }
 
 }
