@@ -25,3 +25,15 @@
   margin-top: 2%;
   margin-bottom: 2%;
 }
+
+#recognizedGesture, #gestureOptions {
+  background-color: blue;
+  color: white;
+  text-align: center;
+}
+
+#gestureOptions {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}

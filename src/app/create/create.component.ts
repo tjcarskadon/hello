@@ -1,64 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { RecordService } from './services/record.service';
+import { LeapTrainerService } from './services/leapTrainer.service';
 import { AppState } from '../app.service';
+import { CreatePageState } from './createPageState.service';
 
 @Component({
   selector: 'create',
   template: require('./create.component.html'), 
   styles: [require('./create.component.css')], 
-  providers: [RecordService, AppState]
+  providers: [LeapTrainerService, AppState, CreatePageState]
 })
 export class Create implements OnInit {
 
-  trainerCtrl;
-  trainer;
-  context = this;
-  options = [
-  {name: 'Record', fn: this.recordGesture, context: this},
-  {name: 'Test', fn: this.testGesture},
-  {name: 'Save', fn: this.saveGesture}
-  ];
-  Leap;
-  LeapTrainer;
-  gestureName: string;
+  state = this.createPageState._state;
 
-  constructor(private recordService: RecordService, private appState: AppState) {
-    this.Leap = require('leapjs');
-    this.appState._initRiggedHand();
-    this.LeapTrainer = require('lt/leaptrainer.js');
+  constructor(private leapTrainerService: LeapTrainerService, private appState: AppState, private createPageState: CreatePageState) {
+    this.leapTrainerService._initLeapTrainer();
+
+
   }
 
-  recordGesture(name) {
-    //TODO: handle no user input for gesture name
-    this.context.recordService.record(this.context.trainer, this.context.gestureName);
+  setActiveGesture(gestureName) {
+    return this.state.gestureName === gestureName ? 'primary' : null;
   }
 
-  testGesture(name) {
+  recordGesture(gestureName) {
+    if (gestureName) {
+      this.leapTrainerService.trainer.create(gestureName.toUpperCase());
+    }
+    //TODO: implement UI/X message for no input
+  }
+
+  testGesture(gestureName) {
     console.log('test')
   }
 
-  saveGesture(name) {
+  saveGesture(gestureName) {
     console.log('save')
   }
 
+  playback(gestureName) {
+    // this.state.gestureName = gestureName;
+    this.createPageState.set('gestureName', gestureName);
+    this.createPageState.set('trainingComplete', true);
+    //playback logic for gesture...playback plugin? 
+  }
+
   ngOnInit() {
-    this.trainerCtrl = new this.Leap.Controller();
-    this.trainer = new this.LeapTrainer.Controller({controller: this.trainerCtrl});
-    console.log(this.trainerCtrl);
-    this.trainerCtrl.on('connect', () => console.log('connected'));
-    // trainerCtrl.connect();
-    this.trainerCtrl.use('riggedHand').connect()
-      .on('connect', () => {
-        console.log('connected');
-      });
 
-
-    this.trainerCtrl.on('frame', function(frame) {
-      if (frame.pointables.length) {
-        console.log(document.getElementsByTagName('canvas'));
-        // console.log(frame);
-      }
-    });
 
   }
 

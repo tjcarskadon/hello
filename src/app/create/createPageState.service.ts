@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HmrState } from 'angular2-hmr';
+import { AppState } from '../app.service';
 
 @Injectable()
-export class AppState {
- authenticated: boolean = true;
- signup: boolean = false;
- myName: string = 'Richard';
- title: string = 'hello.';
- login: boolean = false;
 
-  // @HmrState() is used by HMR to track the state of any object during a hot module replacement
-  @HmrState() _state = { };
 
-  constructor() {
+export class CreatePageState {
 
+  _state = {
+    gestureNameInput: '',
+    gestureName: '',
+    gestureList: {}, 
+    gestureListKeys: [],
+    recognizedGesture: '',
+    trainingComplete: false
+  };
+
+
+
+  constructor(private appState: AppState) {
   }
 
-  // already return a clone of the current state
   get state() {
     return this._state = this._clone(this._state);
   }
@@ -25,11 +28,6 @@ export class AppState {
     throw new Error('do not mutate the `.state` directly');
   }
 
-
-  welcome() {
-    this.signup = false;
-    this.login = false;
-  }
 
   get(prop?: any) {
     // use our state getter for the clone
@@ -47,11 +45,5 @@ export class AppState {
     // simple object clone
     return JSON.parse(JSON.stringify( object ));
   }
-
-  _initRiggedHand() {
-    require('./lib/leap-plugins.js');
-    require('./lib/riggedHand.js');
-  }
-
 
 }
