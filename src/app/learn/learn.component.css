@@ -106,3 +106,7 @@
   float: left;
   position: relative;
 }
+
+.head-center {
+  text-align: center;
+}

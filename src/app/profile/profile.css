@@ -28,7 +28,7 @@
   color: #fff;
 }
 h1, h3 {
-  color: #F4A846;
+  /*color: #F4A846;*/
   display: inline-block;
   margin-bottom: 0;
 }
@@ -80,4 +80,8 @@ input.signup {
 
 .md-primary {
   color: #FBC02D;
+}
+
+.head-center {
+  text-align: center;
 }
