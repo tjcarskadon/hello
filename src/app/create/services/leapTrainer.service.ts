@@ -11,7 +11,7 @@ export class LeapTrainerService {
 
 
   Leap = require('leapjs');
-  LeapTrainer = require('lt/leaptrainer.js');
+  LeapTrainer = require('../../lib/leapTrainer.js');
   trainerCtrl = new this.Leap.Controller();
   trainer = new this.LeapTrainer.Controller({
     controller: this.trainerCtrl,
@@ -19,26 +19,31 @@ export class LeapTrainerService {
   });
 
   _initLeapTrainer() {
-    var s = this.createPageState._state;
+    // var s = this.createPageState._state;
+    var s = this.createPageState;
     this.appState._initRiggedHand();
 
     this.trainerCtrl.on('connect', () => console.log('connected'));
     this.trainer.on('gesture-created', (gestureName, trainingSkipped) => {
        //handle gesture-created UI event
        //TODO: change input of gesture name to a form so user can hit enter instead of clicking create
-       s.trainingComplete = false;
-       s.gestureName = gestureName;
-       console.log(s.gestureNameInput, 'gesture');
-       s.gestureNameInput = '';
-       s.gestureList[gestureName] = {text: gestureName};
-       s.gestureListKeys.unshift(gestureName);
+       s.set("trainingComplete", false);
+       s.set("gestureName", gestureName);
+       console.log(s._state.gestureNameInput, 'gesture');
+       s.set("gestureNameInput", '');
+       var gestureList = s.get('gestureList');
+       gestureList[gestureName] = {text: gestureName};
+       s.set('gestureList', gestureList);
+       var gestureListKeys = s.get('gestureListKeys');
+       gestureListKeys.unshift(gestureName);
+       s.set('gestureListKeys', gestureListKeys);
        console.log('gesture created ', gestureName);
      });
 
      this.trainer.on('training-complete', (gestureName, trainingSet, isPose) => {
        //handle training complete event
        console.log('training complete');
-       s.trainingComplete = true;
+       s.set("trainingComplete", true);
        
      });
 
@@ -52,11 +57,14 @@ export class LeapTrainerService {
        console.log('gesture recognized', gestureName);
        //UI display for the gesture recognized
        //TODO: add transition animations to hide and show the div
-       s.recognizedGesture = gestureName;
+       s.set("recognizedGesture", gestureName);
        //context = s;
        //setTimeout(() => context.recognizedGesture = '', 3000)--> removes the blue div at top
 
-       s.gestureList[gestureName].hit = hit * 100 + '%';
+       var gestureList = s.get('gestureList');
+       gestureList[gestureName].hit = hit * 100 + '%';
+
+       s.set('gestureList', gestureList);
 
      });
 

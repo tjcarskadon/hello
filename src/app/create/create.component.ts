@@ -24,8 +24,10 @@ export class Create implements OnInit {
   }
 
   recordGesture(gestureName) {
-    //TODO: handle no user input for gesture name
-    this.leapTrainerService.trainer.create(gestureName.toUpperCase());
+    if (gestureName) {
+      this.leapTrainerService.trainer.create(gestureName.toUpperCase());
+    }
+    //TODO: implement UI/X message for no input
   }
 
   testGesture(gestureName) {
@@ -40,7 +42,6 @@ export class Create implements OnInit {
     // this.state.gestureName = gestureName;
     this.createPageState.set('gestureName', gestureName);
     this.createPageState.set('trainingComplete', true);
-    this.state.trainingComplete = true;
     //playback logic for gesture...playback plugin? 
   }
 
