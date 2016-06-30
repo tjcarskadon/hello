@@ -11,7 +11,8 @@ export class LeapTrainerService {
 
 
   Leap = require('leapjs');
-  LeapTrainer = require('../../lib/leapTrainer.js');
+  // LeapTrainer = require('../../lib/leapTrainer.js');
+  LeapTrainer = require('../../lib/leap-trainer.js');
   trainerCtrl = new this.Leap.Controller();
   trainer = new this.LeapTrainer.Controller({
     controller: this.trainerCtrl,

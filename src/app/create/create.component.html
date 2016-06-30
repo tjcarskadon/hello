@@ -10,15 +10,15 @@
       <ul id="createOptionsList">
         <li>
           <md-input id="gestureInput" [(ngModel)]="state.gestureNameInput" placeholder="Gesture / Sign Name"></md-input>
-          <button md-raised-button color="warn" (click)="recordGesture(state.gestureNameInput)">Create</button>
+          <span><button md-raised-button color="warn" (click)="recordGesture(state.gestureNameInput)">Create</button></span>
+          <span><button md-raised-button (click)="stopRecording(state.gestureNameInput)">Done!</button></span>
         </li>
         <div *ngFor="let key of state.gestureListKeys">
           <button md-raised-button color="{{setActiveGesture(key)}}" (click)="playback(key)">{{key}}</button>
-          {{state.gestureList[key].hit}}
         </div>
       </ul>
     </div>
-
+    
     <div id="ltMainContainer" class="animated fadeInRight">
       <div id="ltContainer">
         <div id="recognizedGesture">{{state.recognizedGesture}}</div>

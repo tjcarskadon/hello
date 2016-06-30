@@ -32,6 +32,10 @@ export class Create implements OnInit {
     //TODO: implement UI/X message for no input
   }
 
+  stopRecording(gestureName) {
+    this.leapTrainerService.trainer.stop();
+  }
+
   testGesture(gestureName) {
     console.log('test')
   }
