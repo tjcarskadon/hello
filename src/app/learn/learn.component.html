@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class='score-container'>
+  <div *ngIf="mastered.length" class='score-container'>
     <div class = 'score'> 
       You have mastered : {{ mastered }}
     </div>

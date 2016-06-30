@@ -50,7 +50,7 @@ export class Learn implements OnInit {
   }
 
   changeLetterColor() {
-    var idx = this.clickedLtr.charCodeAt() - 97;
+    var idx = this.clickedLtr.charCodeAt(0) - 97;
     if (this.alphabetCaptureCheck.getResult()) {
       this.letters[idx].color = 'white';
       this.letters[idx].count += 1;
@@ -67,6 +67,7 @@ export class Learn implements OnInit {
     ltr = ltr.toLowerCase();
     this.imageUrl = `assets/img/${ltr}.png`;
     this.clickedLtr = ltr;
+    this.showCaptureDiv = false;
     this.showImgDiv = true;
   }
 
