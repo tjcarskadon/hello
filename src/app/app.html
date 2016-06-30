@@ -6,19 +6,19 @@
   <md-toolbar color="primary" class="animated fadeInDown">
     <span class="animated fadeInLeft">Hello, {{ appState.myName}}.</span>
     <span class="fill"></span>
-    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Profile'] ">
+    <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Profile'] ">
       Profile
     </button>
     <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Learn'] ">
       Learn
     </button>
-    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Spell'] ">
+    <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Spell'] ">
       Spell
     </button>
-    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Play'] ">
+    <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Play'] ">
       Play
     </button>
-    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Create'] ">
+    <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Create'] ">
       Create
     </button>
     <span class="fill"></span>
