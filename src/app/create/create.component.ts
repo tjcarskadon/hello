@@ -15,8 +15,6 @@ export class Create implements OnInit {
 
   constructor(private leapTrainerService: LeapTrainerService, private appState: AppState, private createPageState: CreatePageState) {
     this.leapTrainerService._initLeapTrainer();
-
-
   }
 
   setActiveGesture(gestureName) {
@@ -43,6 +41,11 @@ export class Create implements OnInit {
     this.createPageState.set('gestureName', gestureName);
     this.createPageState.set('trainingComplete', true);
     //playback logic for gesture...playback plugin? 
+  }
+
+  update(gestureName) {
+    // this.leapTrainerService.trainer.trainingGestures += 3;
+    this.leapTrainerService.trainer.startTraining(gestureName, 3);
   }
 
   ngOnInit() {

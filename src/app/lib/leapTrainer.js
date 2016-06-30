@@ -132,8 +132,8 @@ LeapTrainer.Controller = Class.extend({
   
   pauseOnWindowBlur   : false, // If this is TRUE, then recording and recognition are paused when the window loses the focus, and restarted when it's regained
   
-  minRecordingVelocity  : 300,  // The minimum velocity a frame needs to clock in at to trigger gesture recording, or below to stop gesture recording (by default)
-  maxRecordingVelocity  : 30, // The maximum velocity a frame can measure at and still trigger pose recording, or above which to stop pose recording (by default)
+  minRecordingVelocity  : 80,  // The minimum velocity a frame needs to clock in at to trigger gesture recording, or below to stop gesture recording (by default)
+  maxRecordingVelocity  : 10000, // The maximum velocity a frame can measure at and still trigger pose recording, or above which to stop pose recording (by default)
   
   minGestureFrames    : 5,  // The minimum number of recorded frames considered as possibly containing a recognisable gesture 
   minPoseFrames     : 75, // The minimum number of frames that need to hit as recordable before pose recording is actually triggered
@@ -365,8 +365,8 @@ LeapTrainer.Controller = Class.extend({
        * We return true if there is a hand moving above the minimum recording velocity
        */
       if (palmVelocity >= min) { return true; }
-      
       if (palmVelocity <= max) { poseRecordable = true; break; }
+      
       
       fingers = hand.fingers;
       
@@ -383,6 +383,7 @@ LeapTrainer.Controller = Class.extend({
         
         if (tipVelocity <= max) { poseRecordable = true; break; }
       };  
+      
     };
 
     /*
