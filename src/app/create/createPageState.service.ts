@@ -3,15 +3,10 @@ import { AppState } from '../app.service';
 
 @Injectable()
 
-export class createPageState {
+
+export class CreatePageState {
 
   _state = {
-    Leap: require('leapjs'),
-    LeapTrainer: require('lt/leaptrainer.js'),
-    trainerCtrl: new this._state.LeapTrainer.Controller({
-      controller: this._state.trainerCtrl,
-      convolutionFactor: 2
-    }),
     gestureNameInput: '',
     gestureName: '',
     gestureList: {}, 
@@ -20,8 +15,9 @@ export class createPageState {
     trainingComplete: false
   };
 
-  constructor(private appState: AppState) {
 
+
+  constructor(private appState: AppState) {
   }
 
   get state() {
