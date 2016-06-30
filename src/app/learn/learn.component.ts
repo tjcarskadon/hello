@@ -52,14 +52,17 @@ export class Learn implements OnInit {
 
   changeLetterColor() {
     var idx = this.clickedLtr.charCodeAt(0) - 97;
+    const letter = this.letters[idx];
     if (this.alphabetCaptureCheck.getResult()) {
-      this.letters[idx].color = 'white';
-      this.letters[idx].count += 1;
+      letter.count += 1;
+      letter.color = 'white';
     } else {
-      this.letters[idx].color = 'warn';
+      letter.color = 'warn';
     }
-    if (this.letters[idx].count > 1) {
-      this.mastered.push(this.letters[idx].val);
+    sessionStorage.setItem(letter.val, letter.color);
+    console.log(sessionStorage.getItem(letter.val));
+    if (letter.count > 1) {
+      this.mastered.push(letter.val);
       console.log(this.mastered);
     }
   }
