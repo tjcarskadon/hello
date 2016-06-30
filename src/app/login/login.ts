@@ -25,15 +25,12 @@ export class Login implements OnInit {
 
   onSubmit(form: any): void {
     console.log('success', form.email);
-    this.loginService.url = `http://127.0.0.1:3333/users?email=${form.email}`;
+    // this.loginService.url = `http://127.0.0.1:3333/users?email=${form.email}`;
     console.log(this.loginService.email);
-    this.checkUser();
-  }
-
-  checkUser() {
-    this.loginService.checkUser().subscribe(
-                                  user => console.log('user:', user),
-                                  error => console.log('ERROR:',error))
+    this.loginService.login(form)
+                           .subscribe(
+                             result => console.log(result),
+                             error => console.log(error));
   }
 
   signupRoute() {
