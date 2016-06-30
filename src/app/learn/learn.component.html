@@ -1,4 +1,52 @@
 <div class="animated fadeIn">
-  <h1>Some learning content</h1>
-  <p>You can't learn me.</p>
 </div>
+
+<div class = 'container'>
+  <div class = 'alphabets'> 
+    <md-tab-group class='alphabets-container'>
+      <md-tab>
+        <template md-tab-label> Alphabets </template>
+        <template md-tab-content>
+          <div class='button-container'>
+            <div class='alphabet-button' *ngFor="let ltr of letters" > 
+              <button md-raised-button color='{{ltr.color}}' (click) = "clicked(ltr.val)"> {{ltr.val}}</button>
+            </div>
+          </div>
+        </template>
+      </md-tab>
+      <md-tab>
+        <template md-tab-label> Gestures </template>
+        <template md-tab-content></template>
+      </md-tab>
+    </md-tab-group>
+  </div>
+
+  <div *ngIf="showImgDiv" class = 'image'>
+    <div class = 'image-container'>
+      <div class = 'capture-button'>
+        <button md-button color='primary' (click) = "hideImgDiv();"> Click when READY </button>
+      </div>
+      <div *ngIf="clickedLtr" class='image-display'>
+        <img [src] = "imageUrl"/>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showCaptureDiv" class = 'capture'>
+    <div class = 'capture-container'>
+    <button md-button color='primary' (click) = "hideCaptureDiv()"> DONE </button>
+    </div>
+  </div>
+
+  <div class='score-container'>
+    <div class = 'score'> 
+      You have mastered : {{ mastered }}
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
