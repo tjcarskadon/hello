@@ -1,21 +1,27 @@
+<div class="head-center">
+  <h1 class="animated fadeInDown">Profile</h1>
+  <p class="animated pulse">Update your email and password.</p>
+</div>
+
 <div class="card-container animated fadeIn">
   <!-- <md-card x-large class="sample-content">Profile</md-card> -->
   <!-- <md-card>
     For hot module reloading run
     <pre>npm run start:hmr</pre>
   </md-card> -->
+  <!-- <md-card class="animated fadeInDown"> -->
   <md-card>
     <md-card-title>Update Email</md-card-title>
     <md-card-content>
 
       <form (ngSubmit)="submitEmail(localState.email1, localState.email2)" autocomplete="off">
-        <md-input
+        <md-input type="email"
           placeholder="Enter email address"
           [value]="localState.email1"
           (input)="localState.email1 = $event.target.value"
           autofocus>
         </md-input>
-        <md-input
+        <md-input type="email"
           placeholder="Re-enter email address"
           [value]="localState.email2"
           (input)="localState.email2 = $event.target.value"
@@ -35,19 +41,27 @@
     </md-card-content>
   </md-card>
 
+  <!-- <md-card class="animated fadeInUp"> -->
   <md-card>
     <md-card-title>Update Password</md-card-title>
     <md-card-content>
 
       <form (ngSubmit)="submitPassword(localState.password1, localState.password2)" autocomplete="off">
-        <md-input
+        <md-input type="password"
           placeholder="Enter old password"
           [value]="localState.password1"
           (input)="localState.password1 = $event.target.value"
           autofocus>
         </md-input>
-        <md-input
+        <br>
+        <md-input type="password"
           placeholder="Enter new password"
+          [value]="localState.password1"
+          (input)="localState.password1 = $event.target.value"
+          autofocus>
+        </md-input>
+        <md-input type="password"
+          placeholder="Re-enter new password"
           [value]="localState.password2"
           (input)="localState.password2 = $event.target.value"
           autofocus>
@@ -57,22 +71,5 @@
 
     </md-card-content>
   </md-card>
-
-  <!-- <md-card>
-    <md-card-title>Update Title</md-card-title>
-    <md-card-content>
-
-      <form (ngSubmit)="updateTitle(localState.title)" autocomplete="off">
-        <md-input
-          placeholder="Enter title"
-          [value]="localState.title"
-          (input)="localState.title = $event.target.value"
-          autofocus>
-        </md-input>
-        <button md-raised-button color="primary">Submit</button>
-      </form>
-
-    </md-card-content>
-  </md-card> -->
 
 </div>

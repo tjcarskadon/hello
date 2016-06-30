@@ -1,15 +1,15 @@
-<div id='main-container' [ngStyle]="{'background-image': 'url('+ bg + ')'}">
- 
-  
+<div id='main-container' class="animated fadeIn" [ngStyle]="{'background-image': 'url('+ bg + ')'}">
 
-  <welcomeContent class="comp" *ngIf="!appState.signup && !appState.login"></welcomeContent>
-  <signup class="comp" *ngIf="appState.signup && !appState.login"></signup>
-  <login class="comp" *ngIf="appState.login && !appState.signup"></login>
-  
+
+
+  <welcomeContent class="comp animated fadeIn" *ngIf="!appState.signup && !appState.login"></welcomeContent>
+  <signup class="comp animated fadeIn" *ngIf="appState.signup && !appState.login"></signup>
+  <login class="comp animated fadeIn" *ngIf="appState.login && !appState.signup"></login>
+
   <div id="img-container" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
     <!-- <img [src]="hands" class="hands"> -->
-    </div>
+  </div>
 
-  
+
   <!-- /img-container -->
 </div>

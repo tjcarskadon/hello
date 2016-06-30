@@ -22,7 +22,7 @@
   <button class='signin' (click)="appState.signup = true">
     Sign in / up
   </button>
-  <button class='learn' (click)="appState.authenticated = true">
+  <button class='learn' (click)="appState.authenticated = true; appState.isDisabled = true;" [routerLink]=" ['Learn'] ">
     Learn
   </button>
 </div>

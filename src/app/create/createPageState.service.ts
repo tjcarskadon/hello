@@ -9,7 +9,7 @@ export class CreatePageState {
   _state = {
     gestureNameInput: '',
     gestureName: '',
-    gestureList: {}, 
+    gestureList: {},
     gestureListKeys: [],
     recognizedGesture: '',
     trainingComplete: false
@@ -17,8 +17,7 @@ export class CreatePageState {
 
 
 
-  constructor(private appState: AppState) {
-  }
+  constructor(private appState: AppState) { }
 
   get state() {
     return this._state = this._clone(this._state);

@@ -7,7 +7,7 @@
   overflow: hidden;
 }
 
-.alphabets {
+.alphabet {
   float: left;
   width: 380px;
   height: 350px;
@@ -63,7 +63,7 @@
   position: absolute;
 }
 
-.alphabets-container {
+.alphabet-container {
   width: 380px;
   height: 350px;
   border: 0.2px solid;
@@ -105,4 +105,8 @@
   padding: 3px;
   float: left;
   position: relative;
+}
+
+.head-center {
+  text-align: center;
 }

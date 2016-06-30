@@ -1,12 +1,12 @@
-
 #ltMainContainer {
   width: 60vw;
   height: 80vh;
-  border: solid black;
+  border: 1px solid black;
   margin-left: 5px;
   position: relative;
   background-color: black;
   float: left;
+  border-radius: 3px;
 }
 
 canvas {
@@ -14,12 +14,13 @@ canvas {
 }
 
 #createOptions {
-  border: solid black;
+  border: 1px solid black;
   position: relative;
   width: 20vw;
   height: 80vh;
   margin-left: 5%;
   float: left;
+  border-radius: 3px;
 }
 
 #createOptionsList {
@@ -40,4 +41,8 @@ canvas {
   width: 100%;
   position: absolute;
   bottom: 0;
+}
+
+.head-center {
+  text-align: center;
 }

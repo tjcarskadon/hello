@@ -8,6 +8,7 @@ export class AppState {
  myName: string = 'Richard';
  title: string = 'hello.';
  login: boolean = false;
+ isDisabled: boolean = false;
 
   // @HmrState() is used by HMR to track the state of any object during a hot module replacement
   @HmrState() _state = { };

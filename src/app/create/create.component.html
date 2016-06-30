@@ -1,28 +1,34 @@
-<div class="animated fadeIn">
-  <h1>Some creative tab content</h1>
-  <p>So you think you're creative.</p>
+<div class="animated fadeIn" id="create-container">
+  <div class="head-center">
+    <h1 class="animated fadeInDown">Create</h1>
+    <p class="animated pulse">Expand our database with more signs and gestures.</p>
+  </div>
 
-  <div id='mainLTContainer'>
-    <div id='createOptions'>
-      <ul id='createOptionsList'>
-        <li><md-input id='gestureInput' [(ngModel)]='state.gestureNameInput' placeholder='Gesture Name'></md-input>
-          <button md-icon-button (click)="recordGesture(state.gestureNameInput)">Create!</button></li>
+  <div id="mainLTContainer">
+
+    <div id="createOptions" class="animated fadeInLeft">
+      <ul id="createOptionsList">
+        <li>
+          <md-input id="gestureInput" [(ngModel)]="state.gestureNameInput" placeholder="Gesture / Sign Name"></md-input>
+          <button md-raised-button color="warn" (click)="recordGesture(state.gestureNameInput)">Create</button>
+        </li>
         <li *ngFor="let key of state.gestureListKeys">
           <button md-raised-button color="{{setActiveGesture(key)}}" (click)="playback(key)">{{key}}</button>
           {{state.gestureList[key].hit}}
         </li>
       </ul>
     </div>
-    <div id='ltMainContainer'>
+
+    <div id="ltMainContainer" class="animated fadeInRight">
       <div id="ltContainer">
-        <div id='recognizedGesture'>{{state.recognizedGesture}}</div>
+        <div id="recognizedGesture">{{state.recognizedGesture}}</div>
       </div>
-      <div *ngIf="state.trainingComplete" id='gestureOptions'>
-          <button md-raised-button color='primary' (click)="update(state.gestureName)">Update</button>
-          <button md-raised-button color='primary'>Reset</button>
-          <button md-raised-button color='primary'>Save</button>
+      <div *ngIf="state.trainingComplete" id="gestureOptions">
+          <button md-raised-button color="primary" (click)="update(state.gestureName)">Update</button>
+          <button md-raised-button color="primary" (click)="reset()">Reset</button>
+          <button md-raised-button color="primary" (click)="saveGesture()">Save</button>
       </div>
     </div>
   </div>
-</div>
 
+</div>
