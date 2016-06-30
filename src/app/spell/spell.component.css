@@ -1,3 +1,4 @@
+
 #ltMainContainer {
   float: left;
   position: relative;
@@ -30,4 +31,14 @@ canvas {
 
 .head-center {
   text-align: center;
+}
+
+.capture-container {
+  border: 2px dashed #FBC02D;
+  width: 700px;
+  height: 500px;
+  margin-left: 30px;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: white;
 }
