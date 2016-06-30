@@ -12,7 +12,7 @@ module.exports = (function() {
       User.query()
         .where(this.params.query)
         .end((err, models) => {
-
+          
           this.respond(err || models);
 
         });

@@ -4,8 +4,9 @@ module.exports = (function() {
 
   const Nodal = require('nodal');
   const Gesture = Nodal.require('app/models/gesture.js');
+  const AuthController = Nodal.require('app/controllers/auth_controller.js');
 
-  class GesturesController extends Nodal.Controller {
+  class GesturesController extends AuthController {
 
     index() {
 
@@ -30,12 +31,19 @@ module.exports = (function() {
     }
 
     create() {
+      this.authorize((err, accessToken, user) => {
 
-      Gesture.create(this.params.body, (err, model) => {
+        if (err) {
+          return this.respond(err);
+        }
+        console.log('THE PARAMS:', this.params);
+        this.params.body.user_id = user.get('id');
+        Gesture.create(this.params.body, (err, model) => {
 
-        this.respond(err || model);
+          this.respond(err || model);
 
-      });
+        });
+      })
 
     }
 

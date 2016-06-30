@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Login } from './login/login.ts';
+
 
 @Injectable () 
 export class LoginService {
@@ -9,10 +10,18 @@ export class LoginService {
 
   constructor(private http: Http) {}
   public email: string;
-  public url: string;
+  public url: string = 'http://127.0.0.1:3333/access_tokens';
   
-  checkUser(): Observable<Response> {
-    return this.http.get(this.url).map(this.parseData).catch(this.handleError);
+  login(data: any): Observable<Response> {
+    let body = JSON.stringify({
+      grant_type: 'password',
+      email: data.email,
+      password: data.password
+    });
+
+    let headers = new Headers({'Content-type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(this.url, body, options).map(this.parseData).catch(this.handleError); 
   }
 
   private parseData(res: Response) {
