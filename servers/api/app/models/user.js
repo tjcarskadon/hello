@@ -39,7 +39,7 @@ module.exports = (function() {
     }
 
   }
-
+  
   User.setDatabase(Nodal.require('db/main.js'));
   User.setSchema(Nodal.my.Schema.models.User);
 
