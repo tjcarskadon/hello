@@ -21,7 +21,10 @@ export class Login implements OnInit {
   }
   
 
-  ngOnInit() {}  
+  ngOnInit() {
+
+
+  }  
 
   onSubmit(form: any): void {
     console.log('success', form.email);
@@ -29,8 +32,11 @@ export class Login implements OnInit {
     console.log(this.loginService.email);
     this.loginService.login(form)
                            .subscribe(
-                             result => console.log(result),
-                             error => console.log(error));
+                            result => {
+                              localStorage.setItem('tkn', result[0].access_token);
+                              localStorage.setItem('exp', result[0].expires_at);
+                            },
+                            error => console.log(error));
   }
 
   signupRoute() {

@@ -22,6 +22,9 @@ export class Welcome implements OnInit {
   bg: string = 'assets/img/bg.png'
   constructor(public appState: AppState) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    let tkn = localStorage.getItem('tkn');
+    console.log('@@@@@@', tkn);
+  }
 
 }
