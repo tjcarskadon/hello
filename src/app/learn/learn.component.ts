@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AlphabetCaptureCheck } from './AlphabetCaptureCheck.service'
 
 @Component({
   selector: 'learn',
   template: require('./learn.component.html'),
   styles: [require('./learn.component.css')],
+  providers: [AlphabetCaptureCheck]
 })
 export class Learn implements OnInit {
 
@@ -42,15 +44,14 @@ export class Learn implements OnInit {
     {val: 'Z', color:'primary'}
   ];
 
-  constructor() {}
+  constructor( private alphabetCaptureCheck: AlphabetCaptureCheck) {}
 
   ngOnInit() {
   }
 
   changeLetterColor() {
-    console.log(this.clickedLtr.charCodeAt());
     var idx = this.clickedLtr.charCodeAt() - 97;
-    console.log(idx);
+
     this.letters[idx].color = 'warn';
   }
 

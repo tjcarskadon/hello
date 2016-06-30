@@ -7,8 +7,10 @@
       <md-tab>
         <template md-tab-label> Alphabets </template>
         <template md-tab-content>
-          <div class='row'>
-            <button  md-raised-button *ngFor="let ltr of letters" color='{{ltr.color}}' (click) = "clicked(ltr.val)"> {{ltr.val}}</button>
+          <div class='button-container'>
+            <div class='alphabet-button' *ngFor="let ltr of letters" > 
+              <button md-raised-button color='{{ltr.color}}' (click) = "clicked(ltr.val)"> {{ltr.val}}</button>
+            </div>
           </div>
         </template>
       </md-tab>
