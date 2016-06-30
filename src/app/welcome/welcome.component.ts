@@ -4,10 +4,11 @@ import { Signup } from '../signup/signup.ts'
 import { Login } from '../login/login.ts'
 import { AppState } from '../app.service';
 import { LoginService } from '../login.service';
+import { SignupService } from '../signup/signup.service';
 @Component({
   selector: 'welcome',
   directives: [ WelcomeContent, Signup, Login ],
-  providers: [ LoginService],
+  providers: [ LoginService, SignupService],
   template: require('./welcome.component.html'),
   styles: [
     require('./welcome.component.css')

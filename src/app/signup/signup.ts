@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup } from '@angular/common';
+import { SignupService } from './signup.service'
 
 @Component({
   selector: 'signup',
@@ -12,7 +13,7 @@ import { FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup } from '@angular
 export class Signup implements OnInit {
   signupForm: ControlGroup;
 
-  constructor(public appState: AppState, fb: FormBuilder) {
+  constructor(public signupService: SignupService, public appState: AppState, fb: FormBuilder) {
     this.signupForm = fb.group({
       'email': [],
       'password': [],
@@ -22,8 +23,19 @@ export class Signup implements OnInit {
   ngOnInit() {}  
 
   onSubmit(form: any) {
-    console.log('success', form);
+    if ( form.password !== form.confirm || !form.password || !form.email) {
+       //do something else here to handle the error
+       //make sure to handle the form fields
+      console.log('no match');
+      return;
+    }
+    this.signupService.saveUser(form)
+                       .subscribe(
+                         result => console.log(result),
+                         error => console.log(error));
   }
+
+
   loginRoute () {
     this.appState.login = true;
     this.appState.signup = false;
