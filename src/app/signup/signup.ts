@@ -31,8 +31,8 @@ export class Signup implements OnInit {
     }
     this.signupService.saveUser(form)
                        .subscribe(
-                         result => console.log(result),
-                         error => console.log(error));
+                         result => console.log('signupService result:', result),
+                         error => console.log('signupService error:', error));
   }
 
 

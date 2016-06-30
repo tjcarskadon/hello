@@ -19,7 +19,7 @@ h1, h3 {
 input {
   margin: 10px;
   text-align: center;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   width: 350px;
   height: 50px;
   color: #fff;
