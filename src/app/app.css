@@ -3,7 +3,8 @@ html, body{
   background: #F4FAFA;
 }
 button.active{
-  background: #fff;
+  background: #FBC02D;
+  /*background: #fff;*/
   color: #009688;
 }
 button.active:hover{

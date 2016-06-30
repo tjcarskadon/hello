@@ -32,11 +32,11 @@ import { RouterActive } from './router-active';
 })
 
 @RouteConfig([
+  { path: '/',        name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') },
   { path: '/profile', name: 'Profile', component: Profile, useAsDefault: true },
-  { path: '/home',    name: 'Home',    component: Home },
+  // { path: '/home',    name: 'Home',    component: Home },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   // { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
-  { path: '/welcome', name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') },
   { path: '/learn',   name: 'Learn',   loader: () => require('es6-promise!./learn')('Learn') },
   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
