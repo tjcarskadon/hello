@@ -48,7 +48,9 @@ export class Learn implements OnInit {
   }
 
   changeLetterColor() {
-    var idx = (this.clickedLtr.charCodeAt()) - 65;
+    console.log(this.clickedLtr.charCodeAt());
+    var idx = this.clickedLtr.charCodeAt() - 97;
+    console.log(idx);
     this.letters[idx].color = 'warn';
   }
 
