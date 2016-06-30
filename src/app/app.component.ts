@@ -11,8 +11,11 @@ import { Welcome } from './welcome';
 import { Learn } from './learn';
 import { Spell } from './spell';
 import { Play } from './play';
+// import { Login  } from './login';
+// import { Signup } from './signup';
 import { Create } from './create';
 import { RouterActive } from './router-active';
+import { AuthService } from './auth.service'
 import './rxjs-operators';
 /*
  * App Component
@@ -21,7 +24,7 @@ import './rxjs-operators';
 @Component({
   selector: 'app',
   pipes: [ ],
-  providers: [ ],
+  providers: [AuthService],
   directives: [ RouterActive, Welcome, Home, Profile, Learn, Spell, Play, Create ],
   encapsulation: ViewEncapsulation.None,
   styles: [
