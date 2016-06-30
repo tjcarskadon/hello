@@ -1,4 +1,4 @@
-<div id="main-container">
+<div id="main-container" [ngStyle]="{'background-image': 'url('+ bg + ')'}"s>
   <div class="form-container" [ngFormModel]="myForm" (ngSubmit)="onSubmit(myForm.value)">
     <div>
       <h1>Login....</h1><h3 class='alt'><button class="login" (click)="signupRoute()">....Signup</button></h3>

@@ -11,8 +11,11 @@ import { Welcome } from './welcome';
 import { Learn } from './learn';
 import { Spell } from './spell';
 import { Play } from './play';
+// import { Login  } from './login';
+// import { Signup } from './signup';
 import { Create } from './create';
 import { RouterActive } from './router-active';
+import { AuthService } from './auth.service'
 import './rxjs-operators';
 /*
  * App Component
@@ -21,7 +24,7 @@ import './rxjs-operators';
 @Component({
   selector: 'app',
   pipes: [ ],
-  providers: [ ],
+  providers: [AuthService],
   directives: [ RouterActive, Welcome, Home, Profile, Learn, Spell, Play, Create ],
   encapsulation: ViewEncapsulation.None,
   styles: [
@@ -40,7 +43,9 @@ import './rxjs-operators';
   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
   { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
-  { path: '/welcome', name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') }
+  { path: '/welcome', name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') },
+  { path: '/login', name: 'Login', loader: () => require('es6-promise!./login')('Login') },
+  { path: '/signup', name: 'Signup', loader: () => require('es6-promise!./signup')('Signup') }
 ])
 
 export class App {
