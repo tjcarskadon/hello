@@ -234,16 +234,16 @@ LeapTrainer.Controller = Class.extend({
      */
     var gestureBegan = false, watching = false, idleTimer = 0;
     var incTimer = _.throttle(() => {
-      console.log('debounce?');
       idleTimer++;
+      // console.log('debounce?', idleTimer);
     }, 1000);
 
     this.gestureCheck = function(frame) {
       if (idleTimer >= 2) {
         watching = false;
         idleTimer = 0;
-        // console.log('recognizing gesture...');
-        !!gesture.length && this.recognize(gesture, frameCount);
+        // console.log(gesture);
+        !!gesture.length && frameCount >=this.minGestureFrames && this.recognize(gesture, frameCount);
         gesture = [], frameCount = 0;
       }
       if (this.recordableFrame(frame, this.minVelocity)) {
@@ -259,7 +259,7 @@ LeapTrainer.Controller = Class.extend({
         frameCount++;
         this.recordFrame(frame, null, recordVector, recordValue);
         // console.log('also recognizing gesture here...');
-        !!gesture.length && this.recognize(gesture, frameCount);
+        // (!!gesture.length && frameCount >=this.minGestureFrames) && this.recognize(gesture, frameCount);
       }
 
     }
@@ -405,7 +405,8 @@ LeapTrainer.Controller = Class.extend({
       
       hand = hands[i];
 
-      recordVector(hand.stabilizedPalmPosition);
+      recordVector(hand.direction);
+      // recordVector(hand.palmVelocity)
 
       fingers   = hand.fingers;
       fingerCount = fingers.length;
@@ -414,7 +415,8 @@ LeapTrainer.Controller = Class.extend({
         
         finger = fingers[j];
 
-        recordVector(finger.stabilizedTipPosition); 
+        recordVector(finger.direction);
+        // recordVector(finger.tipVelocity);
       };
     };
   },
@@ -784,7 +786,7 @@ LeapTrainer.Controller = Class.extend({
     
     } else {
     
-      this.fire('gesture-unknown', allHits);
+      this.fire('gesture-unknown', allHits, gesture);
     }
   },
 

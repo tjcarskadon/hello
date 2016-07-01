@@ -17,7 +17,7 @@ export class LeapTrainerService {
   trainer = new this.LeapTrainer.Controller({
     controller: this.trainerCtrl,
     convolutionFactor: 2, 
-    trainingGestures: 1
+    trainingGestures: 3
   });
 
   _initLeapTrainer() {
@@ -36,14 +36,16 @@ export class LeapTrainerService {
        var gestureList = s.get('gestureList');
        gestureList[gestureName] = {text: gestureName};
        s.set('gestureList', gestureList);
-       var gestureListKeys = s.get('gestureListKeys');
-       gestureListKeys.unshift(gestureName);
-       s.set('gestureListKeys', gestureListKeys);
+       
        console.log('gesture created ', gestureName);
      });
 
      this.trainer.on('training-complete', (gestureName, trainingSet, isPose) => {
        //handle training complete event
+       var gestureListKeys = s.get('gestureListKeys');
+       gestureListKeys.unshift(gestureName);
+       s.set('gestureListKeys', gestureListKeys);
+       s.set('gestureName', null);
        this.trainer.stop();
        console.log('training complete');
        s.set("trainingComplete", true);
@@ -62,18 +64,19 @@ export class LeapTrainerService {
      //training gesture saved will only happen if we need more training gestures --> probably can manually change that
      this.trainer.on('training-gesture-saved', (name, trainingGestures) => {
        //handle training save event
-       this.trainer.pause();
+       //stop recording
+       this.trainer.stop();
+       //start countdown, and recording
        this.trainer.startTraining(name, this.trainer.trainingCountdown);
        console.log('training gesture saved');
-       //stop recording
 
      });
 
      this.trainer.on('gesture-detected', (gesture, frameCount) => {
        // console.log(frameCount, gesture);
      });
-     this.trainer.on('gesture-unknown', (allHits) => {
-       // console.log('allhits, ', allHits);
+     this.trainer.on('gesture-unknown', (allHits, gesture) => {
+       console.log('allhits, ', allHits, gesture);
      })
 
      this.trainer.on('gesture-recognized', (hit, gestureName, allHits) => {

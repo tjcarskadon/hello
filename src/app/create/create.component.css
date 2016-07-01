@@ -1,10 +1,15 @@
 #ltMainContainer {
+<<<<<<< 3b364e8c8cf13e3edf6a4e6e09b7ade0d183d8e0
   float: left;
   position: relative;
   width: 60vw;
   height: 65vh;
   margin-left: 3%;
   margin-right: 3%;
+=======
+  width: 50vw;
+  height: 80vh;
+>>>>>>> (refactor) - continue tuning recognize algorithm
   border: 1px solid black;
   border-radius: 3px;
   background-color: black;
@@ -14,7 +19,21 @@ canvas {
   pointer-events: none;
 }
 
+.savedGestureNames {
+  float: left;
+  overflow: hidden;
+  padding: 3px;
+}
+
 #createOptions {
+<<<<<<< 3b364e8c8cf13e3edf6a4e6e09b7ade0d183d8e0
+=======
+  border: 1px solid black;
+  position: relative;
+  width: 30vw;
+  height: 80vh;
+  margin-left: 5%;
+>>>>>>> (refactor) - continue tuning recognize algorithm
   float: left;
   position: relative;
   width: 30vw;

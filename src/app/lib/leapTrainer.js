@@ -805,7 +805,7 @@ LeapTrainer.Controller = Class.extend({
     
     } else {
     
-      this.fire('gesture-unknown', allHits);
+      this.fire('gesture-unknown', allHits, gesture);
     }
   },
 

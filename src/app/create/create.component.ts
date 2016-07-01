@@ -19,9 +19,11 @@ export class Create implements OnInit {
     private appState: AppState,
     private createPageState: CreatePageState) {
     this.leapTrainerService._initLeapTrainer();
+
   }
 
   setActiveGesture(gestureName) {
+
     return this.state.gestureName === gestureName ? 'primary' : null;
   }
 
@@ -41,6 +43,7 @@ export class Create implements OnInit {
   }
 
   saveGesture(gestureName) {
+    this.createPageState.set('gestureName', null);
     console.log('Attempting to save value...');
     setTimeout(function() {
       console.log('...value not saved.')
@@ -50,7 +53,7 @@ export class Create implements OnInit {
   playback(gestureName) {
     // this.state.gestureName = gestureName;
     this.createPageState.set('gestureName', gestureName);
-    this.createPageState.set('trainingComplete', true);
+    // this.createPageState.set('trainingComplete', true);
     //playback logic for gesture...playback plugin?
   }
 
