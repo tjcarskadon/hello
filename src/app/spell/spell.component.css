@@ -34,11 +34,29 @@ canvas {
 }
 
 .capture-container {
-  border: 2px dashed #FBC02D;
-  width: 700px;
+  width: 1000px;
   height: 500px;
   margin-left: 30px;
-  margin-top: 20px;
   padding: 20px;
-  background-color: white;
+  float: left;
 }
+
+
+.head-center {
+  text-align: center;
+}
+
+#card {
+  margin: 20px;
+  width: 400px;
+  height: 300px;
+  float: left;
+}
+
+/*.text-container {
+  height: 300px;
+  width: 400px;
+  float: left;
+  background-color: white;
+}*/
+
