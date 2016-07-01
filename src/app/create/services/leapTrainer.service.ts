@@ -17,7 +17,7 @@ export class LeapTrainerService {
   trainer = new this.LeapTrainer.Controller({
     controller: this.trainerCtrl,
     convolutionFactor: 2, 
-    trainingGestures: 3
+    trainingGestures: 1
   });
 
   _initLeapTrainer() {
@@ -72,6 +72,9 @@ export class LeapTrainerService {
      this.trainer.on('gesture-detected', (gesture, frameCount) => {
        // console.log(frameCount, gesture);
      });
+     this.trainer.on('gesture-unknown', (allHits) => {
+       // console.log('allhits, ', allHits);
+     })
 
      this.trainer.on('gesture-recognized', (hit, gestureName, allHits) => {
        console.log('gesture recognized', gestureName);

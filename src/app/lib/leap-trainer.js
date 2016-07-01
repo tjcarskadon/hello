@@ -232,34 +232,72 @@ LeapTrainer.Controller = Class.extend({
     /**
      * 
      */
-    var gestureBegan = false, motionlessTimer = 0;
-    var incTimer = _.debounce(() => {motionlessTimer++;}, 1000, true);
-    this.onFrame = function(frame) {  
-      //default to listen for gestures/poses
-      //if there are fingers then start listening for gestures
-      if (frame.pointables.length) {
-        //if gesture recognition has not yet begun and the frame is recordable, indicate that we can start listening for a gesture
-        if (!gestureBegan && this.recordableFrame(frame, min)) {
-          gestureBegan = true;
-        }
+    var gestureBegan = false, watching = false, idleTimer = 0;
+    var incTimer = _.throttle(() => {
+      console.log('debounce?');
+      idleTimer++;
+    }, 1000);
 
-        if (!this.recordableFrame(frame, min)) {
-          incTimer();
+    this.gestureCheck = function(frame) {
+      if (idleTimer >= 2) {
+        watching = false;
+        idleTimer = 0;
+        // console.log('recognizing gesture...');
+        !!gesture.length && this.recognize(gesture, frameCount);
+        gesture = [], frameCount = 0;
+      }
+      if (this.recordableFrame(frame, this.minVelocity)) {
+        idleTimer = 0;
+        // console.log('begin watching....');
+        watching = true;
+      } else {
+        incTimer();
+        // console.log('hands not moving', idleTimer);
+      }
+
+      if (watching) {
+        frameCount++;
+        this.recordFrame(frame, null, recordVector, recordValue);
+        // console.log('also recognizing gesture here...');
+        !!gesture.length && this.recognize(gesture, frameCount);
+      }
+
+    }
+
+
+    this.onFrame = function(frame) {  
+      
+      if (this.recording) {
+        
+        console.log('recording');
+        if (!gestureBegan && this.recordableFrame(frame, this.minVelocity)) {
+          gestureBegan = true;
+          console.log('first frame');
         }
 
         if (gestureBegan) {
-          if (motionlessTimer >= 2) {
-            motionlessTimer = 0;
-            gestureBegan = false;
-          }
+          frameCount++;
           this.recordFrame(frame, null, recordVector, recordValue);
+          console.log('recording frames...')
+        }
+      } else {
+
+        if (gestureBegan) {
+          console.log('stopping recording...');
+          gestureBegan = false;
+          this.saveTrainingGesture(this.trainingGesture, gesture, false /*recording pose flag*/);
+          gesture = [];
+          frameCount = 0;
+        } else {
+          //check for gestures...
+          this.gestureCheck.bind(this)(frame);
         }
       }
       
     }; // The frame listener is bound to the context of the LeapTrainer object
 
 
-    
+    this.controller.on('frame', this.onFrame.bind(this));
 
 
     
@@ -303,7 +341,8 @@ LeapTrainer.Controller = Class.extend({
       /*
        * We return true if there is a hand moving above the minimum recording velocity
        */
-      if (palmVelocity >= max) { poseRecordable = true; break; }
+      // if (palmVelocity >= min) { poseRecordable = true; break; }
+      if (palmVelocity >= min) { return true; }
       
       
       fingers = hand.fingers;
@@ -318,7 +357,8 @@ LeapTrainer.Controller = Class.extend({
          * Or if there's a finger tip moving above the minimum recording velocity
          */
         
-        if (tipVelocity >= max) { poseRecordable = true; break; }
+        // if (tipVelocity >= min) { poseRecordable = true; break; }
+        if (tipVelocity >= min) { return true; }
       };  
       
     };
