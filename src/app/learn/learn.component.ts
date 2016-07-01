@@ -48,6 +48,12 @@ export class Learn implements OnInit {
   constructor( private alphabetCaptureCheck: AlphabetCaptureCheck) {}
 
   ngOnInit() {
+    this.letters.forEach((letter) => {
+      if (sessionStorage.getItem(letter.val)) {
+        letter.color = sessionStorage.getItem(letter.val);
+      }
+    });
+    this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
 
   changeLetterColor() {
@@ -65,6 +71,7 @@ export class Learn implements OnInit {
       this.mastered.push(letter.val);
       console.log(this.mastered);
     }
+    sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
   }
 
   clicked(ltr) {
