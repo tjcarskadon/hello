@@ -1,6 +1,5 @@
+
 <welcome *ngIf="!appState.authenticated"></welcome>
-
-
 
 <md-content *ngIf="appState.authenticated">
   <md-toolbar color="primary" class="animated fadeInDown">
@@ -22,7 +21,7 @@
       Create
     </button>
     <span class="fill"></span>
-    <button md-button router-active (click)="logout()" class="animated fadeInRight" [routerLink]=" ['Welcome'] ">
+    <button md-button router-active (click)="authService.logout()">
       Log Out
     </button>
   </md-toolbar>
@@ -64,7 +63,7 @@
 
   <router-outlet></router-outlet>
 
-  <!-- <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>  -->
+  <pre class="app-state">this.appState.state = {{ appState.authenticated }} {{ appState.learn}}</pre> 
 
   <footer>
     <img [src]="angularclassLogo" width="6%">

@@ -7,12 +7,14 @@ import { LoginService } from '../login.service';
 import { SignupService } from '../signup/signup.service';
 import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { AuthService } from '../auth.service';
+import { NgSwitch, NgSwitchDefault, NgSwitchWhen } from '@angular/common';
+import { Router } from '@angular/router-deprecated';
 
 
 @Component({
   selector: 'welcome',
-  directives: [ WelcomeContent, Signup, Login ],
-  providers: [ LoginService, SignupService, ROUTER_PROVIDERS],
+  directives: [ WelcomeContent, Signup, Login, NgSwitch, NgSwitchDefault, NgSwitchWhen ],
+  providers: [ LoginService, SignupService, ROUTER_PROVIDERS, AuthService],
   template: require('./welcome.component.html'),
   styles: [
     require('./welcome.component.css')
@@ -30,7 +32,7 @@ export class Welcome implements OnInit {
 >>>>>>> (feat) Local authentication
 
   ngOnInit() {
-    
+    console.log('this is the welcome component');
     this.authService.authenticate();
     
   }

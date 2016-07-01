@@ -24,14 +24,10 @@ export class Login implements OnInit {
   
 
   ngOnInit() {
-
-
+    
   }  
 
   onSubmit(form: any): void {
-    console.log('success', form.email);
-    // this.loginService.url = `http://127.0.0.1:3333/users?email=${form.email}`;
-    console.log(this.loginService.email);
     this.loginService.login(form)
                            .subscribe(
                             result => {
@@ -42,12 +38,4 @@ export class Login implements OnInit {
                             },
                             error => console.log(error));
   }
-
-  signupRoute() {
-    this.appState.login = false;
-    this.appState.signup = true;
-  }
-
-
-
 }

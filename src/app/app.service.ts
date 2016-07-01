@@ -4,10 +4,10 @@ import { HmrState } from 'angular2-hmr';
 @Injectable()
 export class AppState {
  authenticated: boolean = false;
- signup: boolean = false;
+ learn: boolean = false;
+ landing: string = 'welcome';
  myName: string = 'Richard';
  title: string = 'hello.';
- login: boolean = false;
  isDisabled: boolean = false;
 
   // @HmrState() is used by HMR to track the state of any object during a hot module replacement
@@ -23,13 +23,7 @@ export class AppState {
   // never allow mutation
   set state(value) {
     throw new Error('do not mutate the `.state` directly');
-  }
-
-
-  welcome() {
-    this.signup = false;
-    this.login = false;
-  }
+  }  
 
   get(prop?: any) {
     // use our state getter for the clone

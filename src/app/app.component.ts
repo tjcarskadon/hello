@@ -3,7 +3,6 @@
  */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, Router } from '@angular/router-deprecated';
-
 import { AppState } from './app.service';
 import { Profile } from './profile';
 import { Home } from './home';
@@ -11,8 +10,6 @@ import { Welcome } from './welcome';
 import { Learn } from './learn';
 import { Spell } from './spell';
 import { Play } from './play';
-// import { Login  } from './login';
-// import { Signup } from './signup';
 import { Create } from './create';
 import { RouterActive } from './router-active';
 import { AuthService } from './auth.service'
@@ -33,7 +30,7 @@ import './rxjs-operators';
   ],
   template: require('./app.html')
 })
-
+  
 @RouteConfig([
   { path: '/',        name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') },
   { path: '/profile', name: 'Profile', component: Profile, useAsDefault: true },
@@ -52,12 +49,13 @@ export class App {
   name = 'hello.';
   url = 'https://github.com/digi-talk/hello';
 
-  constructor(public appState: AppState) {
+  constructor(public appState: AppState, public authService: AuthService) {
 
   }
 
   ngOnInit() {
     // console.log('Initial App State', this.appState.state);
+    console.log('loaded')
   }
 
   logout() {
