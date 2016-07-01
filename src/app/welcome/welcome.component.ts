@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WelcomeContent } from '../welcomeContent/welcomeContent.ts';
-import { Signup } from '../signup/signup.ts'
-import { Login } from '../login/login.ts'
+import { Signup } from '../signup/signup.ts';
+import { Login } from '../login/login.ts';
+import { Profile } from '../profile/profile.component';
+import { Learn } from '../learn/learn.component';
 import { AppState } from '../app.service';
 import { LoginService } from '../login.service';
 import { SignupService } from '../signup/signup.service';
@@ -12,7 +14,7 @@ import { Router } from '@angular/router-deprecated';
 
 @Component({
   selector: 'welcome',
-  directives: [ WelcomeContent, Signup, Login, NgSwitch, NgSwitchDefault, NgSwitchWhen ],
+  directives: [ WelcomeContent, Signup, Login, NgSwitch, NgSwitchDefault, NgSwitchWhen, Profile, Learn ],
   providers: [ LoginService, SignupService, ROUTER_PROVIDERS, AuthService],
   template: require('./welcome.component.html'),
   styles: [
@@ -27,6 +29,7 @@ export class Welcome implements OnInit {
 
   ngOnInit() {
     console.log('this is the welcome component');
+    console.log(this.appState.landing)
     this.authService.authenticate();
     
   }

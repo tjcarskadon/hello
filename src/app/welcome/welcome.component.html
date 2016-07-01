@@ -4,7 +4,9 @@
 <span [ngSwitch]=" appState.landing  ">
   <signup class="comp" *ngSwitchWhen=" 'signup' "></signup>
   <login class="comp" *ngSwitchWhen=" 'login' "></login>
-  <welcomeContent class="comp" *ngSwitchDefault></welcomeContent>
+  <welcomeContent class="comp" *ngSwitchWhen="'welcome'"></welcomeContent>
+  <learn *ngSwitchWhen="'learn'"></learn>
+  <profile *ngSwitchDefault></profile>
 </span>
   
   <div id="img-container" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
