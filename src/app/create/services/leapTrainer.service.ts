@@ -16,7 +16,8 @@ export class LeapTrainerService {
   trainerCtrl = new this.Leap.Controller();
   trainer = new this.LeapTrainer.Controller({
     controller: this.trainerCtrl,
-    convolutionFactor: 2
+    convolutionFactor: 2, 
+    trainingGestures: 3
   });
 
   _initLeapTrainer() {
@@ -43,8 +44,10 @@ export class LeapTrainerService {
 
      this.trainer.on('training-complete', (gestureName, trainingSet, isPose) => {
        //handle training complete event
+       this.trainer.stop();
        console.log('training complete');
        s.set("trainingComplete", true);
+       console.log(trainingSet);
        
      });
 
@@ -57,9 +60,17 @@ export class LeapTrainerService {
      })
 
      //training gesture saved will only happen if we need more training gestures --> probably can manually change that
-     this.trainer.on('training-gesture-saved', (/*PARAMS*/) => {
+     this.trainer.on('training-gesture-saved', (name, trainingGestures) => {
        //handle training save event
+       this.trainer.pause();
+       this.trainer.startTraining(name, this.trainer.trainingCountdown);
        console.log('training gesture saved');
+       //stop recording
+
+     });
+
+     this.trainer.on('gesture-detected', (gesture, frameCount) => {
+       // console.log(frameCount, gesture);
      });
 
      this.trainer.on('gesture-recognized', (hit, gestureName, allHits) => {

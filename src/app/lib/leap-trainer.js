@@ -34,7 +34,7 @@
  * 
  * --------------------------------------------------------------------------------------------
  */
-
+var _ = require('underscore');
 /**
  * Create the LeapTrainer namespace.
  */
@@ -136,6 +136,7 @@ LeapTrainer.Controller = Class.extend({
   minPoseFrames     : 75, // The minimum number of frames that need to hit as recordable before pose recording is actually triggered
 
   maxVelocity: 600,
+  minVelocity: 80,
   
   recordedPoseFrames    : 0,  // A counter for recording how many pose frames have been recorded before triggering
   recordingPose     : false,// A flag to indicate if a pose is currently being recorded
@@ -159,6 +160,7 @@ LeapTrainer.Controller = Class.extend({
 
   renderableGesture   : [], // Implementations that record a gestures for graphical rendering should store the data for the last detected gesture in this array.
   recording: false,
+  page: 'create',
   
   /**
    * The controller initialization function - this is called just after a new instance of the controller is created to parse the options array, 
@@ -216,31 +218,9 @@ LeapTrainer.Controller = Class.extend({
     /*
      * Variables are declared locally here once in order to minimize variable creation and lookup in the high-speed frame listener.
      */
-    var frameCount = 0, gesture = [],
+    var frameCount = 0, gesture = [];
 
-    saveFrameData = function () {
-
-      if (this.recordingPose || frameCount >= this.minGestureFrames) {
-          this.fire('gesture-detected', gesture, frameCount);
-          var gestureName = this.trainingGesture;
-
-          console.log('SAVE FRAME DATA', gestureName);
-
-          if (gestureName) { this.saveTrainingGesture(gestureName, gesture, this.recordingPose);
-
-          } else { this.recognize(gesture, frameCount); }
-
-          this.lastHit = new Date().getTime();
-
-          this.recordingPose    = false;
-      }
-
-      frameCount = 0;
-      gesture = [];
-      this.renderableGesture = [];
-      this.recordedPoseFrames = 0;
-
-    };
+    
 
     /*
      * These two utility functions are used to push a vector (a 3-variable array of numbers) into the gesture array - which is the 
@@ -252,46 +232,36 @@ LeapTrainer.Controller = Class.extend({
     /**
      * 
      */
-    this.onFrame = function(frame) {    
-
-      if (this.paused) { return; }
-
+    var gestureBegan = false, motionlessTimer = 0;
+    var incTimer = _.debounce(() => {motionlessTimer++;}, 1000, true);
+    this.onFrame = function(frame) {  
+      //default to listen for gestures/poses
+      //if there are fingers then start listening for gestures
       if (frame.pointables.length) {
+        //if gesture recognition has not yet begun and the frame is recordable, indicate that we can start listening for a gesture
+        if (!gestureBegan && this.recordableFrame(frame, min)) {
+          gestureBegan = true;
+        }
 
-        if (this.recordableFrame(frame, this.maxVelocity)) {
-          //capture frame data
-          //if hands are below a min velocity for a period of time stop recording and check the gesture
-          if (this.recording) {
-            //record frames
-            frameCount++;
-            this.recordFrame(frame, null/*lastFrame -- not necessary*/, recordVector, recordValue);
-            console.log('recording....');
-          } else if (gesture.length) {
-            //user has stopped recording
-            //we are saving a gesture to the local database
-            this.gestures[this.trainingGesture].push(gesture);
-            gesture = [], frameCount = 0;
+        if (!this.recordableFrame(frame, min)) {
+          incTimer();
+        }
 
-            console.log('saving.....');
-          } else {
-            //we are matching the gestures made against gestures stored
-            //TODO: matching code....
-            console.log('matching....');
+        if (gestureBegan) {
+          if (motionlessTimer >= 2) {
+            motionlessTimer = 0;
+            gestureBegan = false;
           }
-
-
-        } else { 
-          console.log('hands are moving too fast!');
-          gesture = [], frameCount = 0;
+          this.recordFrame(frame, null, recordVector, recordValue);
         }
       }
       
     }; // The frame listener is bound to the context of the LeapTrainer object
 
-    /**
-     * This is the frame listening function, which will be called by the Leap.Controller on every frame.
-     */
-    this.controller.on('frame', this.onFrame.bind(this)); 
+
+    
+
+
     
     /*
      * If pauseOnWindowBlur is true, then we bind the pause function to the controller blur event and the resume 
@@ -318,7 +288,7 @@ LeapTrainer.Controller = Class.extend({
    * @param min
    * @returns {Boolean}
    */
-  recordableFrame: function (frame, max) {
+  recordableFrame: function (frame, min, max) {
 
     var hands = frame.hands, j, hand, fingers, palmVelocity, tipVelocity, poseRecordable = false;
     
@@ -333,7 +303,7 @@ LeapTrainer.Controller = Class.extend({
       /*
        * We return true if there is a hand moving above the minimum recording velocity
        */
-      if (palmVelocity <= max) { poseRecordable = true; break; }
+      if (palmVelocity >= max) { poseRecordable = true; break; }
       
       
       fingers = hand.fingers;
@@ -348,7 +318,7 @@ LeapTrainer.Controller = Class.extend({
          * Or if there's a finger tip moving above the minimum recording velocity
          */
         
-        if (tipVelocity <= max) { poseRecordable = true; break; }
+        if (tipVelocity >= max) { poseRecordable = true; break; }
       };  
       
     };
@@ -959,7 +929,7 @@ LeapTrainer.Controller = Class.extend({
    * This function unbinds the controller from the leap frame event cycle - making it inactive and ready 
    * for cleanup.
    */
-  destroy: function() { this.controller.removeListener('frame', this.onFrame); },
+  destroy: function(fn) { console.log(this, fn); this.controller.removeListener('frame', fn); },
 
   stop: function() { this.recording = false; return this; }
 });
