@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppState } from './app.service';
-import { Router } from '@angular/router-deprecated';
+import { Router, Route } from '@angular/router-deprecated';
 
 @Injectable() 
 
@@ -16,8 +16,12 @@ export class AuthService {
     if(tkn && exp > currentDate) {
       //logged in
       console.log('LOGGED IN');
-      this.router.navigateByUrl(['src/app/profile']);
-      // return true;
+       // console.log(this.route.currentUrlTree);
+
+      this.router.navigateByUrl('hello/src/app/profile');
+      this.appState.authenticated = true;
+      this.appState.landing = '';
+      return true;
     } else {
       console.log('LOGGED OUT')
       this.router.navigate(['Welcome']);
@@ -28,14 +32,16 @@ export class AuthService {
   logout() {
     localStorage.clear();
     this.appState.authenticated = false;
+    this.appState.landing='welcome'; 
     this.router.navigate(['Welcome']);
     console.log('I hope that I don\'t see you')
   }
 
   learnRoute() {
     this.appState.learn=true;
+    this.appState.landing='learn'
     this.appState.authenticated=true;
-    this.router.navigate(['Learn']);
+    this.router.navigateByUrl('hello/src/app/learn');
     console.log('authservice.learnRoute');
 
   }
