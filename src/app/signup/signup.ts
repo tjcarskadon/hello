@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup } from '@angular/common';
-import { SignupService } from './signup.service'
+import { SignupService } from './signup.service';
+// import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
 @Component({
   selector: 'signup',
@@ -34,12 +35,4 @@ export class Signup implements OnInit {
                          result => console.log('signupService result:', result),
                          error => console.log('signupService error:', error));
   }
-
-
-  loginRoute () {
-    this.appState.login = true;
-    this.appState.signup = false;
-  }
-
-  
 }

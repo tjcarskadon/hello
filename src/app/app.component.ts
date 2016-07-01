@@ -3,7 +3,6 @@
  */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, Router } from '@angular/router-deprecated';
-
 import { AppState } from './app.service';
 import { Profile } from './profile';
 import { Home } from './home';
@@ -11,8 +10,6 @@ import { Welcome } from './welcome';
 import { Learn } from './learn';
 import { Spell } from './spell';
 import { Play } from './play';
-// import { Login  } from './login';
-// import { Signup } from './signup';
 import { Create } from './create';
 import { RouterActive } from './router-active';
 import { AuthService } from './auth.service'
@@ -33,9 +30,9 @@ import './rxjs-operators';
   ],
   template: require('./app.html')
 })
-
+  
 @RouteConfig([
-  { path: '/',        name: 'Profile', component: Profile, useAsDefault: true },
+  { path: '/profile',        name: 'Profile', component: Profile, useAsDefault: true },
   { path: '/home',    name: 'Home',    component: Home },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   // { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
@@ -44,8 +41,6 @@ import './rxjs-operators';
   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
   { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
   { path: '/welcome', name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') },
-  { path: '/login', name: 'Login', loader: () => require('es6-promise!./login')('Login') },
-  { path: '/signup', name: 'Signup', loader: () => require('es6-promise!./signup')('Signup') }
 ])
 
 export class App {
@@ -54,12 +49,13 @@ export class App {
   name = 'hello.';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(public appState: AppState) {
+  constructor(public appState: AppState, public authService: AuthService) {
 
   }
 
   ngOnInit() {
     // console.log('Initial App State', this.appState.state);
+    console.log('loaded')
   }
 
 }

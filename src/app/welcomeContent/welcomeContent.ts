@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { RouterActive } from '../router-active';
+import { AuthService } from '../auth.service';
+// import { RouteConfig, Router } from '@angular/router-deprecated'
 
 @Component({
   selector: 'welcomeContent',
@@ -10,8 +12,10 @@ import { RouterActive } from '../router-active';
 })
 
 export class WelcomeContent implements OnInit {
-  constructor(public appState: AppState) { }
+  constructor(public appState: AppState, public authService: AuthService) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log('this is the welcomeContents componenet  ')
+  }
 
 }

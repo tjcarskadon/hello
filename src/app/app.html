@@ -1,27 +1,26 @@
+
 <welcome *ngIf="!appState.authenticated"></welcome>
-
-
 
 <md-content *ngIf="appState.authenticated">
   <md-toolbar color="primary">
     <span>Hello, {{ appState.myName}}.</span>
     <span class="fill"></span>
-    <button md-button router-active [routerLink]=" ['Home'] ">
+    <button md-button router-active [disabled]="appState.isDisabled" [routerLink]=" ['Home'] ">
       Home
     </button>
-    <button md-button router-active [routerLink]=" ['Play'] ">
+    <button md-button router-active [disabled]="appState.isDisabled" [routerLink]=" ['Play'] ">
       Play
     </button>
-    <button md-button router-active [routerLink]=" ['Spell'] ">
+    <button md-button router-active [disabled]="appState.isDisabled" [routerLink]=" ['Spell'] ">
       Spell
     </button>
-    <button md-button router-active [routerLink]=" ['Create'] ">
+    <button md-button router-active [disabled]="appState.isDisabled" [routerLink]=" ['Create'] ">
       Create
     </button>
     <button md-button router-active [routerLink]=" ['Learn'] ">
       Learn
     </button>
-    <button md-button router-active (click)="appState.authenticated = false">
+    <button md-button router-active (click)="authService.logout()">
       Log Out
     </button>
   </md-toolbar>
@@ -63,7 +62,7 @@
 
   <router-outlet></router-outlet>
 
-  <!-- <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>  -->
+  <pre class="app-state">this.appState.state = {{ appState.authenticated }} {{ appState.learn}}</pre> 
 
   <footer>
     <img [src]="angularclassLogo" width="6%">

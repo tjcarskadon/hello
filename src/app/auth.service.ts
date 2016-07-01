@@ -15,15 +15,29 @@ export class AuthService {
 
     if(tkn && exp > currentDate) {
       //logged in
-      this.appState.authenticated = true;
+      console.log('LOGGED IN');
+      this.router.navigateByUrl(['src/app/profile']);
+      // return true;
     } else {
-      //not logged in so just redirect to welcome
-      this.appState.authenticated = false;
+      console.log('LOGGED OUT')
       this.router.navigate(['Welcome']);
+      return false;
     }
   }
 
   logout() {
-    
+    localStorage.clear();
+    this.appState.authenticated = false;
+    this.router.navigate(['Welcome']);
+    console.log('I hope that I don\'t see you')
   }
+
+  learnRoute() {
+    this.appState.learn=true;
+    this.appState.authenticated=true;
+    this.router.navigate(['Learn']);
+    console.log('authservice.learnRoute');
+
+  }
+
 }

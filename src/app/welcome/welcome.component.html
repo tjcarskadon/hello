@@ -1,15 +1,14 @@
 <div id='main-container' [ngStyle]="{'background-image': 'url('+ bg + ')'}">
  
   
-
-  <welcomeContent class="comp" *ngIf="!appState.signup && !appState.login"></welcomeContent>
-  <signup class="comp" *ngIf="appState.signup && !appState.login"></signup>
-  <login class="comp" *ngIf="appState.login && !appState.signup"></login>
+<span [ngSwitch]=" appState.landing  ">
+  <signup class="comp" *ngSwitchWhen=" 'signup' "></signup>
+  <login class="comp" *ngSwitchWhen=" 'login' "></login>
+  <welcomeContent class="comp" *ngSwitchDefault></welcomeContent>
+</span>
   
   <div id="img-container" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
     <!-- <img [src]="hands" class="hands"> -->
     </div>
-
-  
   <!-- /img-container -->
 </div>

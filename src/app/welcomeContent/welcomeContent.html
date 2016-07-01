@@ -19,10 +19,10 @@
  <!-- /content -->
 
 <div class="button-container">
-  <button class='signin' (click)="appState.signup = true">
+  <button class='signin' (click)="appState.landing = 'signup' ">
     Sign in / up
   </button>
-  <button class='learn' (click)="appState.authenticated = true">
+  <button class='learn' (click)="authService.learnRoute()">
     Learn
   </button>
 </div>
