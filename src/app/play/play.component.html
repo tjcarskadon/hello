@@ -4,3 +4,18 @@
     <p class="animated pulse">Practice what you've learned with composition.</p>
   </div>
 </div>
+
+<div id="ltMainContainer" class="animated fadeInLeft">
+  <div id="ltContainer">
+    <div id="recognizedGesture">{{state.recognizedGesture}}</div>
+  </div>
+  <div *ngIf="state.trainingComplete">
+    <button md-raised-button color="primary" (click)="update(state.gestureName)">Update</button>
+    <button md-raised-button color="primary" (click)="reset()">Reset</button>
+    <button md-raised-button color="primary" (click)="saveGesture()">Save</button>
+  </div>
+</div>
+
+<div id="composeOutput" class="animated fadeInUp">
+
+</div>

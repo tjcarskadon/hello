@@ -1,3 +1,30 @@
+#ltMainContainer {
+  float: left;
+  position: relative;
+  width: 55vw;
+  height: 65vh;
+  margin-left: 0;
+  margin-right: 0;
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: black;
+}
+
+canvas {
+  pointer-events: none;
+}
+
+#spellPanel {
+  border: 1px solid black;
+  position: relative;
+  width: 16vw;
+  height: 65vh;
+  margin-left: 3%;
+  margin-right: 3%;
+  float: left;
+  border-radius: 3px;
+}
+
 .head-center {
   text-align: center;
 }
