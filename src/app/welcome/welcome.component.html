@@ -1,25 +1,10 @@
-<<<<<<< 9e105575005664def9c38c7ff2101205f42f37f5
-<div id='main-container' class="animated fadeIn" [ngStyle]="{'background-image': 'url('+ bg + ')'}">
-
-
-
-  <welcomeContent class="comp animated fadeIn" *ngIf="!appState.signup && !appState.login"></welcomeContent>
-  <signup class="comp animated fadeIn" *ngIf="appState.signup && !appState.login"></signup>
-  <login class="comp animated fadeIn" *ngIf="appState.login && !appState.signup"></login>
-
-  <div id="img-container" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
-    <!-- <img [src]="hands" class="hands"> -->
-  </div>
-
-
-=======
 <div id='main-container' [ngStyle]="{'background-image': 'url('+ bg + ')'}">
  
   
 <span [ngSwitch]=" appState.landing  ">
-  <signup class="comp" *ngSwitchWhen=" 'signup' "></signup>
-  <login class="comp" *ngSwitchWhen=" 'login' "></login>
-  <welcomeContent class="comp" *ngSwitchWhen="'welcome'"></welcomeContent>
+  <signup class="comp animated fadeIn" *ngSwitchWhen=" 'signup' "></signup>
+  <login class="comp animated fadeIn" *ngSwitchWhen=" 'login' "></login>
+  <welcomeContent class="comp animated fadeIn" *ngSwitchWhen="'welcome'"></welcomeContent>
   <learn *ngSwitchWhen="'learn'"></learn>
   <profile *ngSwitchWhen= "'profile'"></profile>
 </span>
@@ -27,6 +12,5 @@
   <div id="img-container" *ngIf="!appState.learn" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
     <!-- <img [src]="hands" class="hands"> -->
     </div>
->>>>>>> (feat) - Local Authentiation and Routing
   <!-- /img-container -->
 </div>

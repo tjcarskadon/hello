@@ -27,11 +27,8 @@ export class Welcome implements OnInit {
 
   hands: string = 'assets/img/hands.png'
   bg: string = 'assets/img/bg.png'
-<<<<<<< c17cc304953e3dc815892ae62b6acf4f2c3a0f9c
-  constructor(public appState: AppState) { }
-=======
+
   constructor(public appState: AppState, private authService: AuthService) {}
->>>>>>> (feat) Local authentication
 
   ngOnInit() {
     console.log('this is the welcome component');

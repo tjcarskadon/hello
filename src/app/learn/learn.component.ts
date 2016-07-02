@@ -94,17 +94,6 @@ export class Learn implements OnInit {
   hideCaptureDiv() {
     this.showCaptureDiv = false;
     this.changeLetterColor();
-
-  ngOnInit() {
-    console.log('this is the learn componenet')
-    
-    // if (!this.authService.authenticate()) {
-    //   this.appState.isDisabled = true;
-    //   console.log('something')
-    // } else {
-    //   console.log('I am authenticated');
-    // }
-
   }
 
 }
