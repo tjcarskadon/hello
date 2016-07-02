@@ -21,10 +21,10 @@
   <login class="comp" *ngSwitchWhen=" 'login' "></login>
   <welcomeContent class="comp" *ngSwitchWhen="'welcome'"></welcomeContent>
   <learn *ngSwitchWhen="'learn'"></learn>
-  <profile *ngSwitchDefault></profile>
+  <profile *ngSwitchWhen= "'profile'"></profile>
 </span>
   
-  <div id="img-container" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
+  <div id="img-container" *ngIf="!appState.learn" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
     <!-- <img [src]="hands" class="hands"> -->
     </div>
 >>>>>>> (feat) - Local Authentiation and Routing
