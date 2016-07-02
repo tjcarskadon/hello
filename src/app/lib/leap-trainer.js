@@ -144,7 +144,7 @@ LeapTrainer.Controller = Class.extend({
   hitThreshold      : 0.65, // The correlation output value above which a gesture is considered recognized. Raise this to make matching more strict
 
   trainingCountdown   : 3,  // The number of seconds after startTraining is called that training begins. This number of 'training-countdown' events will be emit.
-  trainingGestures    : 1,  // The number of gestures samples that collected during training
+  trainingGestures    : 2,  // The number of gestures samples that collected during training
   convolutionFactor   : 0,  // The factor by which training samples will be convolved over a gaussian distribution to expand the available training data
 
   downtime        : 1000, // The number of milliseconds after a gesture is identified before another gesture recording cycle can begin
@@ -160,6 +160,7 @@ LeapTrainer.Controller = Class.extend({
 
   renderableGesture   : [], // Implementations that record a gestures for graphical rendering should store the data for the last detected gesture in this array.
   recording: false,
+  listening: false,
   page: 'create',
   
   /**
@@ -248,7 +249,7 @@ LeapTrainer.Controller = Class.extend({
       }
       if (this.recordableFrame(frame, this.minVelocity)) {
         idleTimer = 0;
-        // console.log('begin watching....');
+        console.log('begin watching....');
         watching = true;
       } else {
         incTimer();
@@ -280,18 +281,15 @@ LeapTrainer.Controller = Class.extend({
           this.recordFrame(frame, null, recordVector, recordValue);
           console.log('recording frames...')
         }
-      } else {
-
-        if (gestureBegan) {
+      } else if (gestureBegan) {
           console.log('stopping recording...');
           gestureBegan = false;
           this.saveTrainingGesture(this.trainingGesture, gesture, false /*recording pose flag*/);
           gesture = [];
           frameCount = 0;
-        } else {
-          //check for gestures...
-          this.gestureCheck.bind(this)(frame);
-        }
+      } else if (this.listening) {
+        //check for gestures...
+        this.gestureCheck.bind(this)(frame);
       }
       
     }; // The frame listener is bound to the context of the LeapTrainer object
@@ -596,8 +594,8 @@ LeapTrainer.Controller = Class.extend({
     /*
      * We retrieve all gestures recorded for this gesture name so far
      */
+
     var trainingGestures = this.gestures[gestureName];
-    
     /*
      * Save the newly recorded gesture data
      */
@@ -924,6 +922,13 @@ LeapTrainer.Controller = Class.extend({
       this.listeners[event] = listening;
     }
     
+    return this;
+  },
+
+  removeAllListeners: function() {
+    for (var event in this.listeners) {
+      delete this.listeners[event];
+    }
     return this;
   },
   
