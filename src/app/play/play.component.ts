@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { LeapViewer } from '../leapViewer.service';
 import { AppState } from '../app.service';
 import { LoginService } from '../login.service';
 import { Router} from '@angular/router';
@@ -15,17 +14,14 @@ export class Play implements OnInit {
 
   constructor(
     private appState: AppState,
-    public loginService: LoginService, 
-    private router: Router, 
+    public loginService: LoginService,
+    private router: Router,
     public authService: AuthService) {
-    
-    // this.appState._initLeapController();
+    this.appState._initLeapController();
   }
 
   ngOnInit() {
     this.authService.authenticate('play');
-
-
   }
 
 }

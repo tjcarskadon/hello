@@ -6,7 +6,7 @@ export class AppState {
  isDisabled: boolean = false;
   // @HmrState() is used by HMR to track the state of any object during a hot module replacement
   _state = {
-    authenticated: false, 
+    authenticated: false,
     learnPage: false,
     myName: 'Richard',
     title: 'hello'
@@ -14,20 +14,19 @@ export class AppState {
 
   constructor() { }
 
-
   // already return a clone of the current state
   get state() {
     return this._state = this._clone(this._state);
   }
   // never allow mutation
+
   set state(value) {
     throw new Error('do not mutate the `.state` directly');
-  }  
+  }
 
   get(prop?: any) {
     // use our state getter for the clone
     const state = this._state;
-    
     return state[prop] !== undefined ? state[prop] : state;
   }
 
@@ -35,7 +34,6 @@ export class AppState {
     // internally mutate our state
     return this._state[prop] = value;
   }
-
 
   _clone(object) {
     // simple object clone
@@ -51,11 +49,9 @@ export class AppState {
 
     var controller = new Leap.Controller();
 
+    //connect ctrl at the end of logic
     controller.use('riggedHand')
-      .on('connect', () => console.log('connected!'));
-
+      .on('connect', () => console.log('Controller connected.'));
     return controller;
   }
-
-
 }
