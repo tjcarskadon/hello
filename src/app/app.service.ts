@@ -42,8 +42,19 @@ export class AppState {
   }
 
   _initRiggedHand() {
+    
+  }
+
+  _initLeapController() {
+    var Leap = require('leapjs');
     require('./lib/leap-plugins.js');
     require('./lib/riggedHand.js');
+    var controller = new Leap.Controller();
+
+    controller.use('riggedHand')
+      .on('connect', () => console.log('connected!'));
+
+    return controller;
   }
 
 

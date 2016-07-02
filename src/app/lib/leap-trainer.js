@@ -147,7 +147,7 @@ LeapTrainer.Controller = Class.extend({
   trainingGestures    : 2,  // The number of gestures samples that collected during training
   convolutionFactor   : 0,  // The factor by which training samples will be convolved over a gaussian distribution to expand the available training data
 
-  downtime        : 1000, // The number of milliseconds after a gesture is identified before another gesture recording cycle can begin
+  downtime        : 2000, // The number of milliseconds after a gesture is identified before another gesture recording cycle can begin
   lastHit         : 0,  // The timestamp at which the last gesture was identified (recognized or not), used when calculating downtime
   
   gestures        : {}, // The current set of recorded gestures - names mapped to convolved training data
@@ -240,11 +240,14 @@ LeapTrainer.Controller = Class.extend({
     }, 1000);
 
     this.gestureCheck = function(frame) {
+      if (new Date().getTime() - this.lastHit < this.downtime) { return; }
+
       if (idleTimer >= 2) {
         watching = false;
         idleTimer = 0;
         // console.log(gesture);
         !!gesture.length && frameCount >=this.minGestureFrames && this.recognize(gesture, frameCount);
+        this.lastHit = new Date().getTime();
         gesture = [], frameCount = 0;
       }
       if (this.recordableFrame(frame, this.minVelocity)) {
@@ -267,7 +270,7 @@ LeapTrainer.Controller = Class.extend({
 
 
     this.onFrame = function(frame) {  
-      
+
       if (this.recording) {
         
         console.log('recording');
