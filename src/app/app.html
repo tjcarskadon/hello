@@ -1,9 +1,7 @@
 <welcome *ngIf="!appState.authenticated"></welcome>
-
-
-
-<md-content *ngIf="appState.authenticated">
-  <md-toolbar color="primary" class="animated fadeInDown">
+  
+<md-content [ngStyle]="{'background-image': 'url('+ bg + ')'}">
+  <md-toolbar color="primary" class="animated fadeInDown"  *ngIf="appState.authenticated && appState.learn">
     <span class="animated fadeInLeft">Hello, {{ appState.myName}}.</span>
     <span class="fill"></span>
     <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Profile'] ">
@@ -22,51 +20,19 @@
       Create
     </button>
     <span class="fill"></span>
-    <button md-button router-active (click)="logout()" class="animated fadeInRight" [routerLink]=" ['Welcome'] ">
+    <button md-button router-active (click)="authService.logout()">
       Log Out
     </button>
   </md-toolbar>
 
   <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
 
-<!--   <md-tab-group [alignTabs]="stretch">
-    <md-tab>
-      <template md-tab-label>Profile</template>
-      <template md-tab-content>
-        <profile></profile>
-      </template>
-    </md-tab>
-    <md-tab>
-      <template md-tab-label>Learn</template>
-      <template md-tab-content>
-        <learn></learn>
-      </template>
-    </md-tab>
-    <md-tab>
-      <template md-tab-label>Spell</template>
-      <template md-tab-content>
-        <spell></spell>
-      </template>
-    </md-tab>
-    <md-tab>
-      <template md-tab-label>Play</template>
-      <template md-tab-content>
-        <play></play>
-      </template>
-    </md-tab>
-    <md-tab>
-      <template md-tab-label>Create</template>
-      <template md-tab-content>
-        <create></create>
-      </template>
-    </md-tab>
-  </md-tab-group> -->
+ <router-outlet></router-outlet>
 
-  <router-outlet></router-outlet>
 
-  <!-- <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>  -->
 
-  <footer>
+  <!-- <pre class="app-state">this.appState.state = {{ appState.authenticated }} {{ appState.landing}}</pre>  -->
+  <footer  *ngIf="appState.authenticated && appState.learn" >
     <img [src]="angularclassLogo" width="6%">
     <span id="footerText">hello by <a [href]="url">@digi-talk</a></span>
   </footer>

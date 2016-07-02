@@ -1,18 +1,18 @@
 <div id="main-container">
   <div class="form-container">
     <div>
-      <h1>Signup....</h1><h3 class="alt"><button class="login" (click)="loginRoute()">....Login</button></h3>
+      <h1>Signup....</h1><h3 class="alt"><button class="login" (click)="appState.landing='login'">....Login</button></h3>
     </div>
-    <form>
-      <input type="email" name="email" placeholder="Email">
+    <form [ngFormModel]="signupForm" (ngSubmit)="onSubmit(signupForm.value)">
+      <input type="email" name="email" placeholder="Email" [ngFormControl]="signupForm.controls['email']">
       <br>
-      <input type="password" name="password" placeholder="Password">
+      <input type="password" name="password" placeholder="Password" [ngFormControl]="signupForm.controls['password']">
       <br>
-      <input type="password" name="confirm" placeholder="Confirm password">
+      <input type="password" name="confirm" placeholder="Confirm password" [ngFormControl]="signupForm.controls['confirm']">
       <br>
-      <div>
+      <div class="button">
         <input type="submit" value="Sign Up" class="signup">
-        <button class="cancel" (click)="appState.signup=false">
+        <button  type="button" class="cancel" (click)="appState.landing='welcome'">
           Cancel
         </button>
       </div>

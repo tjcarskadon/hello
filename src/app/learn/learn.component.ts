@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlphabetCaptureCheck } from './AlphabetCaptureCheck.service'
+import { AuthService } from '../auth.service';
+import { AppState } from '../app.service';
 
 @Component({
   selector: 'learn',
@@ -45,7 +47,9 @@ export class Learn implements OnInit {
     {val: 'Z', color:'primary', count: 0}
   ];
 
-  constructor( private alphabetCaptureCheck: AlphabetCaptureCheck) {}
+  constructor( private alphabetCaptureCheck: AlphabetCaptureCheck,
+    private authService: AuthService, 
+    private appState: AppState) {}
 
   ngOnInit() {
     this.letters.forEach((letter) => {
@@ -90,7 +94,6 @@ export class Learn implements OnInit {
   hideCaptureDiv() {
     this.showCaptureDiv = false;
     this.changeLetterColor();
-
   }
 
 }

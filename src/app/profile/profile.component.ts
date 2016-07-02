@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { AuthService} from '../auth.service'
 import { AppState } from '../app.service';
 import { Title } from './title';
 import { XLarge } from './x-large';
@@ -28,11 +28,15 @@ import { XLarge } from './x-large';
 export class Profile {
   localState = { email1: '', email2: '', password1: '', password2: '', name: ''};
   // TypeScript public modifiers
-  constructor(public appState: AppState, public title: Title) { }
+  constructor(public appState: AppState, public title: Title, private authService: AuthService) { }
 
   ngOnInit() {
-    // console.log('hello `Profile` component');
+    console.log('hello `Profile` component');
     // this.title.getData().subscribe(data => this.data = data);
+    console.log('learn is:', this.appState.learn);
+    console.log('authentication is:', this.appState.authenticated);
+
+    this.authService.authenticate();
   }
 
   submitEmail(email1, email2) {

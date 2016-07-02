@@ -3,17 +3,17 @@
  */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, Router } from '@angular/router-deprecated';
-
 import { AppState } from './app.service';
 import { Profile } from './profile';
-import { Home } from './home';
+// import { Home } from './home';
 import { Welcome } from './welcome';
 import { Learn } from './learn';
 import { Spell } from './spell';
 import { Play } from './play';
 import { Create } from './create';
 import { RouterActive } from './router-active';
-
+import { AuthService } from './auth.service'
+import './rxjs-operators';
 /*
  * App Component
  * Top Level Component
@@ -21,8 +21,8 @@ import { RouterActive } from './router-active';
 @Component({
   selector: 'app',
   pipes: [ ],
-  providers: [ ],
-  directives: [ RouterActive, Welcome, Home, Profile, Learn, Spell, Play, Create ],
+  providers: [AuthService],
+  directives: [ RouterActive, Welcome, Profile, Learn, Spell, Play, Create ],
   encapsulation: ViewEncapsulation.None,
   styles: [
     require('normalize.css'),
@@ -30,17 +30,15 @@ import { RouterActive } from './router-active';
   ],
   template: require('./app.html')
 })
-
+  
 @RouteConfig([
-  { path: '/',        name: 'Welcome', loader: () => require('es6-promise!./welcome')('Welcome') },
-  { path: '/profile', name: 'Profile', component: Profile, useAsDefault: true },
-  // { path: '/home',    name: 'Home',    component: Home },
-  // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  // { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
+  { path: '/',        name: 'Profile', component: Profile, useAsDefault: true },
+  { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },  
   { path: '/learn',   name: 'Learn',   loader: () => require('es6-promise!./learn')('Learn') },
   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
   { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') }
+  { path: '/welcome',  name: 'Welcome',  loader: () => require('es6-promise!./welcome')('Welcome') }
 ])
 
 export class App {
@@ -48,13 +46,15 @@ export class App {
   loading = false;
   name = 'hello.';
   url = 'https://github.com/digi-talk/hello';
+  bg: string = 'assets/img/bg.png'
 
-  constructor(public appState: AppState) {
+  constructor(public appState: AppState, public authService: AuthService) {
 
   }
 
   ngOnInit() {
     // console.log('Initial App State', this.appState.state);
+    console.log('loaded')
   }
 
   logout() {
