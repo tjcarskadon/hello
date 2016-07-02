@@ -12,12 +12,13 @@ export class Learn implements OnInit {
 
   ngOnInit() {
     console.log('this is the learn componenet')
-    if (!this.authService.authenticate()) {
-      this.appState.isDisabled = true;
-      console.log('something')
-    } else {
-      console.log('I am authenticated');
-    }
+    
+    // if (!this.authService.authenticate()) {
+    //   this.appState.isDisabled = true;
+    //   console.log('something')
+    // } else {
+    //   console.log('I am authenticated');
+    // }
 
   }
 

@@ -16,11 +16,12 @@ export class AuthService {
     if(tkn && exp > currentDate) {
       //logged in
       console.log('LOGGED IN');
-       // console.log(this.route.currentUrlTree);
+       console.log(this.appState.learn, '11111');
 
-      this.router.navigateByUrl('hello/src/app/profile');
       this.appState.authenticated = true;
-      this.appState.landing = '';
+      this.appState.learn =true;
+      this.router.navigateByUrl('hello/src/app/profile');
+      // this.appState.landing = 'profile';
       return true;
     } else {
       console.log('LOGGED OUT')
@@ -32,6 +33,7 @@ export class AuthService {
   logout() {
     localStorage.clear();
     this.appState.authenticated = false;
+    this.appState.learn=false;
     this.appState.landing='welcome'; 
     this.router.navigate(['Welcome']);
     console.log('I hope that I don\'t see you')
@@ -39,11 +41,10 @@ export class AuthService {
 
   learnRoute() {
     this.appState.learn=true;
+    this.appState.isDisabled=true;
     this.appState.landing='learn'
     this.appState.authenticated=true;
-    this.router.navigateByUrl('hello/src/app/learn');
-    console.log('authservice.learnRoute');
-
+    this.router.navigate(['Learn']);
   }
 
 }

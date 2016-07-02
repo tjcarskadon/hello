@@ -5,7 +5,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, Router } from '@angular/router-deprecated';
 import { AppState } from './app.service';
 import { Profile } from './profile';
-import { Home } from './home';
+// import { Home } from './home';
 import { Welcome } from './welcome';
 import { Learn } from './learn';
 import { Spell } from './spell';
@@ -22,7 +22,7 @@ import './rxjs-operators';
   selector: 'app',
   pipes: [ ],
   providers: [AuthService],
-  directives: [ RouterActive, Welcome, Home, Profile, Learn, Spell, Play, Create ],
+  directives: [ RouterActive, Welcome, Profile, Learn, Spell, Play, Create ],
   encapsulation: ViewEncapsulation.None,
   styles: [
     require('normalize.css'),
@@ -32,10 +32,11 @@ import './rxjs-operators';
 })
   
 @RouteConfig([
-  { path: '/profile',        name: 'Profile', component: Profile, useAsDefault: true },
-  { path: '/home',    name: 'Home',    component: Home },
+  { path: '/',        name: 'Profile', component: Profile, useAsDefault: true },
+  // { path: '/profile',    name: 'Profile',    component: Profile },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   // { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
+  { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },  
   { path: '/learn',   name: 'Learn',   loader: () => require('es6-promise!./learn')('Learn') },
   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
@@ -48,6 +49,8 @@ export class App {
   loading = false;
   name = 'hello.';
   url = 'https://twitter.com/AngularClass';
+  bg: string = 'assets/img/bg.png'
+
 
   constructor(public appState: AppState, public authService: AuthService) {
 

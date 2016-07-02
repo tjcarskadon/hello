@@ -24,6 +24,9 @@ md-content{
   flex-direction: column;
   height: 100%;
 }
+.app-main-container {
+  height:100%;
+}
 footer{
   flex: 0 0 60px;
   padding: 10px;
