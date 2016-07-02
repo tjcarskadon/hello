@@ -41,10 +41,6 @@ export class AppState {
     return JSON.parse(JSON.stringify( object ));
   }
 
-  _initRiggedHand() {
-    
-  }
-
   _initLeapController() {
     var Leap = require('leapjs');
     require('./lib/leap-plugins.js');

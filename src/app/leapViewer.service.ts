@@ -20,7 +20,7 @@ export class LeapViewer {
   controller = new this.Leap.Controller();
 
   _initLeapHand() {
-    this.appState._initRiggedHand();
+    // this.appState._initRiggedHand();
     // this.controller.on('connect', () => console.log('connected'));
     // this.controller.on('frame', frame => {
     //   if (frame.pointables.length) {

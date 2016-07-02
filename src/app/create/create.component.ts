@@ -65,12 +65,18 @@ export class Create implements OnInit {
 
   test(gestureName) {
     //signal to Trainer that we are now listening to test a gesture
+    this.leapTrainerService._initLeapTrainerWatch();
     this.leapTrainerService.trainer.listening = true;
   }
 
   update(gestureName) {
-    // this.leapTrainerService.trainer.trainingGestures += 3;
-    this.leapTrainerService.trainer.startTraining(gestureName, 3);
+    var gesture = this.createPageState.get('gestureData');
+    // //only one gesture is being saved so change property to reflect this 
+    //-- allows the 'training complete' event to fire when expected (default is after 3 samples saved)
+    console.log("Ok, one sec! Let me see if I can understand this one better");
+    this.leapTrainerService.trainer.trainingGestures = 1;
+    this.leapTrainerService.trainer.updateTrainingData(gestureName, gesture);
+    // //TODO: handle UI message for currently made gesture to be updated to saved DB -- improves ML
   }
 
   reset() {

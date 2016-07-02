@@ -19,7 +19,7 @@
             <button id="gestureOption" md-raised-button color="{{setActiveGesture(key)}}" (click)="playback(key)">{{key}}</button>
             <div *ngIf="true">
               <button md-raised-button (click)="test(key)">Test</button>
-              <button md-raised-button>Rename</button>
+              <button md-raised-button (click)="update(key)">Update</button>
               <button md-raised-button>Save</button>
             </div>
           </div>

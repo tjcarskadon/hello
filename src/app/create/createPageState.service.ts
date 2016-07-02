@@ -11,6 +11,7 @@ export class CreatePageState {
     selectedGesture: '',
     gestureList: {},
     gestureListKeys: [],
+    gestureData: [],
     recognizedGesture: '',
     trainingComplete: false, 
     displayGestureOptions: false

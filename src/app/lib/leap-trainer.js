@@ -246,15 +246,16 @@ LeapTrainer.Controller = Class.extend({
         watching = false;
         idleTimer = 0;
         // console.log(gesture);
+        console.log(gesture.length, 'now checking...')
         !!gesture.length && frameCount >=this.minGestureFrames && this.recognize(gesture, frameCount);
-        this.lastHit = new Date().getTime();
+        !!gesture.length ? this.lastHit = new Date().getTime() : null;
         gesture = [], frameCount = 0;
       }
       if (this.recordableFrame(frame, this.minVelocity)) {
         idleTimer = 0;
         console.log('begin watching....');
         watching = true;
-      } else {
+      } else if (frame.pointables.length) {
         incTimer();
         // console.log('hands not moving', idleTimer);
       }
@@ -292,6 +293,7 @@ LeapTrainer.Controller = Class.extend({
           frameCount = 0;
       } else if (this.listening) {
         //check for gestures...
+        console.log('listening...');
         this.gestureCheck.bind(this)(frame);
       }
       
@@ -646,6 +648,12 @@ LeapTrainer.Controller = Class.extend({
     }
   },
 
+  updateTrainingData: function(gestureName, gesture) {
+    this.gestures[gestureName].push(gesture);
+    console.log('updating...');
+    this.fire('update-complete', gestureName, this.gestures[gestureName], false);
+  },
+
   /**
    * This function generates a normalized distribution of values around a set of recorded training gestures.  The objective of 
    * this function is to increase the size of the training data without actually requiring the user to perform more training 
@@ -731,7 +739,6 @@ LeapTrainer.Controller = Class.extend({
    * @param frameCount
    */
   recognize: function(gesture, frameCount) {
-
     var gestures      = this.gestures,
       threshold     = this.hitThreshold,
       allHits       = {},
@@ -786,7 +793,7 @@ LeapTrainer.Controller = Class.extend({
       this.fire(closestGestureName); 
     
     } else {
-    
+      console.log('unknowng');
       this.fire('gesture-unknown', allHits, gesture);
     }
   },
@@ -930,7 +937,7 @@ LeapTrainer.Controller = Class.extend({
 
   removeAllListeners: function() {
     for (var event in this.listeners) {
-      delete this.listeners[event];
+      event === 'frame' ? null : delete this.listeners[event];
     }
     return this;
   },
