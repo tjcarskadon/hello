@@ -31,7 +31,7 @@ export class LeapViewer {
     //connect ctrl at the end of logic
     this.controller.use('riggedHand')
       .connect()
-      .on('connect', () => console.log('controller connected'););
+      .on('connect', () => console.log('controller connected'));
   }
 
 }
