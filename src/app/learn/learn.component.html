@@ -3,8 +3,8 @@
   <p class="animated pulse">Expand your knowledge of American Sign Language.</p>
 </div>
 
-<div class = "container animated fadeIn">
-  <div class = "alphabet">
+<div class="container animated fadeIn">
+  <div class="alphabet">
     <md-tab-group class="alphabet-container animated pulse">
       <md-tab>
         <template md-tab-label>Alphabet</template>
@@ -23,9 +23,9 @@
     </md-tab-group>
   </div>
 
-  <div *ngIf="showImgDiv" class = "image">
-    <div class = "image-container">
-      <div class = "capture-button">
+  <div *ngIf="showImgDiv" class="image">
+    <div class="image-container">
+      <div class="capture-button">
         <button md-button color="primary" (click) = "hideImgDiv();"> Click when READY </button>
       </div>
       <div *ngIf="clickedLtr" class="image-display">
@@ -34,8 +34,8 @@
     </div>
   </div>
 
-  <div *ngIf="showCaptureDiv" class = "capture">
-    <div class = "capture-container">
+  <div *ngIf="showCaptureDiv" class="capture">
+    <div class="capture-container">
     <button md-button color="primary" (click) = "hideCaptureDiv()"> DONE </button>
     </div>
   </div>
