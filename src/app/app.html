@@ -1,7 +1,14 @@
-<welcome *ngIf="!appState.authenticated"></welcome>
+<!-- nav bar should get rendered here if the user is authenticated-->
+
+<router-outlet></router-outlet>
+
+
+
+
+<!-- <welcome *ngIf="!appState._state.authenticated"></welcome>
   
 <md-content [ngStyle]="{'background-image': 'url('+ bg + ')'}">
-  <md-toolbar color="primary" class="animated fadeInDown"  *ngIf="appState.authenticated && appState.learn">
+  <md-toolbar color="primary" class="animated fadeInDown"  *ngIf="appState._state.authenticated && appState.learn">
     <span class="animated fadeInLeft">Hello, {{ appState.myName}}.</span>
     <span class="fill"></span>
     <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Profile'] ">
@@ -28,12 +35,13 @@
   <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
 
  <router-outlet></router-outlet>
+-->
 
 
-
-  <!-- <pre class="app-state">this.appState.state = {{ appState.authenticated }} {{ appState.landing}}</pre>  -->
+  <!-- <pre class="app-state">this.appState.state = {{ appState.authenticated }} {{ appState.landing}}</pre> 
   <footer  *ngIf="appState.authenticated && appState.learn" >
     <img [src]="angularclassLogo" width="6%">
     <span id="footerText">hello by <a [href]="url">@digi-talk</a></span>
   </footer>
 </md-content>
+ --> 

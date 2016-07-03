@@ -33,8 +33,8 @@ export class Profile {
   ngOnInit() {
     console.log('hello `Profile` component');
     // this.title.getData().subscribe(data => this.data = data);
-    console.log('learn is:', this.appState.learn);
-    console.log('authentication is:', this.appState.authenticated);
+    console.log('learn is:', this.appState._state.learn);
+    console.log('authentication is:', this.appState._state.authenticated);
 
     this.authService.authenticate();
   }
@@ -66,9 +66,9 @@ export class Profile {
   }
 
   updateTitle(title) {
-    console.log(this.appState.title);
-    this.appState.title = title;
-    console.log(this.appState.title);
+    console.log(this.appState._state.title);
+    this.appState._state.title = title;
+    console.log(this.appState._state.title);
   }
 
 }

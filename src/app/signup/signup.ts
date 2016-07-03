@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup } from '@angular/common';
+import {WelcomeStateService} from '../welcomeState/welcomeState.service'
 import { SignupService } from './signup.service';
 // import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
@@ -14,7 +15,7 @@ import { SignupService } from './signup.service';
 export class Signup implements OnInit {
   signupForm: ControlGroup;
 
-  constructor(public signupService: SignupService, public appState: AppState, fb: FormBuilder) {
+  constructor(public signupService: SignupService, public appState: AppState, fb: FormBuilder, private ws: WelcomeStateService) {
     this.signupForm = fb.group({
       'email': [],
       'password': [],

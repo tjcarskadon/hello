@@ -32,12 +32,12 @@ import './rxjs-operators';
 })
   
 @RouteConfig([
-  { path: '/',        name: 'Profile', component: Profile, useAsDefault: true },
+  { path: '/',        name: 'Welcome', component: Welcome, useAsDefault: true },
   { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },  
-  { path: '/learn',   name: 'Learn',   loader: () => require('es6-promise!./learn')('Learn') },
+  { path: 'learn',   name: 'Learn',   loader: () => require('es6-promise!./learn')('Learn') },
   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
-  { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') }
+  { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
   { path: '/welcome',  name: 'Welcome',  loader: () => require('es6-promise!./welcome')('Welcome') }
 ])
 
@@ -58,7 +58,7 @@ export class App {
   }
 
   logout() {
-    this.appState.authenticated = false;
+    this.appState.set('authenticated', false);
     sessionStorage.clear();
   }
 

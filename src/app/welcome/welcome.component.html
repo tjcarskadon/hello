@@ -1,15 +1,15 @@
 <div id='main-container' [ngStyle]="{'background-image': 'url('+ bg + ')'}">
  
   
-<span [ngSwitch]=" appState.landing  ">
+<span [ngSwitch]="ws.get('landing')">
+  <welcomeContent class="comp animated fadeIn" *ngSwitchWhen="'welcome'"></welcomeContent>
   <signup class="comp animated fadeIn" *ngSwitchWhen=" 'signup' "></signup>
   <login class="comp animated fadeIn" *ngSwitchWhen=" 'login' "></login>
-  <welcomeContent class="comp animated fadeIn" *ngSwitchWhen="'welcome'"></welcomeContent>
   <learn *ngSwitchWhen="'learn'"></learn>
   <profile *ngSwitchWhen= "'profile'"></profile>
 </span>
   
-  <div id="img-container" *ngIf="!appState.learn" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
+  <div id="img-container" *ngIf="!appState._state.learn" [ngStyle]="{'background-image': 'url('+ hands + ')'}">
     <!-- <img [src]="hands" class="hands"> -->
     </div>
   <!-- /img-container -->

@@ -16,10 +16,10 @@ export class AuthService {
     if(tkn && exp > currentDate) {
       //logged in
       console.log('LOGGED IN');
-       console.log(this.appState.learn, '11111');
+       console.log(this.appState._state.learn, '11111');
 
-      this.appState.authenticated = true;
-      this.appState.learn =true;
+      this.appState.set('authenticated', true);
+      // this.appState.learn =true;
       this.router.navigateByUrl('hello/src/app/profile');
       // this.appState.landing = 'profile';
       return true;
@@ -32,19 +32,20 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
-    this.appState.authenticated = false;
-    this.appState.learn=false;
-    this.appState.landing='welcome'; 
-    this.router.navigate(['Welcome']);
+
+    this.appState.set('authenticated', false);
+    // this.appState.learn=false;
+    this.appState.set('landing', "welcome");
+    // this.router.navigate(['Welcome']);
     console.log('I hope that I don\'t see you')
   }
 
   learnRoute() {
-    this.appState.learn=true;
-    this.appState.isDisabled=true;
-    this.appState.landing='learn'
-    this.appState.authenticated=true;
-    this.router.navigate(['Learn']);
+    // this.appState.learn=true;
+    // this.appState.isDisabled=true;
+    // this.appState.landing='learn'
+    // this.appState.authenticated=true;
+    // this.router.navigate(['Learn']);
   }
 
 }

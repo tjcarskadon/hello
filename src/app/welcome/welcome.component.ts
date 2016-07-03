@@ -11,12 +11,13 @@ import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { AuthService } from '../auth.service';
 import { NgSwitch, NgSwitchDefault, NgSwitchWhen } from '@angular/common';
 import { Router } from '@angular/router-deprecated';
+import { WelcomeStateService } from '../welcomeState/welcomeState.service';
 
 
 @Component({
   selector: 'welcome',
   directives: [ WelcomeContent, Signup, Login, NgSwitch, NgSwitchDefault, NgSwitchWhen, Profile, Learn ],
-  providers: [ LoginService, SignupService, ROUTER_PROVIDERS, AuthService],
+  providers: [ LoginService, SignupService, ROUTER_PROVIDERS, AuthService, AppState, WelcomeStateService],
   template: require('./welcome.component.html'),
   styles: [
     require('./welcome.component.css')
@@ -28,13 +29,21 @@ export class Welcome implements OnInit {
   hands: string = 'assets/img/hands.png'
   bg: string = 'assets/img/bg.png'
 
-  constructor(public appState: AppState, private authService: AuthService) {}
+  // landing: string = 'welcome';
+
+  constructor(private appState: AppState, private authService: AuthService, private ws: WelcomeStateService) {
+  }
 
   ngOnInit() {
-    console.log('this is the welcome component');
-    console.log(this.appState.landing)
-    this.authService.authenticate();
-    
+    console.log('this is the welcome component!!', this.appState._state);
+    // this.authService.authenticate();
+  }
+
+
+  switchFn() {
+    // console.log('cll', typeof this.appState.get('landing'));
+    // return this.appState.get('landing');
+    return this.appState._state['landing'];
   }
 
 }
