@@ -3,6 +3,7 @@
  */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, Router } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { AppState } from './app.service';
 import { Profile } from './profile';
 // import { Home } from './home';
@@ -22,7 +23,7 @@ import './rxjs-operators';
   selector: 'app',
   pipes: [ ],
   providers: [AuthService],
-  directives: [ RouterActive, Welcome, Profile, Learn, Spell, Play, Create ],
+  directives: [ ROUTER_DIRECTIVES, Welcome, Profile, Learn, Spell, Play, Create ],
   encapsulation: ViewEncapsulation.None,
   styles: [
     require('normalize.css'),
@@ -31,15 +32,15 @@ import './rxjs-operators';
   template: require('./app.html')
 })
   
-@RouteConfig([
-  { path: '/',        name: 'Welcome', component: Welcome, useAsDefault: true },
-  { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },  
-  { path: 'learn',   name: 'Learn',   component: Learn},
-  { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
-  { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
-  { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
-  { path: '/welcome',  name: 'Welcome',  loader: () => require('es6-promise!./welcome')('Welcome') }
-])
+// @RouteConfig([
+//   { path: '/',        name: 'Welcome', component: Welcome, useAsDefault: true },
+//   { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },  
+//   { path: 'learn',   name: 'Learn',   component: Learn},
+//   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
+//   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
+//   { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
+//   { path: '/welcome',  name: 'Welcome',  loader: () => require('es6-promise!./welcome')('Welcome') }
+// ])
 
 export class App {
   angularclassLogo = 'assets/img/asl-d.png';
