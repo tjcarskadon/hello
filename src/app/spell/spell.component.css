@@ -78,3 +78,7 @@ canvas {
   padding: 5px;
 }
 
+#skipped-container {
+  max-height: 400px;
+  overflow: scroll;
+}

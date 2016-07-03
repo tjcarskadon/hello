@@ -9,10 +9,12 @@
   <div id="word" *ngIf="showWord" class="animated tada"> 
     {{ spellingWord }} 
   </div>
+
   <div *ngIf="showSkip" id="button"> 
     <button md-raised-button color="warn" (click)="nextWord()"> Skip </button> 
   </div>
-  </div id="skipped-container">
+  
+   <div id="skipped-container">
     <div id="skippedWords" *ngIf="skippedWords.length" *ngFor="let word of skippedWords"> 
       <button md-button color = "primary"> {{ word }} </button>
     </div>
@@ -56,4 +58,7 @@
 
 <div>
 </div>
+
+
+<div id="spellPanel" class="animated zoomIn"> </div>
 
