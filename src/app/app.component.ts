@@ -34,7 +34,7 @@ import './rxjs-operators';
 @RouteConfig([
   { path: '/',        name: 'Welcome', component: Welcome, useAsDefault: true },
   { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },  
-  { path: 'learn',   name: 'Learn',   loader: () => require('es6-promise!./learn')('Learn') },
+  { path: 'learn',   name: 'Learn',   component: Learn},
   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
   { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
