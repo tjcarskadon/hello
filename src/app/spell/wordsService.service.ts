@@ -23,7 +23,6 @@ export class WordsService {
       word = this.words[random];
     }
     this.used.push(word);
-    console.log(this.used);
     return word;    
   }
 

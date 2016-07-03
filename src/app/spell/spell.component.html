@@ -6,16 +6,29 @@
 </div>
 
 <div id="spellPanel" class="animated zoomIn"> 
-  <div id="word" *ngIf="showWord" class="animated tada"> {{ spellingWord }} </div>
-  <div *ngIf="showSkip" id='button'>
-    <button md-raised-button color='warn' (click)="nextWord()"> Skip </button>
+  <div id="word" *ngIf="showWord" class="animated tada"> 
+    {{ spellingWord }} 
+  </div>
+  <div *ngIf="showSkip" id="button"> 
+    <button md-raised-button color="warn" (click)="nextWord()"> Skip </button> 
+  </div>
+  </div id="skipped-container">
+    <div id="skippedWords" *ngIf="skippedWords.length" *ngFor="let word of skippedWords"> 
+      <button md-button color = "primary"> {{ word }} </button>
+    </div>
   </div>
 </div>
 
 <div class="animated fadeIn">
   <div id="ltMainContainer" class="animated pulse">
     <div id="ltContainer">
+<<<<<<< 36e7cdd6c26e25bba1bb15b9187d52ba60c090ac
       <div id="recognizedGesture">TEMP</div>
+=======
+      <div id="recognizedLetter"> 
+    <!--   {{state.recognizedLetter}} -->
+      </div>
+>>>>>>> work on left panel
     </div>
   </div>
 </div>

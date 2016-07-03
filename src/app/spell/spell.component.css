@@ -62,7 +62,7 @@ canvas {
   background-color: white;
 }
 
-#recognizedGesture {
+#recognizedLetter {
   background-color: white;
   height: 40px;
   line-height: 40px;
@@ -70,6 +70,11 @@ canvas {
 
 #button {
   text-align: center;
-  padding: 20px;
+  padding: 10px;
+}
+
+#skippedWords {
+  text-align: center;
+  padding: 5px;
 }
 

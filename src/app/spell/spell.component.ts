@@ -22,12 +22,14 @@ export class Spell implements OnInit {
   private spellingWord:string = '';
   private showWord = false;
   private showSkip = false;
+  private skippedWords = [];
 
   ngOnInit() {
     this.nextWord();
   }
 
   nextWord() {
+    this.skippedWords.push(this.spellingWord);
     this.spellingWord = this.wordsService.returnRandomWord();
     let spell = this;
     setTimeout(function() {
