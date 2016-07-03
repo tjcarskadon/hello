@@ -1,11 +1,16 @@
 <div class="animated fadeIn">
   <div class="head-center">
     <h1 class="animated fadeInDown">Spelling</h1>
-    <p class="animated pulse">Spell all of the words!</p>
+    <p class="animated pulse">Check your leap motion device connection and Start Spelling the words here</p>
   </div>
 </div>
 
-<div id="spellPanel" class="animated zoomIn"> </div>
+<div id="spellPanel" class="animated zoomIn"> 
+  <div id="word" *ngIf="showWord" class="animated tada"> {{ spellingWord }} </div>
+  <div *ngIf="showSkip" id='button'>
+    <button md-raised-button color='warn' (click)="nextWord()"> Skip </button>
+  </div>
+</div>
 
 <div class="animated fadeIn">
   <div id="ltMainContainer" class="animated pulse">

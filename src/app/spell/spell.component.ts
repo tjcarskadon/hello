@@ -16,16 +16,26 @@ export class Spell implements OnInit {
 
   constructor(
     private appState: AppState,
-    private authService: AuthService) {
+    private authService: AuthService) {}
 
-    this.leapCtrl = this.appState._initLeapController();
-    this.leapCtrl.connect();
-  }
-   
-    private spellingWord:string = '';
+  private state = this.leapViewer._state;
+  private spellingWord:string = '';
+  private showWord = false;
+  private showSkip = false;
 
   ngOnInit() {
+    this.nextWord();
+  }
+
+  nextWord() {
     this.spellingWord = this.wordsService.returnRandomWord();
+    let spell = this;
+    setTimeout(function() {
+      spell.showWord = true;
+    }, 2000);
+    setTimeout(function() {
+      spell.showSkip = true;
+    }, 3000);
   }
 
   ngAfterViewInit() {

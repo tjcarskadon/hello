@@ -53,10 +53,23 @@ canvas {
   float: left;
 }
 
-/*.text-container {
-  height: 300px;
-  width: 400px;
-  float: left;
+#word {
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  color: red;
   background-color: white;
-}*/
+}
+
+#recognizedGesture {
+  background-color: white;
+  height: 40px;
+  line-height: 40px;
+}
+
+#button {
+  text-align: center;
+  padding: 20px;
+}
 
