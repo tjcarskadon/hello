@@ -13,10 +13,10 @@
   <div *ngIf="showSkip" id="button"> 
     <button md-raised-button color="warn" (click)="nextWord()"> Skip </button> 
   </div>
-  
+
    <div id="skipped-container">
     <div id="skippedWords" *ngIf="skippedWords.length" *ngFor="let word of skippedWords"> 
-      <button md-button color = "primary"> {{ word }} </button>
+      <button md-button color = "primary" (click)="skippedClick($event)"> {{ word }} </button>
     </div>
   </div>
 </div>
@@ -24,41 +24,27 @@
 <div class="animated fadeIn">
   <div id="ltMainContainer" class="animated pulse">
     <div id="ltContainer">
-<<<<<<< 36e7cdd6c26e25bba1bb15b9187d52ba60c090ac
       <div id="recognizedGesture">TEMP</div>
-=======
       <div id="recognizedLetter"> 
     <!--   {{state.recognizedLetter}} -->
+      <div id="recognizedLetter" *ngIf="capturedLetter" color="capturedLetterColor"> 
+        {{ capturedLetter }}
       </div>
->>>>>>> work on left panel
     </div>
   </div>
 </div>
 
-<div id="spellPanel" class="animated zoomIn"> </div>
+<div id="spellPanel" class="animated zoomIn">
+  <div id="right-panel-word">
+    {{ rightPanelWord }}
+  </div>
+
+  <div *ngIf="rightPanelWord.length" id="progress-bar">
+    <md-progress-bar mode="determinate" value="wordPercent"></md-progress-bar>
+  </div>
+  
+  <div id="correct-words" *ngIf="correctWords.length" *ngFor="let word of correctWords">
+  {{ word }}
+  </div>
 </div>
-
-<div>
-</div>
-
-<div class="capture-container">
-  <md-card id="card" class="animated fadeInLeft">
-    <md-card-title> <strong> {{ spellingWord }} </strong> </md-card-title>
-    <md-card-content>
-    Spell out the above word with signs you just learned. 
-    </md-card-content>
-  </md-card>
-
-  <md-card id="card" class="animated fadeInRight">
-    <md-card-title> Capture </md-card-title>
-    <md-card-content>
-    </md-card-content>
-  </md-card>
-</div>
-
-<div>
-</div>
-
-
-<div id="spellPanel" class="animated zoomIn"> </div>
 

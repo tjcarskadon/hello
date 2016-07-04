@@ -64,8 +64,11 @@ canvas {
 
 #recognizedLetter {
   background-color: white;
+  font-size: 20px;
+  font-weight: bold;
   height: 40px;
   line-height: 40px;
+  text-align: center;
 }
 
 #button {
@@ -81,4 +84,21 @@ canvas {
 #skipped-container {
   max-height: 400px;
   overflow: scroll;
+}
+
+#right-panel-word {
+  height: 40px;
+  color: green;
+}
+
+#progress-bar {
+  width: 75%;
+  padding: 20px;
+  text-align: center;
+}
+
+#correct-words {
+  max-height: 400px;
+  overflow: scroll;
+  text-align: center;
 }

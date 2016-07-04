@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+<<<<<<< 79d52899568c5bb54dfa87ed9a168c6a1c236c41
 import { AppState } from '../app.service';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
@@ -74,6 +75,5 @@ export class LetterCheckingService {
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
   }
-
 
 }
