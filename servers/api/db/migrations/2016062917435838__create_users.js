@@ -14,7 +14,7 @@ module.exports = (function() {
     up() {
 
       return [
-        this.createTable("users", [{"name":"email","type":"string","properties":{"unique":true}},{"name":"password","type":"string"},{"name":"username","type":"string"}])
+        this.createTable("users", [{"name":"email","type":"string","properties":{"unique":true}},{"name":"password","type":"string","properties":{"nullable":false}},{"name":"authFlag","type":"string"}])
       ];
 
     }

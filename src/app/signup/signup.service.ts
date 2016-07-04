@@ -12,6 +12,7 @@ export class SignupService {
 
   private url: string = this.urls; //
 
+
   constructor(private http: Http) {}
 
   saveUser(data: any): Observable<Response> {
