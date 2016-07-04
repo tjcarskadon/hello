@@ -8,12 +8,12 @@ import { Profile } from './profile'
 
 
 export const routes: RouterConfig = [
-  {path: '', component: Welcome},
+  { path: '',        component: Welcome},
   { path: 'welcome', component: Welcome },
-  { path: 'create', component: Create },
-  { path: 'learn', component: Learn },
-  { path: 'spell', component: Spell },
-  { path: 'play', component: Play },
+  { path: 'create',  component: Create },
+  { path: 'learn',   component: Learn },
+  { path: 'spell',   component: Spell },
+  { path: 'play',    component: Play },
   { path: 'profile', component: Profile }
 
 ];

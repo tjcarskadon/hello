@@ -34,7 +34,7 @@ import './rxjs-operators';
 
 export class App {
   angularclassLogo = 'assets/img/asl-d.png';
-  loading = false;
+  loading = true;
   name = 'hello.';
   url = 'https://github.com/digi-talk/hello';
   bg: string = 'assets/img/bg.png';
@@ -42,16 +42,16 @@ export class App {
   navOptions = ['Profile', 'Learn', 'Spell', 'Play', 'Create'];
   learnPage;
 
-
-  constructor(public appState: AppState, public authService: AuthService, private router: Router) {
-
-  }
+  constructor(
+    public appState: AppState,
+    public authService: AuthService,
+    private router: Router) { }
 
   ngDoCheck() {
     // console.log('browser history saved state...: ', window.history.state);
     if (window.history.state) {
       this.learnPage = window.history.state.learnPage;
-      this.authenticated = window.history.state.authenticated;  
+      this.authenticated = window.history.state.authenticated;
     }
   }
 
@@ -81,10 +81,10 @@ export class App {
  * For help or questions please contact us at @AngularClass on twitter
  * or our chat on Slack at https://AngularClass.com/slack-join
  */
-  
+
 // @RouteConfig([
 //   { path: '/',        name: 'Welcome', component: Welcome, useAsDefault: true },
-//   { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },  
+//   { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },
 //   { path: 'learn',   name: 'Learn',   component: Learn},
 //   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
 //   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
