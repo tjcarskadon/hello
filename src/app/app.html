@@ -13,40 +13,9 @@
 </md-toolbar>
 <router-outlet></router-outlet>
 
-
-
-
 <!-- <welcome *ngIf="!appState._state.authenticated"></welcome>
-  
-<md-content [ngStyle]="{'background-image': 'url('+ bg + ')'}">
-  <md-toolbar color="primary" class="animated fadeInDown"  *ngIf="appState._state.authenticated && appState.learn">
-    <span class="animated fadeInLeft">Hello, {{ appState.myName}}.</span>
-    <span class="fill"></span>
-    <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Profile'] ">
-      Profile
-    </button>
-    <button md-button router-active class="animated fadeInUp" [routerLink]=" ['Learn'] ">
-      Learn
-    </button>
-    <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Spell'] ">
-      Spell
-    </button>
-    <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Play'] ">
-      Play
-    </button>
-    <button md-button router-active class="animated fadeInUp" [disabled]="appState.isDisabled" [routerLink]=" ['Create'] ">
-      Create
-    </button>
-    <span class="fill"></span>
-    <button md-button router-active (click)="authService.logout()">
-      Log Out
-    </button>
-  </md-toolbar>
 
-  <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
 
- <router-outlet></router-outlet>
--->
 
 
   <!-- <pre class="app-state">this.appState.state = {{ appState.authenticated }} {{ appState.landing}}</pre> 

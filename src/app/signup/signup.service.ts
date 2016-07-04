@@ -8,7 +8,7 @@ import { Signup } from './signup';
 
 export class SignupService {
    
-  private url: string = 'http://127.0.0.1:3333/users';
+  private url: string = 'http://52.90.139.255:3333/users';
 
   constructor(private http: Http) {}
 

@@ -14,7 +14,7 @@ module.exports = (function() {
     up() {
 
       return [
-        this.createTable("gestures", [{"name":"name","type":"string"},{"name":"data","type":"json"},{"name":"user_id","type":"int"}])
+        this.createTable("gestures", [{"name":"data","type":"json"}])
       ];
 
     }
