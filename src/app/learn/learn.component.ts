@@ -7,7 +7,7 @@ import { AppState } from '../app.service';
   selector: 'learn',
   template: require('./learn.component.html'),
   styles: [require('./learn.component.css')],
-  providers: [AlphabetCaptureCheck]
+  providers: [AlphabetCaptureCheck, AppState]
 })
 
 export class Learn implements OnInit {
@@ -48,9 +48,10 @@ export class Learn implements OnInit {
     {val: 'Z', color:'primary', count: 0}
   ];
 
-  constructor( private alphabetCaptureCheck: AlphabetCaptureCheck,
+  constructor(
+    private alphabetCaptureCheck: AlphabetCaptureCheck,
     private authService: AuthService,
-    private appState: AppState) {}
+    private appState: AppState) { }
 
   ngOnInit() {
     this.letters.forEach( letter => {
@@ -71,7 +72,7 @@ export class Learn implements OnInit {
       letter.color = 'warn';
     }
     sessionStorage.setItem(letter.val, letter.color);
-    console.log(sessionStorage.getItem(letter.val));
+    // console.log(sessionStorage.getItem(letter.val));
     if (letter.count > 1) {
       this.mastered.push(letter.val);
       // console.log(this.mastered);
@@ -100,6 +101,8 @@ export class Learn implements OnInit {
 
   showRiggedHand() {
     this.riggedHand = true;
+    this.appState._initLeapController();
+    // document.getElementById('ltContainer').appendChild(document.riggedElement);
   }
 
 }

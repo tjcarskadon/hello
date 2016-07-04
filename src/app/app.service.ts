@@ -44,9 +44,6 @@ export class AppState {
     var Leap = require('leapjs');
     require('./lib/leap-plugins.js');
     require('./lib/riggedHand.js');
-    // console.log('RIGGED HAND', riggedHand)
-    // riggedHand.appendCanvas();
-
     var controller = new Leap.Controller();
 
     //connect ctrl at the end of logic
