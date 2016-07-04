@@ -53,3 +53,8 @@ button.login {
   margin-bottom: 0;
   color: #F4A846;
 }
+
+.googleSignIn {
+  margin: 10px;
+  width: 350px;
+}

@@ -10,7 +10,7 @@ export class WelcomeStateService {
     landing: 'welcome'
   };
 
-  constructor(private appState: AppState) { }
+  constructor() { }
 
   get state() {
     return this._state = this._clone(this._state);
@@ -27,7 +27,7 @@ export class WelcomeStateService {
   get(prop?: any) {
     // use our state getter for the clone
     const state = this._state;
-    return state[prop] || state;
+    return state[prop] !== undefined ? state[prop] : state;
   }
 
   set(prop: string, value: any) {

@@ -1,5 +1,16 @@
 <!-- nav bar should get rendered here if the user is authenticated-->
 
+<md-toolbar color="primary" class="animated fadeInDown" *ngIf="authenticated">
+  <span class="animated fadeInLeft">Hello, {{ appState.myName}}.</span>
+  <span class="fill"></span>
+  <div *ngFor="let page of navOptions">
+    <button md-button router-active class='animated fadeInUp' (click)="navToPage(page)">{{page}}</button>
+  </div>
+  <span class="fill"></span>
+  <button md-button router-active (click)="authService.logout()">
+    Log Out
+  </button>
+</md-toolbar>
 <router-outlet></router-outlet>
 
 

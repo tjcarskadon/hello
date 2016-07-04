@@ -2,8 +2,8 @@
  * Angular 2 decorators and services
  */
 import { Component, ViewEncapsulation } from '@angular/core';
-import { RouteConfig, Router } from '@angular/router-deprecated';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { RouteConfig } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { AppState } from './app.service';
 import { Profile } from './profile';
 // import { Home } from './home';
@@ -22,7 +22,7 @@ import './rxjs-operators';
 @Component({
   selector: 'app',
   pipes: [ ],
-  providers: [AuthService],
+  providers: [AuthService, AppState],
   directives: [ ROUTER_DIRECTIVES, Welcome, Profile, Learn, Spell, Play, Create ],
   encapsulation: ViewEncapsulation.None,
   styles: [
@@ -31,16 +31,6 @@ import './rxjs-operators';
   ],
   template: require('./app.html')
 })
-  
-// @RouteConfig([
-//   { path: '/',        name: 'Welcome', component: Welcome, useAsDefault: true },
-//   { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },  
-//   { path: 'learn',   name: 'Learn',   component: Learn},
-//   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
-//   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
-//   { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
-//   { path: '/welcome',  name: 'Welcome',  loader: () => require('es6-promise!./welcome')('Welcome') }
-// ])
 
 export class App {
   angularclassLogo = 'assets/img/asl-d.png';
@@ -48,14 +38,27 @@ export class App {
   name = 'hello.';
   url = 'https://github.com/digi-talk/hello';
   bg: string = 'assets/img/bg.png'
+  authenticated;
+  navOptions = ['Profile', 'Learn', 'Spell', 'Create'];
 
-  constructor(public appState: AppState, public authService: AuthService) {
+  constructor(public appState: AppState, public authService: AuthService, private router: Router) {
 
+  }
+
+  ngDoCheck() {
+    this.authenticated = this.appState.get('authenticated');
+    console.log('changes detected', this.appState.get('authenticated'));
+  }
+
+  navToPage(page) {
+    page = page.toLowerCase();
+    console.log('/'+page);
+    this.router.navigate(['/'+page]);
   }
 
   ngOnInit() {
     // console.log('Initial App State', this.appState.state);
-    console.log('loaded')
+    console.log('app comp loaded', this.appState.get('authenticated'));
   }
 
   logout() {
@@ -72,3 +75,13 @@ export class App {
  * For help or questions please contact us at @AngularClass on twitter
  * or our chat on Slack at https://AngularClass.com/slack-join
  */
+  
+// @RouteConfig([
+//   { path: '/',        name: 'Welcome', component: Welcome, useAsDefault: true },
+//   { path: '/profile',   name: 'Profile',   loader: () => require('es6-promise!./profile')('Profile') },  
+//   { path: 'learn',   name: 'Learn',   component: Learn},
+//   { path: '/spell',   name: 'Spell',   loader: () => require('es6-promise!./spell')('Spell') },
+//   { path: '/play',    name: 'Play',    loader: () => require('es6-promise!./play')('Play') },
+//   { path: '/create',  name: 'Create',  loader: () => require('es6-promise!./create')('Create') },
+//   { path: '/welcome',  name: 'Welcome',  loader: () => require('es6-promise!./welcome')('Welcome') }
+// ])

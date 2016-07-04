@@ -3,7 +3,8 @@ import { AppState } from '../app.service';
 import { FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup } from '@angular/common';
 import {WelcomeStateService} from '../welcomeState/welcomeState.service'
 import { SignupService } from './signup.service';
-// import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { Observable } from 'rxjs/Observable';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Component({
   selector: 'signup',
@@ -15,7 +16,7 @@ import { SignupService } from './signup.service';
 export class Signup implements OnInit {
   signupForm: ControlGroup;
 
-  constructor(public signupService: SignupService, public appState: AppState, fb: FormBuilder, private ws: WelcomeStateService) {
+  constructor(public signupService: SignupService, public appState: AppState, fb: FormBuilder, private ws: WelcomeStateService, private http: Http) {
     this.signupForm = fb.group({
       'email': [],
       'password': [],
@@ -36,4 +37,18 @@ export class Signup implements OnInit {
                          result => console.log('signupService result:', result),
                          error => console.log('signupService error:', error));
   }
+
+  googleSignIn() {
+    console.log('google signin....');
+    this.http.get('http://localhost:8080/auth/google')
+      .then(r => console.log('r', r))
+      .catch(e => console.log('e:', e));
+
+  }
+
+  parseData(res: Response) {
+    let body = res.json();
+    return body.data || {};
+  }
+  //<a href="http://localhost:8080/auth/google">
 }

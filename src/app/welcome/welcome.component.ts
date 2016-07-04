@@ -29,21 +29,12 @@ export class Welcome implements OnInit {
   hands: string = 'assets/img/hands.png'
   bg: string = 'assets/img/bg.png'
 
-  // landing: string = 'welcome';
-
   constructor(private appState: AppState, private authService: AuthService, private ws: WelcomeStateService) {
   }
 
   ngOnInit() {
     console.log('this is the welcome component!!', this.appState._state);
     // this.authService.authenticate();
-  }
-
-
-  switchFn() {
-    // console.log('cll', typeof this.appState.get('landing'));
-    // return this.appState.get('landing');
-    return this.appState._state['landing'];
   }
 
 }

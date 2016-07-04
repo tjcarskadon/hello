@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HmrState } from 'angular2-hmr';
+// import { HmrState } from 'angular2-hmr';
 
 @Injectable()
 export class AppState {
  isDisabled: boolean = false;
   // @HmrState() is used by HMR to track the state of any object during a hot module replacement
-  landing = 'welcome';
   _state = {
     authenticated: false, 
     learn: false,
@@ -28,7 +27,8 @@ export class AppState {
   get(prop?: any) {
     // use our state getter for the clone
     const state = this._state;
-    return state[prop] || state;
+
+    return state[prop] !== undefined ? state[prop] : state;
   }
 
   set(prop: string, value: any) {

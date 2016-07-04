@@ -21,7 +21,7 @@ export class WelcomeContent implements OnInit {
   }
 
   routeToLearn() {
-    this.router.navigateByUrl('/learn');
+    this.router.navigate(['/learn']);
   }
   
 }
