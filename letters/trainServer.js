@@ -18,16 +18,21 @@ app.use(express.static(__dirname));
 app.post('/brain', (req, res) => {
       // console.log('scanning');
   let input = req.body;
+
+  let extenedFingers = [];
+  extenedFingers.push(+input.thumbExtended,+input.indexExtended,+input.middleExtended, +input.ringExtended, +input.pinkyExtended);
+
   var checkExtendedNet = require('./neurons/checkExtended.js');
   var extendedCheckResults = checkExtendedNet.run([1,1,1,1,1]);
-  if (extendedCheckResults.true > extendedCheckResults.false) {
+  // if (extendedCheckResults.true > extendedCheckResults.false) {
+  if (input.extended) { 
     //is extdended
     console.log('extended');
     //rotated?
     let rotated_checkNet = require('./neurons/isRotated.js');
     let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
     if(isRotated.true > isRotated.false) {
-      // console.log('---------ROTATED--------------');
+      console.log('---------ROTATED--------------');
       let GH_checkNet = require('./neurons/gh_yRangeFinder.js');  
       //takes diff between index tip and mid tip
       //This check is working with dummy data
@@ -43,7 +48,7 @@ app.post('/brain', (req, res) => {
        // results.push('H');
       }
     } else {
-      // console.log('______NOT ROTATED______');
+      console.log('______NOT ROTATED______');
       //Check for down fingers
       let TD_checkNet = require('./neurons/isThumbDown.js');
       let isTD = TD_checkNet.run([input.td]); //input.td
@@ -195,41 +200,58 @@ app.post('/brain', (req, res) => {
     // }
 
   } else {
+    //CLOSED POSITION LETTERS DECISION TREE
     //is not extended then send to neuron that will parse 
     //and transfer data to [a, e, m, n, o, s, t, c] paths
-    console.log('Closed hand')
-    var OC_checkNet = require('./neurons/knuckle_yRangeFinder.js');
-    var isOC = OC_checkNet.run([-7.2379999999999995]);
+    console.log('CLOSED');
+    //Check for rotation
+    let rotated_checkNet = require('./neurons/isRotated.js');
+    let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
 
-    console.log(isOC)
-    //TODO: talk to T about this changing this conditional
-    // if (isOC) {
-      if (isOC.c > isOC.o) {
-      //neuron to differentiate O & C
-      const OCZ_checkNet = require('./neurons/is_OC.js');
-      const OC = OCZ_checkNet.run([-0.154677]);
-      if (OC.c > OC.o) {
-        console.log('C');
-      } else {
+    if(isRotated.true > isRotated.false) {
+      console.log('---------ROTATED--------------');
+      let OC_checkNet = require('./neurons/thumbMiddle_zTipRangeFinder');
+      let isOC = OC_checkNet.run([input.oc]);
+      // console.log(input.oc);
+      //TODO: look at re adjusting the C to extended - need to improve this performance
+      if (isOC.true > isOC.false) {
         console.log('O');
+      } else {
+        console.log('C');
       }
     } else {
-      //neuron to differentiate E & A/S/M/N/T
-      const e_checkNet = require('./neurons/isThumbBelow.js');
-      
-      //check body for thumb tip position vs middleFinger tip position
-      //if thumb tip lower on Z axis then middle finger tip then set a flag to true
-      //else set to fals and pass this flag into the e_checkNet neuron
-      const e = e_checkNet.run([false]);
-      if (e.e > 0.75) {
-        console.log('E');
+      console.log('-----------NOT ROTATED-----------');
+      //is thumb below middle on Y?
+      let AS_checkNet = require('./neurons/thumbIndexTip_yRangeFinder');
+      let isAS = AS_checkNet.run([input.as]);
+      if(isAS.true > isAS.false) {
+          //A
+          console.log('A');
       } else {
-        console.log('check more')
-        //neuron to differentiate A & S/M/N/T
-
+        //check to see if thumb is below middle mcp
+        let S_checkNet = require('./neurons.thumbRing_yRangeFinder');
+        let isS = S_checkNet.run([input.s])
+        if (isS.true > isS.false) {
+          consle.log('S');
+          //s
+        }
+        
       }
+      // else 
+        //is thumb tip below ring MCP on x
+          //m
+      //else
+        // is thumb tip below middle mcp on x
+          //n
+      //else 
+        //is thumb tip below index mcp on x
+          //t
+      //is thumb tip below middle tip on z
+        //e
+      //check thumb mcp vs index mcp for a
 
     }
+
 
   }
 

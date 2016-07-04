@@ -26,35 +26,30 @@
       frame.hands.forEach((hand) => {
         var data = [];
         if(_(hand.fingers).every(finger => !finger.extended)) {
+          console.log('closed');
+          //TODO: determine if this is needed and remove it
           hand.fingers.forEach(finger => {
             // console.log(finger.type, finger.extended, finger.direction);
             data.push(finger.extended, finger.direction);
           });
 
-
-
-          // var diff = hand.fingers[0].stabilizedTipPosition[2] > hand.fingers[1].stabilizedTipPosition[2];
-          // console.log(diff);
-          
-          // data.push(diff);
-
-          // var obj = {data: data};
-          // console.log(obj);
           let input = {};
+          input.extended = false;
+          input.rotated = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
+          input.oc = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
+          input.as = hand.thumb.mcpPosition[1] - hand.middleFinger.mcpPosition[1];
+          input.s = hand.ringFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
 
-          input.Oc = hand.indexFinger.mcpPosition[1] - hand.pinky.mcpPosition[1]; 
-          
-          console.log(input.Oc);          
-
-          // fetch('http://localhost:3000/brian', {
-          //     method: 'POST', 
-          //     body: JSON.stringify(obj),
-          //     headers: {"Content-type": "application/json"}
-          //   });
+          fetch('http://localhost:3000/brain', {
+              method: 'POST', 
+              body: JSON.stringify(input),
+              headers: {"Content-type": "application/json"}
+            });
         } else {
           //This starts the section for if not all fingers are closed 
-          // console.log(frame);
+          console.log('open');
           let input = {};
+          input.extended = true;
           input.rotated = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
           input.thumbExtended = hand.thumb.stabilizedTipPosition[2] - hand.indexFinger.mcpPosition[2]; //this could be wrong
           input.indexExtended = hand.indexFinger.extended;
