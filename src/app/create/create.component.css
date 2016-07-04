@@ -14,6 +14,12 @@ canvas {
   pointer-events: none;
 }
 
+.savedGestureNames {
+  float: left;
+  overflow: hidden;
+  padding: 3px;
+}
+
 #createOptions {
   float: left;
   position: relative;
@@ -49,12 +55,16 @@ li > button {
   text-align: center;
 }
 
+.gestureOption {
+  width: 90vw;
+}
+/*
 #gestureOptions {
   width: 100%;
   position: absolute;
   bottom: 0;
 }
-
+*/
 .head-center {
   text-align: center;
 }

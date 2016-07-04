@@ -8,11 +8,13 @@ export class CreatePageState {
 
   _state = {
     gestureNameInput: '',
-    gestureName: '',
+    selectedGesture: '',
     gestureList: {},
     gestureListKeys: [],
+    gestureData: [],
     recognizedGesture: '',
-    trainingComplete: false
+    trainingComplete: false, 
+    displayGestureOptions: false
   };
 
 

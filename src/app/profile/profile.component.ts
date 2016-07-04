@@ -28,13 +28,13 @@ import { XLarge } from './x-large';
 export class Profile {
   localState = { email1: '', email2: '', password1: '', password2: '', name: ''};
   // TypeScript public modifiers
-  constructor(public appState: AppState, public title: Title, private authService: AuthService) { }
+  constructor(private appState: AppState, public title: Title, private authService: AuthService) { }
 
   ngOnInit() {
     console.log('hello `Profile` component');
     // this.title.getData().subscribe(data => this.data = data);
-    console.log('learn is:', this.appState.learn);
-    console.log('authentication is:', this.appState.authenticated);
+    console.log('appstate is:', this.appState._state);
+    console.log('authentication is:', this.appState.get('authenticated'));
 
     this.authService.authenticate();
   }
@@ -66,9 +66,9 @@ export class Profile {
   }
 
   updateTitle(title) {
-    console.log(this.appState.title);
-    this.appState.title = title;
-    console.log(this.appState.title);
+    console.log(this.appState._state.title);
+    this.appState._state.title = title;
+    console.log(this.appState._state.title);
   }
 
 }
