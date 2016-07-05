@@ -57,6 +57,8 @@ export class Learn implements OnInit {
         letter.color = sessionStorage.getItem(letter.val);
       }
     });
+
+    this.authService.authenticate('profile');
     this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
 

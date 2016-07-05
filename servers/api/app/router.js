@@ -35,6 +35,7 @@ module.exports = (function() {
   const UsersController = Nodal.require('app/controllers/users_controller.js');
   const AccessTokensController = Nodal.require('app/controllers/access_tokens_controller.js');
   const GesturesController = Nodal.require('app/controllers/gestures_controller.js');
+  const LoginsController = Nodal.require('app/controllers/logins_controller.js');
 
   /* generator: end imports */
 
@@ -46,6 +47,7 @@ module.exports = (function() {
   router.route('/users/{id}').use(UsersController);
   router.route('/access_tokens/{id}').use(AccessTokensController);
   router.route('/gestures/{id}').use(GesturesController);
+  router.route('/logins/{id}').use(LoginsController);
 
   /* generator: end routes */
 

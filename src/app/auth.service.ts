@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AppState } from './app.service';
 import { Router } from '@angular/router';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Injectable() 
 
 export class AuthService {
-  constructor(private appState: AppState, private router: Router) {}
+  constructor(private appState: AppState, private router: Router, private http: Http) {}
 
   authenticate (page) {
     //get token
@@ -13,24 +14,43 @@ export class AuthService {
     let exp: Date = new Date(localStorage.getItem('exp'));
     let currentDate: Date = new Date();
 
-    if(tkn && exp > currentDate) {
-      //logged in
-      console.log('LOGGED IN');
-       console.log(this.appState._state.learnPage, '11111');
 
-      this.appState.set('authenticated', true);
-      // this.appState.learn =true;
-      this.router.navigate(['/'+page]);
-      window.history.pushState(null, null, page);
-      // this.appState.landing = 'profile';
-      return true;
-    } else {
-      console.log('LOGGED OUT', exp, tkn)
-      this.router.navigate(['/welcome']); 
-      window.history.replaceState(null, null, '');
+   let url: string = 'http://127.0.0.1:3333/logins?access_token=' + tkn;
 
-      return false;
-    }
+     if (tkn) {
+      this.http.get(url).forEach(x => {
+        let a = JSON.parse(x._body);
+        console.log(a)
+        if(a.data[0] !== "Authorized") {
+          this.router.navigate(['/welcome']); 
+          window.history.replaceState(null, null, '');
+        } 
+      }).catch(err => console.log(err));
+     } else {
+        this.router.navigate(['/welcome']); 
+        window.history.replaceState(null, null, '');
+     }
+ 
+   
+
+    // if(tkn && exp > currentDate) {
+    //   //logged in
+    //   console.log('LOGGED IN');
+    //    console.log(this.appState._state.learnPage, '11111');
+
+    //   this.appState.set('authenticated', true);
+    //   // this.appState.learn =true;
+    //   this.router.navigate(['/'+page]);
+    //   window.history.pushState(null, null, page);
+    //   // this.appState.landing = 'profile';
+    //   return true;
+    // } else {
+    //   console.log('LOGGED OUT', exp, tkn)
+    //   this.router.navigate(['/welcome']); 
+    //   window.history.replaceState(null, null, '');
+
+    //   return false;
+    // }
   }
 
   logout() {

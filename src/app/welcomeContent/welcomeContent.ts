@@ -19,7 +19,7 @@ export class WelcomeContent implements OnInit {
   constructor(public appState: AppState, public authService: AuthService, private ws: WelcomeStateService, private router: Router) { }
 
   ngOnInit() { 
-    console.log('this is the welcomeContents componenet', this.appState._state);
+    // console.log('this is the welcomeContents componenet', this.appState._state);
     console.log('input', this.url);
   }
 
