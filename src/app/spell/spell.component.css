@@ -109,6 +109,10 @@ canvas {
 }
 
 #correct-container {
-  max-height: 400px;
+  max-height: 300px;
   overflow: scroll;
+}
+
+#right-top {
+  height: 180px;
 }
