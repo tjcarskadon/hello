@@ -35,12 +35,13 @@
 </div>
 
 <div id="spellPanel" class="animated zoomIn">
-  <div id="right-panel-word">
+  <div id="right-panel-word" *ngIf="rightPanelWord.length">
     {{ rightPanelWord }}
   </div>
 
   <div *ngIf="rightPanelWord.length" id="progress-bar">
-    <md-progress-bar mode="determinate" [value]="wordPercent"></md-progress-bar>
+   
+    <md-progress-circle mode="determinate" [value]="wordPercent"></md-progress-circle>
   </div>
   
  <div id="correct-container">

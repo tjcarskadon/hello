@@ -68,9 +68,8 @@ export class Spell implements OnInit {
     this.capturedLetter = this.letterCheckingService.getLetter();
     if (this.capturedLetter === this.nextLetter) {
       this.capturedLetterColor = 'green';
-      this.rightPanelWord += this.capturedLetter;
-      //this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
-      //this.wordPercent = 10;
+      this.rightPanelWord += this.capturedLetter.toUpperCase();
+      this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
       if (this.nextLetterIndex < this.spellingWord.length - 1) {
         this.nextLetterIndex ++;
         this.nextLetter = this.spellingWord[this.nextLetterIndex];

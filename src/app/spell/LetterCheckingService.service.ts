@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AppState } from '../app.service';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { AppState } from '../app.service';
 
 @Injectable()
 export class LetterCheckingService {
@@ -76,8 +75,5 @@ export class LetterCheckingService {
     return Observable.throw(errMsg);
   }
 
-  sendInput() {
-    
-  }
 
 }
