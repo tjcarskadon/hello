@@ -40,7 +40,7 @@
   </div>
 
   <div *ngIf="rightPanelWord.length" id="progress-bar">
-    <md-progress-bar mode="determinate" value="wordPercent"></md-progress-bar>
+    <md-progress-bar mode="determinate" [value]="wordPercent"></md-progress-bar>
   </div>
   
  <div id="correct-container">

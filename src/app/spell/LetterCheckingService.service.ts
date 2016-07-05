@@ -76,4 +76,8 @@ export class LetterCheckingService {
     return Observable.throw(errMsg);
   }
 
+  sendInput() {
+    
+  }
+
 }
