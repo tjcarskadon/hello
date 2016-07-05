@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // import { LeapViewer } from '../leapViewer.service';
 import { AppState } from '../app.service';
 import { LoginService } from '../login.service';
-import { Router, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { Router} from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -19,13 +19,16 @@ export class Play implements OnInit {
     private router: Router, 
     public authService: AuthService) {
     
-    this.appState._initLeapController();
+    // this.appState._initLeapController();
   }
 
   ngOnInit() {
-    if(!this.authService.authenticate()) {
-      this.router.navigate(['Welcome']);
-    }
+    this.authService.authenticate('play');
+    // if(!this.authService.authenticate()) {
+    //   this.router.navigate(['Welcome']);
+    // } else {
+    //   console.log('trueeee logged in')
+    // }
   }
 
 }

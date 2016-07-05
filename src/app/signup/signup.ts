@@ -5,7 +5,7 @@ import {WelcomeStateService} from '../welcomeState/welcomeState.service'
 import { SignupService } from './signup.service';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
+import { Router } from '@angular/router'
 @Component({
   selector: 'signup',
   directives: [ FORM_DIRECTIVES ],
@@ -16,7 +16,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 export class Signup implements OnInit {
   signupForm: ControlGroup;
 
-  constructor(public signupService: SignupService, public appState: AppState, fb: FormBuilder, private ws: WelcomeStateService, private http: Http) {
+  constructor(public signupService: SignupService, public appState: AppState, fb: FormBuilder, private ws: WelcomeStateService, private http: Http, private router: Router) {
     this.signupForm = fb.group({
       'email': [],
       'password': [],
@@ -34,15 +34,21 @@ export class Signup implements OnInit {
     }
     this.signupService.saveUser(form)
                        .subscribe(
-                         result => console.log('signupService result:', result),
+                         result => {
+                           console.log('signupService result:', result)
+                           this.appState.set('authenticated', true);
+                           //need to set token in local storage
+                           
+                           this.router.navigate(['/profile']);
+                         },
                          error => console.log('signupService error:', error));
   }
 
   googleSignIn() {
     console.log('google signin....');
-    this.http.get('http://localhost:8080/auth/google')
-      .then(r => console.log('r', r))
-      .catch(e => console.log('e:', e));
+    // this.http.get('http://localhost:8080/auth/google')
+    //   .then(r => console.log('r', r))
+    //   .catch(e => console.log('e:', e));
 
   }
 

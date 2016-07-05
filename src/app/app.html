@@ -1,6 +1,6 @@
 <!-- nav bar should get rendered here if the user is authenticated-->
 
-<md-toolbar color="primary" class="animated fadeInDown" *ngIf="authenticated">
+<md-toolbar color="primary" class="animated fadeInDown" *ngIf="authenticated || learnPage">
   <span class="animated fadeInLeft">Hello, {{ appState.myName}}.</span>
   <span class="fill"></span>
   <div *ngFor="let page of navOptions">

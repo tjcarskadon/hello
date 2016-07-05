@@ -37,23 +37,28 @@ export class App {
   loading = false;
   name = 'hello.';
   url = 'https://github.com/digi-talk/hello';
-  bg: string = 'assets/img/bg.png'
+  bg: string = 'assets/img/bg.png';
   authenticated;
-  navOptions = ['Profile', 'Learn', 'Spell', 'Create'];
+  navOptions = ['Profile', 'Learn', 'Spell', 'Play', 'Create'];
+  learnPage;
 
   constructor(public appState: AppState, public authService: AuthService, private router: Router) {
 
   }
 
   ngDoCheck() {
-    this.authenticated = this.appState.get('authenticated');
-    console.log('changes detected', this.appState.get('authenticated'));
+    console.log('browser history saved state...: ', window.history.state);
+    if (window.history.state) {
+      this.learnPage = window.history.state.learnPage;
+      this.authenticated = window.history.state.authenticated;  
+    }
   }
 
   navToPage(page) {
     page = page.toLowerCase();
     console.log('/'+page);
     this.router.navigate(['/'+page]);
+    window.history.pushState(null, null, page);
   }
 
   ngOnInit() {

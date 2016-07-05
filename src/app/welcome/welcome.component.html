@@ -2,7 +2,7 @@
  
   
 <span [ngSwitch]="ws.get('landing')">
-  <welcomeContent class="comp animated fadeIn" *ngSwitchWhen="'welcome'"></welcomeContent>
+  <welcomeContent [url]="url" class="comp animated fadeIn" *ngSwitchWhen="'welcome'"></welcomeContent>
   <signup class="comp animated fadeIn" *ngSwitchWhen=" 'signup' "></signup>
   <login class="comp animated fadeIn" *ngSwitchWhen=" 'login' "></login>
   <learn *ngSwitchWhen="'learn'"></learn>

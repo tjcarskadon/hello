@@ -7,8 +7,10 @@ import { Signup } from './signup';
 @Injectable() 
 
 export class SignupService {
-   
-  private url: string = 'http://127.0.0.1:3333/users';
+  // urls = 'http://127.0.0.1:3333/users';
+  urls = 'http://52.90.139.255:3333/users';
+
+  private url: string = this.urls; //
 
   constructor(private http: Http) {}
 

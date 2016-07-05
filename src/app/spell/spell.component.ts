@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 // import { LeapViewer } from '../leapViewer.service';
 import { AppState } from '../app.service';
+import { AuthService} from '../auth.service'
+
 
 @Component({
   selector: 'spell',
@@ -12,10 +14,13 @@ import { AppState } from '../app.service';
 export class Spell implements OnInit {
 
   constructor(
-    private appState: AppState) {
-    this.appState._initLeapController();
+    private appState: AppState, private authService: AuthService) {
+    // this.appState._initLeapController();
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+  //check authentication
+    this.authService.authenticate('spell');
+  }
 
 }
