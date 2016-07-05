@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-<<<<<<< 79d52899568c5bb54dfa87ed9a168c6a1c236c41
 import { AppState } from '../app.service';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { AppState } from '../app.service';
 
 @Injectable()
 export class LetterCheckingService {

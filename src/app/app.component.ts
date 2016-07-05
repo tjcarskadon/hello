@@ -56,7 +56,7 @@ export class App {
       this.authenticated = window.history.state.authenticated;
       this.isDisabled = window.history.state.isDisabled;
     }
-  }
+ }
 
   navToPage(page) {
     page = page.toLowerCase();

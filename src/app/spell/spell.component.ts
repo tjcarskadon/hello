@@ -9,7 +9,7 @@ import { LetterCheckingService } from './LetterCheckingService.service';
   selector: 'spell',
   template: require('./spell.component.html'),
   styles: [require('./spell.component.css')],
-  providers: [AppState, LeapViewer, WordsService, LetterCheckingService]
+  providers: [AppState, WordsService, LetterCheckingService]
 })
 
 export class Spell implements OnInit {
