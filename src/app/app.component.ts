@@ -39,7 +39,7 @@ export class App {
   url = 'https://github.com/digi-talk/hello';
   bg: string = 'assets/img/bg.png'
   authenticated;
-  navOptions = ['Profile', 'Learn', 'Spell', 'Create'];
+  navOptions = ['Profile', 'Learn', 'Spell', 'Play', 'Create'];
 
   constructor(public appState: AppState, public authService: AuthService, private router: Router) {
 
