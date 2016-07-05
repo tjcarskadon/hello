@@ -192,7 +192,10 @@ rigs.right = {
 
   "animations" : []
 };
+
+
 (function() {
+
   
 // underscore's _.each implementation, use for _.extend
 var _each = function(obj, iterator, context) {
@@ -223,7 +226,6 @@ var _extend = function (obj) {
   });
   return obj;
 }
-
 // underscore's _.sortBy implementation
 var _isFunction = function(obj) {
   return typeof obj === 'function';
@@ -277,16 +279,14 @@ var _sortBy = function (obj, iterator, context) {
 
 // http://stackoverflow.com/questions/6902280/cross-browser-dom-ready
 function bindReady(handler){
-    var called = false
     function ready() {
-        if (called) return
-        called = true
         handler()
     }
     if ( document.addEventListener ) {
-        document.addEventListener( "DOMContentLoaded", function(){
-            ready()
-        }, false )
+        document.addEventListener('ltContainerAdded', () => {
+          ready();
+        }, false)
+        
     } else if ( document.attachEvent ) {
         if ( document.documentElement.doScroll && window == window.top ) {
             function tryScroll(){
@@ -395,6 +395,8 @@ function onReady(handler) {
   Leap.plugin('riggedHand', function(scope) {
     var addMesh, basicDotMesh, controller, createMesh, getMesh, removeMesh, spareMeshes, zeroVector,
       _this = this;
+
+
     if (scope == null) {
       scope = {};
     }
@@ -421,12 +423,15 @@ function onReady(handler) {
       scope.parent = scope.scene;
 
       onReady(function() {
-        // return document.body.appendChild(scope.renderer.domElement);
-        console.log(document.getElementById('ltContainer'), 'is????');
-        console.log(scope.renderer);
-        console.log('domelement, ', scope.renderer.domElement);
+        var g = document.getElementById('leapTrainerCanvas');
+        if (g) { 
+          console.log('canvas element', g)
+          g.remove()
+        }
         return document.getElementById('ltContainer').appendChild(scope.renderer.domElement);
       });
+      
+  
     }
     if (scope.renderFn === void 0) {
       scope.renderFn = function() {

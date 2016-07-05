@@ -12,15 +12,21 @@ import { AuthService} from '../auth.service'
 })
 
 export class Spell implements OnInit {
+  leapCtrl;
 
   constructor(
     private appState: AppState, private authService: AuthService) {
-    // this.appState._initLeapController();
+    this.leapCtrl = this.appState._initLeapController();
+    this.leapCtrl.connect();
   }
 
   ngOnInit() { 
   //check authentication
     this.authService.authenticate('spell');
+  }
+
+  ngAfterViewInit() {
+    document.dispatchEvent(new Event('ltContainerAdded'));
   }
 
 }

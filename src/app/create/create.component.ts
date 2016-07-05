@@ -24,7 +24,16 @@ export class Create implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.authenticate('create');
+   this.authService.authenticate('create');
+  }
+  ngOnDestroy() {
+    console.log('disconnecting leap controller ')
+    this.leapTrainerService.trainerCtrl.disconnect();
+  }
+
+  ngAfterViewInit() {
+    var event = new Event('ltContainerAdded');
+     document.dispatchEvent(event);
   }
 
   setActiveGesture(gestureName) {
