@@ -105,4 +105,5 @@ canvas {
   max-height: 400px;
   overflow: scroll;
   text-align: center;
+  padding: 5px;
 }

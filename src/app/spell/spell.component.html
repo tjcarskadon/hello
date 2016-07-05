@@ -44,7 +44,7 @@
   </div>
   
   <div id="correct-words" *ngIf="correctWords.length" *ngFor="let word of correctWords">
-  {{ word }}
+  <button md-button color = "primary" (click)="correctClick($event)"> {{ word }} </button>
   </div>
 </div>
 

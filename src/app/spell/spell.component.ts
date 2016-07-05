@@ -40,7 +40,7 @@ export class Spell implements OnInit {
     this.rightPanelWord = '';
     this.nextLetterIndex = 0;
     this.nextLetter = '';
-    this.spellingWord = '';
+//    this.spellingWord = '';
     this.wordPercent = 0;
     this.skippedWords.push(this.spellingWord);
     this.spellingWord = this.wordsService.returnRandomWord();
@@ -55,10 +55,14 @@ export class Spell implements OnInit {
     }, 3000);
     setInterval(() => {
       this.checkLetter();
-    }, 3000);
+    }, 1000);
   }
 
   skippedClick(event) {
+    console.log(event.target.innerText);
+  }
+
+  correctClick(event) {
     console.log(event.target.innerText);
   }
 
@@ -75,8 +79,8 @@ export class Spell implements OnInit {
      //   console.log('next index = ', this.nextLetterIndex);
      //   console.log('next letter expected ', this.nextLetter);
       } else {
-        this.nextWord();
         this.correctWords.push(this.rightPanelWord);
+        this.nextWord();
         // this.rightPanelWord = '';
         // this.nextLetterIndex = 0;
         // this.nextLetter = '';
