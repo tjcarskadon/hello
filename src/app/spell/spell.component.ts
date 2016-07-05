@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
-import { AuthService} from '../auth.service'
 import { WordsService } from './wordsService.service';
 import { LetterCheckingService } from './LetterCheckingService.service';
-
 
 @Component({
   selector: 'spell',
@@ -19,7 +17,6 @@ export class Spell implements OnInit {
     private appState: AppState,
     private authService: AuthService) {}
 
-  private state = this.leapViewer._state;
   private spellingWord:string = '';
   private showWord:boolean = false;
   private showSkip:boolean = false;
