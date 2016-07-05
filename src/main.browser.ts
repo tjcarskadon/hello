@@ -27,7 +27,7 @@ export function main(initialHmrState?: any): Promise<any> {
     ...DIRECTIVES,
     ...PIPES,
     ...APP_PROVIDERS,
-    ...APP_ROUTER_PROVIDERS
+    APP_ROUTER_PROVIDERS
   ])
   .catch(err => console.error(err));
 

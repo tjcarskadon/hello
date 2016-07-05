@@ -393,9 +393,7 @@ function onReady(handler) {
 
   Leap.plugin('riggedHand', function(scope) {
     var addMesh, basicDotMesh, controller, createMesh, getMesh, removeMesh, spareMeshes, zeroVector,
-      _this = this;
-
-
+    _this = this;
     if (scope == null) {
       scope = {};
     }
