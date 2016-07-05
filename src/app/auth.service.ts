@@ -40,6 +40,7 @@ export class AuthService {
     console.log('navigating to welcome...');
     this.router.navigate(['/welcome']);
     window.history.pushState(this.appState._state, null, '');
+
   }
 
   learnRoute() {

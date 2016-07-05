@@ -42,6 +42,7 @@ export class App {
   navOptions = ['Profile', 'Learn', 'Spell', 'Play', 'Create'];
   learnPage;
 
+
   constructor(public appState: AppState, public authService: AuthService, private router: Router) {
 
   }

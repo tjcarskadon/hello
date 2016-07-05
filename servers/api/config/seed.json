@@ -1,9 +1,17 @@
 {
 
-  "development": {},
+  "development": {
+    "User": [
+      {"email": "t@est.com", "password": "11111", "authFlag":"local"}
+    ]
+  },
 
   "test": {},
 
-  "production": {}
+  "production": {
+    "User": [
+      {"email": "t@est.com", "password": "11111", "authFlag":"local"}
+    ]
+  }
 
 }

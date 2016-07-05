@@ -9,12 +9,17 @@
 
 </head>
 <body>
-<!-- <script>
+<script>
   
 
-  var paused = false ;
+  var paused = true;
   function togglePause() {
     paused = !paused;
+    if(paused) {
+      console.log('scanning stopped');
+    } else {
+      console.log('scanning...');
+    }
   }
 
   var controllerOptions = {enableGestures:true};
@@ -25,30 +30,45 @@
 
       frame.hands.forEach((hand) => {
         var data = [];
+        let input = {};
+        // input.target="S";
+        // console.log('scanning');
         if(_(hand.fingers).every(finger => !finger.extended)) {
+          // console.log('closed');
+          //TODO: determine if this is needed and remove it
           hand.fingers.forEach(finger => {
             // console.log(finger.type, finger.extended, finger.direction);
             data.push(finger.extended, finger.direction);
           });
+         
+          input.extended = false;
+          input.rotated = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
+          input.oc = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
+          input.e = hand.thumb.stabilizedTipPosition[2] - hand.middleFinger.stabilizedTipPosition[2];
+          input.a = hand.thumb.stabilizedTipPosition[0] - hand.indexFinger.pipPosition[0];
+          input.s = hand.thumb.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
+          input.t = hand.thumb.stabilizedTipPosition[0] > hand.indexFinger.pipPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.middleFinger.stabilizedTipPosition[0] && hand.thumb.pipPosition[1] > hand.indexFinger.pipPosition[1]; 
+          input.n = hand.thumb.stabilizedTipPosition[0] > hand.middleFinger.pipPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.ringFinger.pipPosition[0] && hand.thumb.pipPosition[1] > hand.middleFinger.pipPosition[1];
+          input.m = hand.thumb.stabilizedTipPosition[0] > hand.ringFinger.mcpPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.pinky.mcpPosition[0] && hand.thumb.pipPosition[1] > hand.middleFinger.pipPosition[1];;
 
 
-
-          var diff = hand.fingers[0].stabilizedTipPosition[2] > hand.fingers[1].stabilizedTipPosition[2];
-          // console.log(diff);
-          
-          data.push(diff);
-
-          var obj = {data: data};
-
-          // fetch('http://localhost:3000/run', {
-          //     method: 'POST', 
-          //     body: JSON.stringify(obj),
-          //     headers: {"Content-type": "application/json"}
-          //   });
+ 
+          fetch('http://52.90.139.255:3000/brain', {
+              method: 'POST', 
+              body: JSON.stringify(input),
+              headers: {"Content-type": "application/json"}
+            }).then(response => {
+              // console.log(response);
+              return response.text();
+            }).then(t => {
+              if(t) {
+                console.log(t);
+              }
+            });
         } else {
           //This starts the section for if not all fingers are closed 
-          // console.log(frame.gestures[1]);
-          let input = {};
+          // console.log('open');
+          input.extended = true;
           input.rotated = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
           input.thumbExtended = hand.thumb.stabilizedTipPosition[2] - hand.indexFinger.mcpPosition[2]; //this could be wrong
           input.indexExtended = hand.indexFinger.extended;
@@ -68,27 +88,34 @@
           input.x = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
           input.f = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
           
-          fetch('http://localhost:3000/brain', {
+          fetch('http://52.90.139.255:3000/brain', {
               method: 'POST',
               body: JSON.stringify(input),
               headers:{"Content-type": "application/json"}
-          })
+          }).then(response => {
+              // console.log(response);
+              return response.text();
+            }).then(t => {
+              if(t) {
+                console.log(t);
+              }
+            });
 
       
         }
       });
     }
   });
-</script> -->
+</script>
 
-<script>
+<!-- <script>
   let controller = new Leap.Controller();
 
   controller.on('frame', (frame) => {
     console.log('frame');
   });
 
-</script>
+</script> -->
 <button id="pause" onclick="togglePause()">Pause</button>
 
 </body>

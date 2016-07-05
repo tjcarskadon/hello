@@ -2,27 +2,32 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const path = require('path');
 const app = express();
-// const redis = require('redis');
-const bluebird = require('bluebird');
-// bluebird.promisifyAll(redis.RedisClient.prototype);
-// const client = redis.createClient()
 app.use(bodyparser.json());
 
-console.log(path.resolve(__dirname,'../client'))
 
 var brain = require('brain');
 
-app.use(express.static(path.resolve(__dirname,'../client')));
+app.use(express.static(__dirname));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
-
-let results = [];
+var results = [];
 app.post('/brain', (req, res) => {
-      // console.log('scanning');
+      console.log('scanning');
   let input = req.body;
+
+  let extenedFingers = [];
+  extenedFingers.push(+input.thumbExtended,+input.indexExtended,+input.middleExtended, +input.ringExtended, +input.pinkyExtended);
+
   var checkExtendedNet = require('./neurons/checkExtended.js');
   var extendedCheckResults = checkExtendedNet.run([1,1,1,1,1]);
-  if (extendedCheckResults.true > extendedCheckResults.false) {
+  // if (extendedCheckResults.true > extendedCheckResults.false) {
+  if (input.extended) { 
     //is extdended
+    console.log('extended');
     //rotated?
     let rotated_checkNet = require('./neurons/isRotated.js');
     let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
@@ -72,7 +77,7 @@ app.post('/brain', (req, res) => {
         let IP_checkNet = require('./neurons/isIndexExtended.js');
         let isIP = IP_checkNet.run([input.indexExtended]);
         if (isIP.true > isIP.false) {
-          //check if middle is out
+          // check if middle is out
           // console.log('index extended');
            let MP_checkNet = require('./neurons/isMiddleExtended.js');
            let isMP = MP_checkNet.run([input.middleExtended]);
@@ -92,7 +97,6 @@ app.post('/brain', (req, res) => {
                 let isTBR = TBR_checkNet.run([input.tbr]);
                 if (isTBR.true > isTBR.false) {
                   //B
-                  // console.log('thumb extended');
                   // console.log('B');
                   results.push('B');
                 }
@@ -177,104 +181,115 @@ app.post('/brain', (req, res) => {
     }
 
 
-    if(results.length === 60) {
-      // console.log('check')
-      let str = results.join('');
-      // console.log(str);
-      let num = (str.match(/D/g) || []).length;
-
-      if (num / 60 > 0.5) {
-        console.log('TRUE');
-        results = [];
-      } else {
-        results = [];
-        console.log('FALSE');
-      }
-
-    //Good letters, B, L, U, D
-    //Bad Letters V,K,X,F,G,H
-    }
 
   } else {
+    //CLOSED POSITION LETTERS DECISION TREE
     //is not extended then send to neuron that will parse 
     //and transfer data to [a, e, m, n, o, s, t, c] paths
+    // console.log('CLOSED');
+    //Check for rotation
+    let rotated_checkNet = require('./neurons/isRotated.js');
+    let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
 
-    var OC_checkNet = require('./neurons/knuckle_yRangeFinder.js');
-    var isOC = OC_checkNet.run([-7.2379999999999995]);
-
-    console.log(isOC)
-    //TODO: talk to T about this changing this conditional
-    // if (isOC) {
-      if (isOC.c > isOC.o) {
-      //neuron to differentiate O & C
-      const OCZ_checkNet = require('./neurons/is_OC.js');
-      const OC = OCZ_checkNet.run([-0.154677]);
-      if (OC.c > OC.o) {
-        console.log('C');
+    if(isRotated.true > isRotated.false) {
+      // console.log('---------ROTATED--------------');
+      let OC_checkNet = require('./neurons/thumbMiddle_zTipRangeFinder');
+      let isOC = OC_checkNet.run([input.oc]);
+      // console.log(input.oc);
+      //TODO: look at re adjusting the C to extended - need to improve this performance
+      if (isOC.true > isOC.false) {
+        // console.log('O');
+        results.push('O')
       } else {
-        console.log('O');
+        // console.log('C');
+        results.push('C');
       }
     } else {
-      //neuron to differentiate E & A/S/M/N/T
-      const e_checkNet = require('./neurons/isThumbBelow.js');
-      
-      //check body for thumb tip position vs middleFinger tip position
-      //if thumb tip lower on Z axis then middle finger tip then set a flag to true
-      //else set to fals and pass this flag into the e_checkNet neuron
-      const e = e_checkNet.run([false]);
-      if (e.e > 0.75) {
-        console.log('E');
+      // console.log('-----------NOT ROTATED-----------');
+      let E_checkNet = require('./neurons/isthumbBelow.js');
+      let isE = E_checkNet.run([input.e]);
+      if(isE.true > isE.false)  {
+        // console.log('E');
+        results.push('E');
       } else {
-        console.log('check more')
-        //neuron to differentiate A & S/M/N/T
-
+        let A_checkNet = require('./neurons/thumbTipIndexKnuck_xRangeFinder');
+        let isA = A_checkNet.run([input.a]);
+        if(isA.true > isA.false) {
+          // console.log('A');
+          results.push('A');
+        } else {
+          let S_checkNet = require('./neurons/thumbMiddle_yRangeFinder.js');
+          let isS = S_checkNet.run([input.s]);
+          if(isS.true > isS.false) {
+            // console.log('S');
+            results.push('S');
+          } else if (input.t) {
+            // console.log('T');
+            results.push('T');
+          } else if (input.n) {
+            // console.log('N');
+            results.push('N');
+          } else if(input.m) {
+            // console.log("m");
+            results.push('M');
+          }
+        }
       }
-
+      
     }
-
   }
+    const numSamples = 30
+    var response;
+    if(results.length === numSamples) {
+      // console.log('check')
+      let str = results.join('');
+      // console.log(input.target);
+      if (input.target) {
+        let target = input.target;
+        let reg = new RegExp(target,'g');
+        let num = (str.match(reg) || []).length;
+        if (num / numSamples > 0.5) {
+          results = [];
+          console.log('true');
+          response = true;
+        } else {
+          results = [];
+          console.log('false');
+          response = false;
+        }
+      } else {
+        let holder = {};
 
-  res.end();
+        // console.log(results)
+        results.forEach(result => {
+          if (holder.hasOwnProperty(result)) {
+            holder[result]++
+          } else {
+            holder[result] = 1;
+          }
+        });
+        var rep = 0;
+        for (key in holder) {
+          if (holder[key] > rep) {
+            rep = holder[key];
+            response = key;
+            console.log(response);
+            results= [];
+          }
+        }   
+      }
+    }
+    // console.log(letter);
+    // //Good letters, B, L, U, D
+    // //Bad Letters V,K,X,F,G,H
+    // }
+
+    
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.send(response);
 
 });
 
-//check input and if it matches conditions return something to the console.  
-//this didn't work
-app.post('/btest', (req, res) => {
-  console.log('scanning....')
-  input = req.body;
-  console.log(input)
-//check if all four fingers are extended and the thumb is below the ring finger 
-  let IP_checkNet = require('./neurons/isIndexExtended.js');
-  let isIP = IP_checkNet.run([input.indexExtended]);
-  let MP_checkNet = require('./neurons/isMiddleExtended.js');
-  let isMP = MP_checkNet.run([input.middleExtended]);
-  let RP_checkNet = require('./neurons/isRingExtended.js');
-  let isRP = RP_checkNet.run([input.ringExtended]);
-  let PK_checkNet = require('./neurons/isPinkyExtended.js');
-  let isPK = PK_checkNet.run([input.pinkyExtended])
-
-  let extended = isIP > 0.5 && isMP > 0.5 && isRP > 0.5 && isPK > 0.5 ? true : false;
-
-  let TBR_checkNet = require('./neurons/isThumbBelowRing.js');
-  let isTBR = TBR_checkNet.run([input.tbr]);
-  if (isTBR.true > isTBR.false) {
-    //B
-    // console.log('thumb extended');
-    console.log('B');
-    res.send('made a b');
-}
-
-});
-
-app.post('/test', (r, rr) => {
-
-test = (r.body.data);
-
-var output = net.run(test)
-
-console.log(output);
-  rr.end();
-});
 
 app.listen(3000, () => console.log('listening on 3000'));
