@@ -15,7 +15,10 @@ export class Spell implements OnInit {
 
   constructor(
     private appState: AppState,
-    private authService: AuthService) {}
+    private wordsService: WordsService,
+    private letterCheckingService: LetterCheckingService
+    ) { /*this.appState._initLeapController();*/}
+
 
   private spellingWord:string = '';
   private showWord:boolean = false;
