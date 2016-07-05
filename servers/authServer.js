@@ -30,7 +30,7 @@ app.use(passport.initialize());
 
 app.get('/auth/google', passport.authenticate('google', {scope: 'profile email'}));
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/welcome'}),
+  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/spell'}),
   function(req, res) {
     //sucess redirect
     res.redirect('http://localhost:3000/profile');

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { WelcomeContent } from '../welcomeContent/welcomeContent.ts';
 import { Signup } from '../signup/signup.ts';
 import { Login } from '../login/login.ts';
@@ -30,6 +30,7 @@ export class Welcome implements OnInit {
   bg: string = 'assets/img/bg.png'
 
   constructor(private appState: AppState, private authService: AuthService, private ws: WelcomeStateService) {
+    // console.log(this.navOptions);
   }
 
   ngOnInit() {

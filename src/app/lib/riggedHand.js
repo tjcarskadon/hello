@@ -423,6 +423,8 @@ function onReady(handler) {
       onReady(function() {
         // return document.body.appendChild(scope.renderer.domElement);
         console.log(document.getElementById('ltContainer'), 'is????');
+        console.log(scope.renderer);
+        console.log('domelement, ', scope.renderer.domElement);
         return document.getElementById('ltContainer').appendChild(scope.renderer.domElement);
       });
     }

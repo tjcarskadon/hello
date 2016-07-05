@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LeapTrainerService } from './services/leapTrainer.service';
 import { AppState } from '../app.service';
+import { AuthService} from '../auth.service'
 import { CreatePageState } from './createPageState.service';
 
 @Component({
@@ -17,8 +18,13 @@ export class Create implements OnInit {
   constructor(
     private leapTrainerService: LeapTrainerService,
     private appState: AppState,
-    private createPageState: CreatePageState) {
+    private createPageState: CreatePageState, 
+    private authService: AuthService) {
     this.leapTrainerService._initLeapTrainer();
+  }
+
+  ngOnInit() {
+    this.authService.authenticate('create');
   }
 
   setActiveGesture(gestureName) {
@@ -84,11 +90,6 @@ export class Create implements OnInit {
     setTimeout(function() {
       console.log('...value not reset.')
     }, 2000);
-  }
-
-  ngOnInit() {
-
-
   }
 
 }

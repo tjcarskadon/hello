@@ -7,10 +7,10 @@
 
 <div id="ltMainContainer" class="animated fadeInLeft">
   <div id="ltContainer">
-    <div id="recognizedGesture">{{state.recognizedGesture}}</div>
+    <div id="recognizedGesture">TEMP</div>
   </div>
-  <div *ngIf="state.trainingComplete">
-    <button md-raised-button color="primary" (click)="update(state.gestureName)">Update</button>
+  <div *ngIf="true">
+    <button md-raised-button color="primary" (click)="update()">Update</button>
     <button md-raised-button color="primary" (click)="reset()">Reset</button>
     <button md-raised-button color="primary" (click)="saveGesture()">Save</button>
   </div>

@@ -7,7 +7,7 @@ export class AppState {
   // @HmrState() is used by HMR to track the state of any object during a hot module replacement
   _state = {
     authenticated: false, 
-    learn: false,
+    learnPage: false,
     myName: 'Richard',
     title: 'hello'
   };
@@ -27,7 +27,7 @@ export class AppState {
   get(prop?: any) {
     // use our state getter for the clone
     const state = this._state;
-
+    
     return state[prop] !== undefined ? state[prop] : state;
   }
 

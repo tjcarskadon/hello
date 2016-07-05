@@ -11,7 +11,7 @@ import { XLarge } from './x-large';
   selector: 'profile',  // <profile></profile>
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [
-    Title
+    Title, AppState
   ],
   // We need to tell Angular's compiler which directives are in our template.
   // Doing so will allow Angular to attach our behavior to an element
@@ -28,15 +28,15 @@ import { XLarge } from './x-large';
 export class Profile {
   localState = { email1: '', email2: '', password1: '', password2: '', name: ''};
   // TypeScript public modifiers
-  constructor(private appState: AppState, public title: Title, private authService: AuthService) { }
+  constructor(/*public appState: AppState, */public title: Title, private authService: AuthService) { }
 
   ngOnInit() {
     console.log('hello `Profile` component');
     // this.title.getData().subscribe(data => this.data = data);
-    console.log('appstate is:', this.appState._state);
-    console.log('authentication is:', this.appState.get('authenticated'));
+    console.log('appstate is:', AppState);
+    // console.log('authentication is:', this.appState.get('authenticated'));
 
-    this.authService.authenticate();
+    this.authService.authenticate('profile');
   }
 
   submitEmail(email1, email2) {
@@ -44,7 +44,7 @@ export class Profile {
     this.localState.email1 = email1;
     this.localState.email2 = email2;
     if (this.localState.email1 === this.localState.email2 && this.localState.email1.length) {
-      this.appState.set('email', email1);
+      // this.appState.set('email', email1);
     } else {
       alert('Both fields must match.');
     }
@@ -56,7 +56,7 @@ export class Profile {
     this.localState.password2 = pw2;
     if (this.localState.password1 === this.localState.password2) {
       if (this.localState.password1.length > 7) {
-        this.appState.set('password', pw1);
+        // this.appState.set('password', pw1);
       } else {
         alert('Password must be at least eight characters long.');
       }
@@ -65,10 +65,10 @@ export class Profile {
     }
   }
 
-  updateTitle(title) {
-    console.log(this.appState._state.title);
-    this.appState._state.title = title;
-    console.log(this.appState._state.title);
-  }
+  // updateTitle(title) {
+  //   console.log(this.appState._state.title);
+  //   this.appState._state.title = title;
+  //   console.log(this.appState._state.title);
+  // }
 
 }

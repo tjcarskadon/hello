@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   constructor(private appState: AppState, private router: Router) {}
 
-  authenticate () {
+  authenticate (page) {
     //get token
     let tkn: string = localStorage.getItem('tkn')
     let exp: Date = new Date(localStorage.getItem('exp'));
@@ -16,16 +16,19 @@ export class AuthService {
     if(tkn && exp > currentDate) {
       //logged in
       console.log('LOGGED IN');
-       console.log(this.appState._state.learn, '11111');
+       console.log(this.appState._state.learnPage, '11111');
 
       this.appState.set('authenticated', true);
       // this.appState.learn =true;
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/'+page]);
+      window.history.pushState(null, null, page);
       // this.appState.landing = 'profile';
       return true;
     } else {
-      console.log('LOGGED OUT')
-      this.router.navigate(['/welcome']);
+      console.log('LOGGED OUT', exp, tkn)
+      this.router.navigate(['/welcome']); 
+      window.history.replaceState(null, null, '');
+
       return false;
     }
   }
@@ -36,6 +39,7 @@ export class AuthService {
     this.appState.set('authenticated', false);
     console.log('navigating to welcome...');
     this.router.navigate(['/welcome']);
+    window.history.pushState(this.appState._state, null, '');
   }
 
   learnRoute() {
