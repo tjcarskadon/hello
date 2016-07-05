@@ -5,6 +5,10 @@ services:
     image: tjcarskadon/hello
     ports:
       - 80:8000
+  letters:
+    image: tjcarskadon/letterservice
+    ports:
+      - 3000:3000
   api: 
     image: tjcarskadon/digitalkapi
     command: bash -c 'while ! </dev/tcp/db/5432; do sleep 1; done; nodal db:prepare && nodal db:migrate && nodal db:seed && nodal s;'
