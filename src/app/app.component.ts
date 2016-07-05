@@ -47,7 +47,7 @@ export class App {
   }
 
   ngDoCheck() {
-    console.log('browser history saved state...: ', window.history.state);
+    // console.log('browser history saved state...: ', window.history.state);
     if (window.history.state) {
       this.learnPage = window.history.state.learnPage;
       this.authenticated = window.history.state.authenticated;  
@@ -63,7 +63,7 @@ export class App {
 
   ngOnInit() {
     // console.log('Initial App State', this.appState.state);
-    console.log('app comp loaded', this.appState.get('authenticated'));
+    // console.log('app comp loaded', this.appState.get('authenticated'));
   }
 
   logout() {

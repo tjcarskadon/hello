@@ -15,14 +15,14 @@ export class LeapTrainerService {
 
 
   _initLeapTrainer() {
-    // this.trainerCtrl = this.appState._initLeapController(); 
-    // console.log(this.trainerCtrl);
-    // this.trainerCtrl.connect();
-    // this.trainer = new this.LeapTrainer.Controller({
-    //   controller: this.trainerCtrl,
-    //   convolutionFactor: 2, 
-    //   trainingGestures: 3
-    // });
+    this.trainerCtrl = this.appState._initLeapController(); 
+    console.log('controller in create!!!!', this.trainerCtrl);
+    this.trainerCtrl.connect();
+    this.trainer = new this.LeapTrainer.Controller({
+      controller: this.trainerCtrl,
+      convolutionFactor: 2, 
+      trainingGestures: 3
+    });
   }
 
   _initLeapTrainerWatch() {
