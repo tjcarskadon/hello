@@ -3,6 +3,7 @@ import { AppState } from '../app.service';
 import { WordsService } from './wordsService.service';
 import { LetterCheckingService } from './LetterCheckingService.service';
 
+
 @Component({
   selector: 'spell',
   template: require('./spell.component.html'),
@@ -18,7 +19,6 @@ export class Spell implements OnInit {
     private wordsService: WordsService,
     private letterCheckingService: LetterCheckingService
     ) { /*this.appState._initLeapController();*/}
-
 
   private spellingWord:string = '';
   private showWord:boolean = false;
