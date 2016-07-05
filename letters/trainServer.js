@@ -2,10 +2,6 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const path = require('path');
 const app = express();
-// const redis = require('redis');
-const bluebird = require('bluebird');
-// bluebird.promisifyAll(redis.RedisClient.prototype);
-// const client = redis.createClient()
 app.use(bodyparser.json());
 
 
@@ -14,7 +10,7 @@ var brain = require('brain');
 app.use(express.static(__dirname));
 
 
-      results = [];
+var results = [];
 app.post('/brain', (req, res) => {
       // console.log('scanning');
   let input = req.body;
@@ -239,6 +235,7 @@ app.post('/brain', (req, res) => {
     }
   }
     const numSamples = 30
+    var response;
     if(results.length === numSamples) {
       // console.log('check')
       let str = results.join('');
@@ -248,11 +245,13 @@ app.post('/brain', (req, res) => {
         let reg = new RegExp(target,'g');
         let num = (str.match(reg) || []).length;
         if (num / numSamples > 0.5) {
-          console.log('TRUE');
           results = [];
+          console.log('true');
+          response = true;
         } else {
           results = [];
-          console.log('FALSE');
+          console.log('false');
+          response = false;
         }
       } else {
         let holder = {};
@@ -266,13 +265,12 @@ app.post('/brain', (req, res) => {
           }
         });
         var rep = 0;
-        var letter='';
         for (key in holder) {
           if (holder[key] > rep) {
             rep = holder[key];
-            letter = key;
+            response = key;
+            console.log(response);
             results= [];
-            console.log(letter);
           }
         }   
       }
@@ -281,47 +279,11 @@ app.post('/brain', (req, res) => {
     // //Good letters, B, L, U, D
     // //Bad Letters V,K,X,F,G,H
     // }
-  res.end();
+
+
+  res.send(response);
 
 });
 
-//check input and if it matches conditions return something to the console.  
-//this didn't work
-app.post('/btest', (req, res) => {
-  console.log('scanning....')
-  input = req.body;
-  console.log(input)
-//check if all four fingers are extended and the thumb is below the ring finger 
-  let IP_checkNet = require('./neurons/isIndexExtended.js');
-  let isIP = IP_checkNet.run([input.indexExtended]);
-  let MP_checkNet = require('./neurons/isMiddleExtended.js');
-  let isMP = MP_checkNet.run([input.middleExtended]);
-  let RP_checkNet = require('./neurons/isRingExtended.js');
-  let isRP = RP_checkNet.run([input.ringExtended]);
-  let PK_checkNet = require('./neurons/isPinkyExtended.js');
-  let isPK = PK_checkNet.run([input.pinkyExtended])
-
-  let extended = isIP > 0.5 && isMP > 0.5 && isRP > 0.5 && isPK > 0.5 ? true : false;
-
-  let TBR_checkNet = require('./neurons/isThumbBelowRing.js');
-  let isTBR = TBR_checkNet.run([input.tbr]);
-  if (isTBR.true > isTBR.false) {
-    //B
-    // console.log('thumb extended');
-    console.log('B');
-    res.send('made a b');
-}
-
-});
-
-app.post('/test', (r, rr) => {
-
-test = (r.body.data);
-
-var output = net.run(test)
-
-console.log(output);
-  rr.end();
-});
 
 app.listen(3000, () => console.log('listening on 3000'));

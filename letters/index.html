@@ -15,6 +15,11 @@
   var paused = true;
   function togglePause() {
     paused = !paused;
+    if(paused) {
+      console.log('scanning stoped');
+    } else {
+      console.log('scanning...');
+    }
   }
 
   var controllerOptions = {enableGestures:true};
@@ -26,8 +31,8 @@
       frame.hands.forEach((hand) => {
         var data = [];
         let input = {};
-        input.target="S";
-        console.log('scanning');
+        // input.target="S";
+        // console.log('scanning');
         if(_(hand.fingers).every(finger => !finger.extended)) {
           // console.log('closed');
           //TODO: determine if this is needed and remove it
@@ -48,10 +53,18 @@
 
 
  
-          fetch('http://localhost:3000/brain', {
+          fetch('http://52.90.139.255:3000/brain', {
               method: 'POST', 
+              mode: 'no-cors',
               body: JSON.stringify(input),
               headers: {"Content-type": "application/json"}
+            }).then(response => {
+              console.log(response);
+              return response.text();
+            }).then(t => {
+              // if(t) {
+                console.log(t);
+              // }
             });
         } else {
           //This starts the section for if not all fingers are closed 
@@ -76,11 +89,19 @@
           input.x = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
           input.f = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
           
-          fetch('http://localhost:3000/brain', {
+          fetch('http://52.90.139.255:3000/brain', {
               method: 'POST',
+              mode: 'no-cors',
               body: JSON.stringify(input),
               headers:{"Content-type": "application/json"}
-          })
+          }).then(response => {
+              console.log(response);
+              return response.text();
+            }).then(t => {
+              // if(t) {
+                console.log(t);
+              // }
+            });
 
       
         }
