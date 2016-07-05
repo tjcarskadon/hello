@@ -24,11 +24,8 @@ export class Play implements OnInit {
 
   ngOnInit() {
     this.authService.authenticate('play');
-    // if(!this.authService.authenticate()) {
-    //   this.router.navigate(['Welcome']);
-    // } else {
-    //   console.log('trueeee logged in')
-    // }
+
+
   }
 
 }
