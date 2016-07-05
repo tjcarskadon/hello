@@ -8,11 +8,15 @@ app.use(bodyparser.json());
 var brain = require('brain');
 
 app.use(express.static(__dirname));
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 var results = [];
 app.post('/brain', (req, res) => {
-      // console.log('scanning');
+      console.log('scanning');
   let input = req.body;
 
   let extenedFingers = [];
@@ -23,7 +27,7 @@ app.post('/brain', (req, res) => {
   // if (extendedCheckResults.true > extendedCheckResults.false) {
   if (input.extended) { 
     //is extdended
-    // console.log('extended');
+    console.log('extended');
     //rotated?
     let rotated_checkNet = require('./neurons/isRotated.js');
     let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
@@ -280,7 +284,9 @@ app.post('/brain', (req, res) => {
     // //Bad Letters V,K,X,F,G,H
     // }
 
-
+    
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.send(response);
 
 });
