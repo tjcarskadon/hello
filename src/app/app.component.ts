@@ -2,28 +2,29 @@
  * Angular 2 decorators and services
  */
 import { Component, ViewEncapsulation } from '@angular/core';
-import { RouteConfig } from '@angular/router-deprecated';
+// import { RouteConfig } from '@angular/router-deprecated';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { AppState } from './app.service';
 import { Profile } from './profile';
-// import { Home } from './home';
 import { Welcome } from './welcome';
 import { Learn } from './learn';
 import { Spell } from './spell';
 import { Play } from './play';
 import { Create } from './create';
-import { RouterActive } from './router-active';
-import { AuthService } from './auth.service'
+// import { RouterActive } from './router-active';
+import { AuthService } from './auth.service';
 import './rxjs-operators';
 /*
  * App Component
  * Top Level Component
  */
+
 @Component({
   selector: 'app',
   pipes: [ ],
-  providers: [AuthService, AppState],
-  directives: [ ROUTER_DIRECTIVES, Welcome, Profile, Learn, Spell, Play, Create ],
+  providers: [ AuthService, AppState ],
+  // directives: [ ROUTER_DIRECTIVES, Welcome, Profile, Learn, Spell, Play, Create ],
+  directives: [ ROUTER_DIRECTIVES, Welcome, Profile, Learn, Spell, Create ],
   encapsulation: ViewEncapsulation.None,
   styles: [
     require('normalize.css'),
@@ -33,7 +34,7 @@ import './rxjs-operators';
 })
 
 export class App {
-  angularclassLogo = 'assets/img/asl-d.png';
+  digitalkLogo = 'assets/img/asl-d.png';
   loading = true;
   name = 'hello.';
   url = 'https://github.com/digi-talk/hello';
@@ -57,8 +58,8 @@ export class App {
 
   navToPage(page) {
     page = page.toLowerCase();
-    console.log('/'+page);
-    this.router.navigate(['/'+page]);
+    // console.log(`/${page}`);
+    this.router.navigate([`/${page}`]);
     window.history.pushState(null, null, page);
   }
 

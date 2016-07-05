@@ -3,7 +3,6 @@ import { AppState } from '../app.service';
 
 @Injectable()
 
-
 export class CreatePageState {
 
   _state = {
@@ -13,11 +12,9 @@ export class CreatePageState {
     gestureListKeys: [],
     gestureData: [],
     recognizedGesture: '',
-    trainingComplete: false, 
+    trainingComplete: false,
     displayGestureOptions: false
   };
-
-
 
   constructor(private appState: AppState) { }
 
@@ -28,7 +25,6 @@ export class CreatePageState {
   set state(value) {
     throw new Error('do not mutate the `.state` directly');
   }
-
 
   get(prop?: any) {
     // use our state getter for the clone

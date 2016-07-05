@@ -7,18 +7,18 @@ import { AppState } from '../app.service';
   selector: 'learn',
   template: require('./learn.component.html'),
   styles: [require('./learn.component.css')],
-  providers: [AlphabetCaptureCheck, AppState]
+  providers: [ AlphabetCaptureCheck, AppState ]
 })
 
 export class Learn implements OnInit {
 
   private riggedHand: boolean = false;
-  private imageUrl:string = '';
-  private clickedLtr:string;
-  private showImgDiv:boolean = false;
-  private showCaptureDiv:boolean = false;
-  private color:string = 'warn';
-  private mastered = [];
+  private imageUrl: string = '';
+  private clickedLtr: string;
+  // private showImgDiv: boolean = false;
+  // private showCaptureDiv: boolean = false;
+  // private color:string = 'warn';
+  // private mastered = [];
   private letters = [
     {val: 'A', color:'primary', count: 0},
     {val: 'B', color:'primary', count: 0},
@@ -59,45 +59,45 @@ export class Learn implements OnInit {
         letter.color = sessionStorage.getItem(letter.val);
       }
     });
-    this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+    // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
 
-  changeLetterColor() {
-    let idx = this.clickedLtr.charCodeAt(0) - 97;
-    const letter = this.letters[idx];
-    if (this.alphabetCaptureCheck.getResult()) {
-      letter.count += 1;
-      letter.color = 'white';
-    } else {
-      letter.color = 'warn';
-    }
-    sessionStorage.setItem(letter.val, letter.color);
-    // console.log(sessionStorage.getItem(letter.val));
-    if (letter.count > 1) {
-      this.mastered.push(letter.val);
-      // console.log(this.mastered);
-    }
-    sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
-  }
+  // changeLetterColor() {
+  //   let idx = this.clickedLtr.charCodeAt(0) - 97;
+  //   const letter = this.letters[idx];
+  //   if (this.alphabetCaptureCheck.getResult()) {
+  //     letter.count += 1;
+  //     letter.color = 'white';
+  //   } else {
+  //     letter.color = 'warn';
+  //   }
+  //   sessionStorage.setItem(letter.val, letter.color);
+  //   // console.log(sessionStorage.getItem(letter.val));
+  //   if (letter.count > 1) {
+  //     this.mastered.push(letter.val);
+  //     // console.log(this.mastered);
+  //   }
+  //   sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
+  // }
 
   clicked(ltr) {
     ltr = ltr.toLowerCase();
     this.imageUrl = `assets/img/${ltr}.png`;
     this.clickedLtr = ltr;
-    this.showCaptureDiv = false;
-    this.showImgDiv = true;
+    // this.showCaptureDiv = false;
+    // this.showImgDiv = true;
     this.riggedHand = false;
   }
 
-  hideImgDiv() {
-    this.showImgDiv = false;
-    this.showCaptureDiv = true;
-  }
+  // hideImgDiv() {
+  //   this.showImgDiv = false;
+  //   this.showCaptureDiv = true;
+  // }
 
-  hideCaptureDiv() {
-    this.showCaptureDiv = false;
-    this.changeLetterColor();
-  }
+  // hideCaptureDiv() {
+  //   this.showCaptureDiv = false;
+  //   this.changeLetterColor();
+  // }
 
   showRiggedHand() {
     this.riggedHand = true;
