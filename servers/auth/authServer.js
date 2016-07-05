@@ -9,9 +9,9 @@ var host = process.env.HOST || 'localhost';
 var port = process.env.PORT || 8080;
 var googleCB = 'http://'+host+':'+port+'/auth/google/callback';
 
-var GOOGLE_CLIENT_ID = '1072649245876-1k3snsueieqli6n4k4jrbbgdb4d0mah8.apps.googleusercontent.com';
+var GOOGLE_CLIENT_ID = require('./auth.config.js').CLIENT_ID;
 
-var GOOGLE_CLIENT_SECRET = '9o3r_FKDUewLK-NHVLDi4WA5';
+var GOOGLE_CLIENT_SECRET = require('./auth.config.js').CLIENT_SECRET;
 
 
 passport.use(new GoogleStrat({
