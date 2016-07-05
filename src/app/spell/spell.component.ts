@@ -37,6 +37,11 @@ export class Spell implements OnInit {
   }
 
   nextWord() {
+    this.rightPanelWord = '';
+    this.nextLetterIndex = 0;
+    this.nextLetter = '';
+    this.spellingWord = '';
+    this.wordPercent = 0;
     this.skippedWords.push(this.spellingWord);
     this.spellingWord = this.wordsService.returnRandomWord();
     this.nextLetter = this.spellingWord[this.nextLetterIndex].toLowerCase();
@@ -60,23 +65,24 @@ export class Spell implements OnInit {
   checkLetter() {
     this.capturedLetter = this.letterCheckingService.getLetter();
     if (this.capturedLetter === this.nextLetter) {
-      console.log('letter found', this.capturedLetter);
+     // console.log('letter found', this.capturedLetter);
       this.capturedLetterColor = 'green';
       this.rightPanelWord += this.capturedLetter;
       this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
-      this.nextLetter = this.spellingWord[this.nextLetterIndex];
-      if (this.nextLetterIndex < this.spellingWord.length) {
+      if (this.nextLetterIndex < this.spellingWord.length - 1) {
         this.nextLetterIndex ++;
+        this.nextLetter = this.spellingWord[this.nextLetterIndex];
+     //   console.log('next index = ', this.nextLetterIndex);
+     //   console.log('next letter expected ', this.nextLetter);
       } else {
         this.nextWord();
         this.correctWords.push(this.rightPanelWord);
-        this.rightPanelWord = '';
-        this.nextLetterIndex = 0;
-        this.nextLetter = '';
-        this.spellingWord = '';
-        this.wordPercent = 0;
+        // this.rightPanelWord = '';
+        // this.nextLetterIndex = 0;
+        // this.nextLetter = '';
+        // this.spellingWord = '';
+        // this.wordPercent = 0;
       }
-      console.log('next letter expected ', this.nextLetter);
     } else {
       this.capturedLetterColor = 'red';
     }

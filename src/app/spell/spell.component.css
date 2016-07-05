@@ -89,6 +89,10 @@ canvas {
 #right-panel-word {
   height: 40px;
   color: green;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
 #progress-bar {
