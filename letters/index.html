@@ -37,9 +37,9 @@
           input.extended = false;
           input.rotated = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
           input.oc = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
-          input.as = hand.thumb.mcpPosition[1] - hand.middleFinger.mcpPosition[1];
-          input.s = hand.ringFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
+          input.e = hand.thumb.stabilizedTipPosition[0] - hand.middleFinger.stabilizedTipPosition[0];
 
+          console.log(input.e)
           fetch('http://localhost:3000/brain', {
               method: 'POST', 
               body: JSON.stringify(input),

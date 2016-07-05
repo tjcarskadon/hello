@@ -221,38 +221,16 @@ app.post('/brain', (req, res) => {
       }
     } else {
       console.log('-----------NOT ROTATED-----------');
-      //is thumb below middle on Y?
-      let AS_checkNet = require('./neurons/thumbIndexTip_yRangeFinder');
-      let isAS = AS_checkNet.run([input.as]);
-      if(isAS.true > isAS.false) {
-          //A
-          console.log('A');
+      let E_checkNet = require('./neurons/isthumbBelow.js');
+      let isE = E_checkNet.run([input.e]);
+      console.log(isE.true,isE.false)
+      if(isE.true > isE.false)  {
+        console.log('E');
       } else {
-        //check to see if thumb is below middle mcp
-        let S_checkNet = require('./neurons.thumbRing_yRangeFinder');
-        let isS = S_checkNet.run([input.s])
-        if (isS.true > isS.false) {
-          consle.log('S');
-          //s
-        }
-        
+        console.log('another letter');
       }
-      // else 
-        //is thumb tip below ring MCP on x
-          //m
-      //else
-        // is thumb tip below middle mcp on x
-          //n
-      //else 
-        //is thumb tip below index mcp on x
-          //t
-      //is thumb tip below middle tip on z
-        //e
-      //check thumb mcp vs index mcp for a
-
+      
     }
-
-
   }
 
   res.end();

@@ -35,7 +35,7 @@ export class AuthService {
     console.log('logging out!');
     this.appState.set('authenticated', false);
     console.log('navigating to welcome...');
-    this.router.navigate(['/welcome']);
+    this.router.navigate(['/']);
   }
 
   learnRoute() {
