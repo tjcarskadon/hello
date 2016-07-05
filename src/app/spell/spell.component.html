@@ -32,15 +32,15 @@
 </div>
 
 <div id="spellPanel" class="animated zoomIn">
+<div id="right-top">
   <div id="right-panel-word" *ngIf="rightPanelWord.length">
     {{ rightPanelWord }}
   </div>
 
-  <div *ngIf="rightPanelWord.length" id="progress-bar">
-   
+  <div *ngIf="rightPanelWord.length" id="progress-bar">   
     <md-progress-circle mode="determinate" [value]="wordPercent"></md-progress-circle>
   </div>
-  
+ </div> 
  <div id="correct-container">
     <div id="correct-words" *ngIf="correctWords.length" *ngFor="let word of correctWords">
       <button md-button color = "primary" (click)="correctClick($event)"> {{ word }} </button>

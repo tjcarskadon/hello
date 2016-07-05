@@ -111,6 +111,7 @@ canvas {
 #correct-container {
   max-height: 300px;
   overflow: scroll;
+  text-align: center;
 }
 
 #right-top {
