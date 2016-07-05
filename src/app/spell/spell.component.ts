@@ -40,12 +40,10 @@ export class Spell implements OnInit {
     this.rightPanelWord = '';
     this.nextLetterIndex = 0;
     this.nextLetter = '';
-//    this.spellingWord = '';
     this.wordPercent = 0;
     this.skippedWords.push(this.spellingWord);
     this.spellingWord = this.wordsService.returnRandomWord();
     this.nextLetter = this.spellingWord[this.nextLetterIndex].toLowerCase();
-    console.log('next letter expected at first', this.nextLetter);
     let spell = this;
     setTimeout(() => {
       spell.showWord = true;
@@ -69,23 +67,16 @@ export class Spell implements OnInit {
   checkLetter() {
     this.capturedLetter = this.letterCheckingService.getLetter();
     if (this.capturedLetter === this.nextLetter) {
-     // console.log('letter found', this.capturedLetter);
       this.capturedLetterColor = 'green';
       this.rightPanelWord += this.capturedLetter;
-      this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
+      //this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
+      //this.wordPercent = 10;
       if (this.nextLetterIndex < this.spellingWord.length - 1) {
         this.nextLetterIndex ++;
         this.nextLetter = this.spellingWord[this.nextLetterIndex];
-     //   console.log('next index = ', this.nextLetterIndex);
-     //   console.log('next letter expected ', this.nextLetter);
       } else {
         this.correctWords.push(this.rightPanelWord);
         this.nextWord();
-        // this.rightPanelWord = '';
-        // this.nextLetterIndex = 0;
-        // this.nextLetter = '';
-        // this.spellingWord = '';
-        // this.wordPercent = 0;
       }
     } else {
       this.capturedLetterColor = 'red';

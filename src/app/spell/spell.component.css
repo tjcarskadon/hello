@@ -102,8 +102,11 @@ canvas {
 }
 
 #correct-words {
-  max-height: 400px;
-  overflow: scroll;
   text-align: center;
   padding: 5px;
+}
+
+#correct-container {
+  max-height: 400px;
+  overflow: scroll;
 }
