@@ -40,7 +40,7 @@ export class Login implements OnInit {
                               this.appState.set('learn', true);
                               console.log('navigating to profile page now...', this.appState.get('authenticated'));
                               this.router.navigate(['/profile']);
-                              window.history.pushState(null, null, 'profile');
+                              window.history.pushState(this.appState._state, null, 'profile');
                             },
                             error => console.log(error));
   }

@@ -39,7 +39,7 @@ export class AuthService {
     this.appState.set('authenticated', false);
     console.log('navigating to welcome...');
     this.router.navigate(['/welcome']);
-    window.history.pushState(null, null, '');
+    window.history.pushState(this.appState._state, null, '');
   }
 
   learnRoute() {
