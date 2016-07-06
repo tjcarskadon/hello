@@ -90,6 +90,10 @@ canvas {
 .fill {
   width: 5%;
 }
+
+#deviceStatus {
+  color: grey;
+}
 /*
 #gestureOptions {
   width: 100%;

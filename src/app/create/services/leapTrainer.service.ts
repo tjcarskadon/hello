@@ -9,6 +9,7 @@ export class LeapTrainerService {
   trainerCtrl;
   trainer;
   LeapTrainer = require('../../lib/leap-trainer.js');
+  connected;
 
   constructor(
     private cpS: CreatePageState,
@@ -28,18 +29,14 @@ export class LeapTrainerService {
 
   deviceStopped_CB() {
     console.log('device has stopped streaming');
-<<<<<<< HEAD
+    this.connected = false;
     //TODO: handle UI 
-=======
->>>>>>> 14b9060b86163e9d7e7fa6ce687d86665a51cd7f
   }
 
   deviceStreaming_CB() {
     console.log('device has started streaming');
-<<<<<<< HEAD
+    this.connected = true;
     //TODO: handle UI 
-=======
->>>>>>> 14b9060b86163e9d7e7fa6ce687d86665a51cd7f
   }
 
   _initLeapTrainerWatch() {
