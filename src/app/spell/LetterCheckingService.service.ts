@@ -10,7 +10,9 @@ export class LetterCheckingService {
   private letters = ['a', 'b', 'c', 'd', 'e', 'f', 'l', 'o', 's', 'u', 'w'];
   private url: string = '';
   private letter = {};
-  controller = this.appState._initLeapController();
+  private results = [];
+  private controller = this.appState._initLeapController();
+  private _ = require('underscore');
   
   constructor(private appState: AppState,
               private http: Http
@@ -24,31 +26,81 @@ export class LetterCheckingService {
     this.controller.on ('frame', (frame) => {
 
       frame.hands.forEach((hand) => {
-      console.log('inside frame');
+      // console.log('inside frame');
         let data = [];
         let input = {};
         //input['target'] = this.targetLetter;
-        input['rotated'] = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
-        input['thumbExtended'] = hand.thumb.stabilizedTipPosition[2] - hand.indexFinger.mcpPosition[2]; //this could be wrong
-        input['indexExtended'] = hand.indexFinger.extended;
-        input['middleExtended'] = hand.middleFinger.extended;
-        input['ringExtended'] = hand.ringFinger.extended;
-        input['pinkyExtended'] = hand.pinky.extended;
-
-        input['gh'] = hand.indexFinger.stabilizedTipPosition[0] - hand.middleFinger.stabilizedTipPosition[0];
-        input['td'] = hand.thumb.stabilizedTipPosition[1] - hand.indexFinger.mcpPosition[1];
-        input['md'] = hand.indexFinger.mcpPosition[1] - hand.middleFinger.stabilizedTipPosition[1];
-        input['id'] = hand.middleFinger.mcpPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
-        input['tbr'] = hand.ringFinger.stabilizedTipPosition[0] - hand.thumb.stabilizedTipPosition[0];        
-        input['ibm'] = hand.middleFinger.stabilizedTipPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
-        input['uvk'] = hand.indexFinger.stabilizedTipPosition[0] = hand.indexFinger.stabilizedTipPosition[0];
-        input['vk'] = hand.ringFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
-        input['xd'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
-        input['x'] = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
-        input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
         
-        this.letter = this.checkInput(input);
-        console.log('this.letter in letterCheckingService= ', this.letter);
+        if (this._(hand.fingers).every(finger => !finger.extended)) {
+          // console.log('closed');
+          //TODO: determine if this is needed and remove it
+          hand.fingers.forEach(finger => {
+            // console.log(finger.type, finger.extended, finger.direction);
+            data.push(finger.extended, finger.direction);
+          });
+         
+          input['extended'] = false;
+          input['rotated'] = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
+          input['oc'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
+          input['e'] = hand.thumb.stabilizedTipPosition[2] - hand.middleFinger.stabilizedTipPosition[2];
+          input['a'] = hand.thumb.stabilizedTipPosition[0] - hand.indexFinger.pipPosition[0];
+          input['s'] = hand.thumb.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
+          input['t'] = hand.thumb.stabilizedTipPosition[0] > hand.indexFinger.pipPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.middleFinger.stabilizedTipPosition[0] && hand.thumb.pipPosition[1] > hand.indexFinger.pipPosition[1]; 
+          input['n'] = hand.thumb.stabilizedTipPosition[0] > hand.middleFinger.pipPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.ringFinger.pipPosition[0] && hand.thumb.pipPosition[1] > hand.middleFinger.pipPosition[1];
+          input['m'] = hand.thumb.stabilizedTipPosition[0] > hand.ringFinger.mcpPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.pinky.mcpPosition[0] && hand.thumb.pipPosition[1] > hand.middleFinger.pipPosition[1];;
+
+          // fetch('http://52.90.139.255:3000/brain', {
+          //     method: 'POST', 
+          //     body: JSON.stringify(input),
+          //     headers: {"Content-type": "application/json"}
+          //   }).then(response => {
+          //     // console.log(response);
+          //     return response.text();
+          //   }).then(t => {
+          //     if(t) {
+          //       console.log(t);
+          //     }
+          //   });
+        } else {
+            //This starts the section for if not all fingers are closed 
+          // console.log('open');
+          input['extended'] = true;
+          input['rotated'] = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
+          input['thumbExtended'] = hand.thumb.stabilizedTipPosition[2] - hand.indexFinger.mcpPosition[2]; //this could be wrong
+          input['indexExtended'] = hand.indexFinger.extended;
+          input['middleExtended'] = hand.middleFinger.extended;
+          input['ringExtended'] = hand.ringFinger.extended;
+          input['pinkyExtended'] = hand.pinky.extended;
+
+          input['gh'] = hand.indexFinger.stabilizedTipPosition[0] - hand.middleFinger.stabilizedTipPosition[0];
+          input['td'] = hand.thumb.stabilizedTipPosition[1] - hand.indexFinger.mcpPosition[1];
+          input['md'] = hand.indexFinger.mcpPosition[1] - hand.middleFinger.stabilizedTipPosition[1];
+          input['id'] = hand.middleFinger.mcpPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
+          input['tbr'] = hand.ringFinger.stabilizedTipPosition[0] - hand.thumb.stabilizedTipPosition[0];        
+          input['ibm'] = hand.middleFinger.stabilizedTipPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
+          input['uvk'] = hand.indexFinger.stabilizedTipPosition[0] = hand.indexFinger.stabilizedTipPosition[0];
+          input['vk'] = hand.ringFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
+          input['xd'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
+          input['x'] = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
+          input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
+         
+          // fetch('http://52.90.139.255:3000/brain', {
+          //     method: 'POST',
+          //     body: JSON.stringify(input),
+          //     headers:{"Content-type": "application/json"}
+          // }).then(response => {
+          //     // console.log(response);
+          //     return response.text();
+          //   }).then(t => {
+          //     if(t) {
+          //       console.log(t);
+          //     }
+          //   });
+        }
+
+         //this.letter = this.checkInput(input);
+         this.checkInput(input);
+         // console.log('this.letter in letterCheckingService= ', this.letter);
       })
     })
   }
@@ -60,9 +112,9 @@ export class LetterCheckingService {
 
 
   checkInput(input) {
-    console.log(input);
+     // console.log(input);
+
     let extenedFingers = [];
-    let results = [];
     extenedFingers.push(+input.thumbExtended,+input.indexExtended,+input.middleExtended, +input.ringExtended, +input.pinkyExtended);
 
     var checkExtendedNet = require('./neurons/checkExtended.js');
@@ -83,15 +135,15 @@ export class LetterCheckingService {
         let isGH = GH_checkNet.run([input.gh]) ;  //input.gh
         if(isGH.g > isGH.h) {
           // console.log('G');
-          results.push('G');
+          this.results.push('G');
           //G
         } else {
           //H 
          // console.log('H');
-         results.push('H');
+         this.results.push('H');
         }
       } else {
-        // console.log('______NOT ROTATED______');
+        console.log('______NOT ROTATED______');
         //Check for down fingers
         let TD_checkNet = require('./neurons/isThumbDown.js');
         let isTD = TD_checkNet.run([input.td]); //input.td
@@ -103,14 +155,14 @@ export class LetterCheckingService {
           let isMD = MD_checkNet.run([input.md]); 
           if (isMD.true > isMD.false) {
             // console.log('P');
-            results.push('P');
+            this.results.push('P');
             //P
           } else {
             let ID_checkNet = require('./neurons/isIndexDown.js');
             let isID = ID_checkNet.run([input.id]);
             if (isTD.true > isTD.false) {
               //Q
-              results.push('Q');
+              this.results.push('Q');
             // console.log('Q');
             }
           }
@@ -140,13 +192,13 @@ export class LetterCheckingService {
                   let isTBR = TBR_checkNet.run([input.tbr]);
                   if (isTBR.true > isTBR.false) {
                     //B
-                    // console.log('B');
-                    results.push('B');
+                    console.log('B');
+                    this.results.push('B');
                   }
                 } else {
                   //W
                   // console.log('W');
-                  results.push('W');
+                  this.results.push('W');
                 }
               } else {
                 //Check if Index is below M
@@ -155,7 +207,7 @@ export class LetterCheckingService {
                 if (isIBM.true > isIBM.false) {
                   //R
                   // console.log('R');
-                  results.push('R');
+                  this.results.push('R');
                 } else {
                   //check to see ifthe tips of the index and middle are close together.
                   let UVK_checkNet = require('./neurons/indexMiddle_xRangeFinder.js');
@@ -164,7 +216,7 @@ export class LetterCheckingService {
                   if (isUVK.true > isUVK.false) {
                     //U
                     // console.log('U');
-                    results.push('U');
+                    this.results.push('U');
                   } else {
                     //check thumb position for V and K
                     let VK_checkNet = require('./neurons/thumbRing_yRangeFinder.js');
@@ -172,11 +224,11 @@ export class LetterCheckingService {
                     if (isVK.true > isVK.false) {
                       //V
                       // console.log('V');
-                      results.push('V');
+                      this.results.push('V');
                     } else {
                       //K
                       // console.log('K');
-                      results.push('K');
+                      this.results.push('K');
                     }
                   }
                 }
@@ -188,7 +240,7 @@ export class LetterCheckingService {
               if (isTE.true > isTE.false) {
                 //L
                 // console.log('L');
-                results.push('L');
+                this.results.push('L');
               } else {
                 //Check for X
                 let XD_checkNet = require('./neurons/thumbMiddle_zTipRangeFinder.js');
@@ -196,7 +248,7 @@ export class LetterCheckingService {
                 // console.log(isXD.true, isXD.false);
                 if (isXD.true > isXD.false) {
                   // console.log('D');
-                  results.push('D');
+                  this.results.push('D');
                   //D
                 } else {
                   //check index tip y against index tip index pip y
@@ -205,7 +257,7 @@ export class LetterCheckingService {
                   if(isX.true > isX.false) {
                     //X  this is super hard
                     // console.log('X');
-                    results.push('X')
+                    this.results.push('X')
                   }
                 }
               }
@@ -217,7 +269,7 @@ export class LetterCheckingService {
             if (isTI.true > isTI.false) {
               //F
               // console.log('F');
-              results.push('F');
+              this.results.push('F');
             }
           }
         }
@@ -227,82 +279,86 @@ export class LetterCheckingService {
       //CLOSED POSITION LETTERS DECISION TREE
       //is not extended then send to neuron that will parse 
       //and transfer data to [a, e, m, n, o, s, t, c] paths
-      // console.log('CLOSED');
+      console.log('CLOSED');
       //Check for rotation
       let rotated_checkNet = require('./neurons/isRotated.js');
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
 
       if(isRotated.true > isRotated.false) {
-        // console.log('---------ROTATED--------------');
+        console.log('---------ROTATED--------------');
         let OC_checkNet = require('./neurons/thumbMiddle_zTipRangeFinder');
         let isOC = OC_checkNet.run([input.oc]);
         // console.log(input.oc);
         //TODO: look at re adjusting the C to extended - need to improve this performance
         if (isOC.true > isOC.false) {
           // console.log('O');
-          results.push('O')
+          this.results.push('O')
         } else {
           // console.log('C');
-          results.push('C');
+          this.results.push('C');
         }
       } else {
-        // console.log('-----------NOT ROTATED-----------');
+        console.log('-----------NOT ROTATED-----------');
         let E_checkNet = require('./neurons/isthumbBelow.js');
         let isE = E_checkNet.run([input.e]);
         if(isE.true > isE.false)  {
           // console.log('E');
-          results.push('E');
+          this.results.push('E');
         } else {
           let A_checkNet = require('./neurons/thumbTipIndexKnuck_xRangeFinder');
           let isA = A_checkNet.run([input.a]);
           if(isA.true > isA.false) {
             // console.log('A');
-            results.push('A');
+            this.results.push('A');
           } else {
             let S_checkNet = require('./neurons/thumbMiddle_yRangeFinder.js');
             let isS = S_checkNet.run([input.s]);
             if(isS.true > isS.false) {
               // console.log('S');
-              results.push('S');
+              this.results.push('S');
             } else if (input.t) {
               // console.log('T');
-              results.push('T');
+              this.results.push('T');
             } else if (input.n) {
               // console.log('N');
-              results.push('N');
+              this.results.push('N');
             } else if(input.m) {
               // console.log("m");
-              results.push('M');
+              this.results.push('M');
+            } else {
+              console.log('FAIL')
             }
           }
         }
         
       }
+
     }
       const numSamples = 30
       var response;
-      if(results.length === numSamples) {
-        // console.log('check')
-        let str = results.join('');
+      console.log(this.results.length,'>>>>>>>>>>>>>>>>>>>>>>>>>')
+      if(this.results.length === numSamples) {
+        console.log('check')
+        let str = this.results.join('');
         // console.log(input.target);
         if (input.target) {
           let target = input.target;
           let reg = new RegExp(target,'g');
           let num = (str.match(reg) || []).length;
           if (num / numSamples > 0.5) {
-            results = [];
+            this.results = [];
             console.log('true');
             response = true;
           } else {
-            results = [];
+            this.results = [];
             console.log('false');
             response = false;
           }
         } else {
           let holder = {};
 
-          // console.log(results)
-          results.forEach(result => {
+          console.log("$$$$$$$", this.results)
+          this.results.forEach(result => {
             if (holder.hasOwnProperty(result)) {
               holder[result]++
             } else {
@@ -314,14 +370,14 @@ export class LetterCheckingService {
             if (holder[key] > rep) {
               rep = holder[key];
               response = key;
-              console.log(response);
-              results= [];
+              console.log('response is =====', response);
+              this.results= [];
             }
           }   
         }
       }
       console.log('response = ', response);
-      return response;
+      // return response;
   }
 
   // sendInput(input): Observable<Response> {
