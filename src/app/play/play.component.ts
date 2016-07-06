@@ -3,10 +3,11 @@ import { AppState } from '../app.service';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { LetterCheckingService } from '../LetterCheckingService.service';
 
 @Component({
   selector: 'play',
-  providers: [ LoginService, AuthService, AppState ],
+  providers: [ LoginService, AuthService, AppState, LetterCheckingService ],
   template: require('./play.component.html'),
   styles: [ require('./play.component.css') ]
 })
@@ -18,7 +19,8 @@ export class Play implements OnInit {
     private appState: AppState,
     public loginService: LoginService,
     private router: Router,
-    public authService: AuthService ) {
+    public authService: AuthService,
+    private letterCheckingService: LetterCheckingService ) {
 
     this.leapCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
     this.leapCtrl.connect();
@@ -36,6 +38,7 @@ export class Play implements OnInit {
 
   ngOnInit() {
     this.authService.authenticate('play');
+    this.letterCheckingService._initCheckingService();
   }
 
   ngAfterViewInit() {

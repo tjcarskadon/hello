@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { WordsService } from './wordsService.service';
-import { LetterCheckingService } from './LetterCheckingService.service';
+import { LetterCheckingService } from '../LetterCheckingService.service';
 
 
 @Component({
