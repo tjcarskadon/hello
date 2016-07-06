@@ -11,7 +11,6 @@ export class AppState {
     isDisabled: true,
     myName: 'Richard',
     title: 'hello',
-    isDisabled: false,
     google: false
   };
 

@@ -65,7 +65,7 @@ export class Learn implements OnInit {
       }
     });
 
-    this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+    // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
 
   // changeLetterColor() {
