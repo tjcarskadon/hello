@@ -30,12 +30,11 @@ export class Welcome implements OnInit {
   bg: string = 'assets/img/bg.png'
 
   constructor(private appState: AppState, private authService: AuthService, private ws: WelcomeStateService) {
-    // console.log(this.navOptions);
   }
 
   ngOnInit() {
-    console.log('this is the welcome component!!', this.appState._state);
-    // this.authService.authenticate();
+    // console.log('this is the welcome component!!', this.appState._state);
+    // this.authService.authenticate('profile');  
   }
 
 }

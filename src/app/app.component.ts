@@ -39,6 +39,7 @@ export class App {
   url = 'https://github.com/digi-talk/hello';
   bg: string = 'assets/img/bg.png';
   authenticated;
+  isDisabled;
   navOptions = ['Profile', 'Learn', 'Spell', 'Play', 'Create'];
   learnPage;
 
@@ -51,7 +52,8 @@ export class App {
     // console.log('browser history saved state...: ', window.history.state);
     if (window.history.state) {
       this.learnPage = window.history.state.learnPage;
-      this.authenticated = window.history.state.authenticated;  
+      this.authenticated = window.history.state.authenticated;
+      this.isDisabled = window.history.state.isDisabled;
     }
   }
 
@@ -67,10 +69,10 @@ export class App {
     console.log('app comp loaded', this.appState.get('authenticated'));
   }
 
-  logout() {
-    this.appState.set('authenticated', false);
-    sessionStorage.clear();
-  }
+  // logout() {
+  //   this.appState.set('authenticated', false);
+  //   sessionStorage.clear();
+  // }
 
 }
 

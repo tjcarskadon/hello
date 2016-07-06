@@ -28,14 +28,12 @@ export class SignupService {
 
   private parseData(res: Response) {
       let body = res.json();
-      console.log('!!!!!', body);
       return body.data ||  { };
   }
 
   private handleError(error: any) {
         let errBody = JSON.parse(error._body);
         let errMsg = errBody.meta.error.message
-        console.error('11111', errMsg); 
         return Observable.throw(errMsg);
   }
 
