@@ -4,6 +4,7 @@ module.exports = (function() {
 
   const Nodal = require('nodal');
   const User = Nodal.require('app/models/user.js');
+  const AccessToken = Nodal.require('app/models/access_token.js');
 
   class UsersController extends Nodal.Controller {
 
@@ -31,9 +32,29 @@ module.exports = (function() {
 
     create() {
 
-      User.create(this.params.body, (err, model) => {
+      //call accessToken.login passing in the appropriate params 
+     
+      
 
-        this.respond(err || model);
+
+
+      User.create(this.params.body, (err, model) => {
+        // let tokenParams = {
+        //   grant_type: 'password',
+        //   email: this.params.body.email
+        // }
+        this.params.body.grant_type='password';
+
+        if(!err) {
+          AccessToken.login(this.params, (err, accessToken) => {
+            if(!err) {
+              this.respond(err || accessToken)
+            } else {
+              console.log("model error")
+            }
+          });
+        }
+        // this.respond(err || model);
 
       });
 

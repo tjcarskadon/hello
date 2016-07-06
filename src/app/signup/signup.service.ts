@@ -6,8 +6,8 @@ import { Signup } from './signup';
 @Injectable()
 
 export class SignupService {
-  // urls = 'http://127.0.0.1:3333/users';
-  urls = 'http://52.90.139.255:3333/users';
+  urls = 'http://127.0.0.1:3333/users';
+  // urls = 'http://52.90.139.255:3333/users';
 
   private url: string = this.urls; //
 
@@ -25,15 +25,14 @@ export class SignupService {
   }
 
   private parseData(res: Response) {
-    let body = res.json();
-    return body.data ||  { };
+      let body = res.json();
+      return body.data ||  { };
   }
 
   private handleError(error: any) {
-    let errBody = JSON.parse(error._body);
-    let errMsg = errBody.meta.error.message
-    console.error('handleError Msg:', errMsg);
-    return Observable.throw(errMsg);
+        let errBody = JSON.parse(error._body);
+        let errMsg = errBody.meta.error.message
+        return Observable.throw(errMsg);
   }
 
 }

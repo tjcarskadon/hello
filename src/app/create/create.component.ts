@@ -84,6 +84,8 @@ export class Create implements OnInit {
     this.http.post(url, body, options)
     .forEach(r => console.log('response back: ', r))
     .catch(e => console.log('error', e));
+
+    return;
   }
 
   playback(gestureName) {

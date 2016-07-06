@@ -64,6 +64,7 @@ export class Learn implements OnInit {
         letter.color = sessionStorage.getItem(letter.val);
       }
     });
+
     // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
 

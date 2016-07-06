@@ -31,12 +31,9 @@ module.exports = (function() {
     }
 
     create() {
-      this.authorize((err, accessToken, user) => {
+      this.authorize((accessToken, user) => {
 
-        if (err) {
-          return this.respond(err);
-        }
-        console.log('THE PARAMS:', this.params);
+       
         this.params.body.user_id = user.get('id');
         Gesture.create(this.params.body, (err, model) => {
 

@@ -7,10 +7,22 @@ module.exports = (function() {
 
   class AccessTokensController extends Nodal.Controller {
 
+    get() {
+      AccessToken.logout(this.params, (err, accessToken) => {
+        this.respond(err || accessToken);
+      });
+    }
+
     create() {
       AccessToken.login(this.params, (err, accessToken) => {
         this.respond(err || accessToken);
       })
+    }
+    
+    destroy() {
+      AccessToken.logout(this.params, (err, accessToken) => {
+        this.respond(err || accessToken);
+      });
     }
   }
   return AccessTokensController;
