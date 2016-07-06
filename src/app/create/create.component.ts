@@ -106,19 +106,18 @@ export class Create implements OnInit {
 
   update(gestureName) {
     var gesture = this.createPageState.get('gestureData');
+    console.log("Ok, one sec! Let me see if I can understand this one better");
     // //only one gesture is being saved so change property to reflect this
     //-- allows the 'training complete' event to fire when expected (default is after 3 samples saved)
-    console.log("Ok, one sec! Let me see if I can understand this one better");
     this.leapTrainerService.trainer.trainingGestures = 1;
     this.leapTrainerService.trainer.updateTrainingData(gestureName, gesture);
     // //TODO: handle UI message for currently made gesture to be updated to saved DB -- improves ML
   }
 
-  reset() {
+  reset(gestureName) {
     console.log('Attempting to reset value...');
-    setTimeout(function() {
-      console.log('...value not reset.')
-    }, 2000);
+    this.leapTrainerService._initLeapTrainerRecord();
+    this.leapTrainerService.trainer.retrain(gestureName);
   }
 
 }
