@@ -26,7 +26,7 @@ canvas {
   padding: 3px;
 }
 
-#createOptions {
+.createOptions {
   float: left;
   position: relative;
   width: 30vw;
@@ -37,7 +37,7 @@ canvas {
   background-color: rgba(1, 150, 136, 0.19);
 }
 
-#createOptionsList {
+.createOptionsList {
   padding: 3%;
   margin: 0;
   text-align: center;
@@ -51,9 +51,14 @@ canvas {
   width: 90%;
 }
 
-li > button {
-  width: 90%;
+.hand-btn {
+  color: white;
+  width: 44%;
   max-width: 350px;
+}
+
+.white-btn {
+  color: black;
 }
 
 #recognizedGesture, #gestureOptions {
@@ -64,6 +69,16 @@ li > button {
 
 .gestureOption {
   width: 90vw;
+}
+
+.gestureInput {
+  width: 90%;
+  margin: 16px auto 0 auto;
+  display: flex;
+}
+
+.fill {
+  width: 5%;
 }
 /*
 #gestureOptions {

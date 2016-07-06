@@ -6,8 +6,6 @@ import { CreatePageState } from './createPageState.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-
-
 @Component({
   selector: 'create',
   template: require('./create.component.html'),
@@ -71,7 +69,7 @@ export class Create implements OnInit {
 
   save(gestureName): Observable<Response> {
     var tkn = localStorage.getItem('tkn');
-    var url = 'http://52.90.139.255:3333/gestures?access_token='+tkn;
+    var url = `http://52.90.139.255:3333/gestures?access_token=${tkn}`;
     var gesture = this.leapTrainerService.trainer.gestures[gestureName];
     let body = JSON.stringify({
       data: {name: gestureName, gestureData: gesture},

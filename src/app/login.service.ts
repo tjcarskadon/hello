@@ -3,17 +3,17 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Login } from './login/login.ts';
 
-@Injectable ()
+@Injectable()
 
 export class LoginService {
 
   constructor(private http: Http) { }
 
   public email: string;
-  // urls = 'http://52.90.139.255:3333/access_tokens';
-  urls = 'http://127.0.0.1:3333/access_tokens';
-  public url: string = this.urls; 
-  
+  urls = 'http://52.90.139.255:3333/access_tokens';
+  // urls = 'http://127.0.0.1:3333/access_tokens';
+  public url: string = this.urls;
+
   login(data: any): Observable<Response> {
     let body = JSON.stringify({
       grant_type: 'password',

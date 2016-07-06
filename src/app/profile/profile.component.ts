@@ -29,7 +29,7 @@ export class Profile {
   localState = { email1: '', email2: '', password1: '', password2: '', name: ''};
   // TypeScript public modifiers
   constructor(
-    /*public appState: AppState, */
+    // public appState: AppState,
     public title: Title,
     private authService: AuthService) { }
 
