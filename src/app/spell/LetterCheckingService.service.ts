@@ -8,10 +8,18 @@ export class LetterCheckingService {
   private url: string = '';
   private letter = '';
   private results = [];
-  public controller = this.appState._initLeapController();
+  public controller = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
   private _ = require('underscore');
   
   constructor(private appState: AppState) {
+  }
+
+  deviceStopped_CB() {
+
+  }
+
+  deviceStreaming_CB() {
+
   }
 
   _initCheckingService() {

@@ -54,8 +54,16 @@ export class Learn implements OnInit {
     private authService: AuthService,
     private appState: AppState) {
 
-    this.leapCtrl = this.appState._initLeapController();
+    this.leapCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
     this.leapCtrl.connect();
+  }
+
+  deviceStopped_CB() {
+
+  }
+
+  deviceStreaming_CB() {
+
   }
 
   ngOnInit() {

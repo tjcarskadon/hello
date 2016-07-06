@@ -20,8 +20,16 @@ export class Play implements OnInit {
     private router: Router,
     public authService: AuthService ) {
 
-    this.leapCtrl = this.appState._initLeapController();
+    this.leapCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
     this.leapCtrl.connect();
+  }
+
+  deviceStopped_CB() {
+
+  }
+
+  deviceStreaming_CB() {
+
   }
 
   ngOnInit() {
