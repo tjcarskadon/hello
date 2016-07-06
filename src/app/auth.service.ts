@@ -58,20 +58,13 @@ export class AuthService {
   }
 
   logout() {
-<<<<<<< 0fd2fc070165db4b0dfe80c59446b0d6d2fd3837
-    localStorage.clear();
-    // console.log('Logging out...');
-    this.appState.set('authenticated', false);
-    // console.log('Navigating to welcome...');
-=======
     let tkn: string = localStorage.getItem('tkn')
     let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
-    localStorage.clear();k
+    localStorage.clear();
     this.appState.set('authenticated', false);
     console.log('navigating to welcome...');
 
     this.http.get(url).forEach(x => console.log('logged out')).catch(err => console.log(err));
->>>>>>> (feat) Signup rerouting into app
     this.router.navigate(['/welcome']);
     window.history.pushState(this.appState._state, null, '');
   }
