@@ -15,7 +15,7 @@ export class LeapTrainerService {
     private appState: AppState) { }
 
   _initLeapTrainer() {
-    this.trainerCtrl = this.appState._initLeapController();
+    this.trainerCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
     // console.log('controller in create!!!!', this.trainerCtrl);
     this.trainerCtrl.connect();
     this.trainer = new this.LeapTrainer.Controller({
@@ -23,6 +23,15 @@ export class LeapTrainerService {
       convolutionFactor: 2, 
       trainingGestures: 2
     });
+
+  }
+
+  deviceStopped_CB() {
+    console.log('device has stopped streaming');
+  }
+
+  deviceStreaming_CB() {
+    console.log('device has started streaming');
   }
 
   _initLeapTrainerWatch() {

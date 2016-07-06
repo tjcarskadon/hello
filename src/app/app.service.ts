@@ -69,7 +69,7 @@ export class AppState {
     return JSON.parse(JSON.stringify( object ));
   }
 
-  _initLeapController() {
+  _initLeapController(deviceStopped_CB, deviceStreaming_CB) {
     var Leap = require('leapjs');
     require('./lib/leap-plugins.js');
     require('./lib/riggedHand.js');
@@ -77,6 +77,8 @@ export class AppState {
 
     //connect ctrl at the end of logic
     controller.use('riggedHand');
+    controller.on('deviceStopped', deviceStopped_CB);
+    controller.on('deviceStreaing', deviceStreaming_CB);
       // .on('connect', () => console.log('Controller connected.'));
     return controller;
   }
