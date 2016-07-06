@@ -3,6 +3,10 @@ import { LeapTrainerService } from './services/leapTrainer.service';
 import { AppState } from '../app.service';
 import { AuthService} from '../auth.service'
 import { CreatePageState } from './createPageState.service';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+
+
 
 @Component({
   selector: 'create',
@@ -19,7 +23,8 @@ export class Create implements OnInit {
     private leapTrainerService: LeapTrainerService,
     private appState: AppState,
     private createPageState: CreatePageState,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private http: Http) {
 
     this.leapTrainerService._initLeapTrainer();
   }
@@ -64,12 +69,21 @@ export class Create implements OnInit {
     console.log('test')
   }
 
-  saveGesture(gestureName) {
-    this.createPageState.set('gestureName', null);
-    console.log('Attempting to save value...');
-    setTimeout(function() {
-      console.log('...value not saved.')
-    }, 2000);
+  save(gestureName): Observable<Response> {
+    var tkn = localStorage.getItem('tkn');
+    var url = 'http://52.90.139.255:3333/gestures?access_token='+tkn;
+    var gesture = this.leapTrainerService.trainer.gestures[gestureName];
+    let body = JSON.stringify({
+      data: {name: gestureName, gestureData: gesture},
+      grant_type: 'password'
+    });
+
+    let headers = new Headers({'Content-type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    //TODO: handle UI for success and error responses
+    this.http.post(url, body, options)
+    .forEach(r => console.log('response back: ', r))
+    .catch(e => console.log('error', e));
   }
 
   playback(gestureName) {

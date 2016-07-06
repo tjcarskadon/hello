@@ -18,7 +18,7 @@
             <div *ngIf="true">
               <button md-raised-button (click)="test(key)">Test</button>
               <button md-raised-button (click)="update(key)">Update</button>
-              <button md-raised-button>Save</button>
+              <button md-raised-button (click)='save(key)'>Save</button>
             </div>
           </div>
         </div>
@@ -26,12 +26,6 @@
 
   <div id="ltMainContainer" class="animated fadeInRight">
     <div id="ltContainer">
-      <div id="recognizedGesture">{{state.recognizedGesture}}</div>
-    </div>
-    <div *ngIf="state.trainingComplete" id="gestureOptions">
-      <button md-raised-button color="primary" (click)="update(state.gestureName)">Update</button>
-      <button md-raised-button color="primary" (click)="reset()">Reset</button>
-      <button md-raised-button color="primary" (click)="saveGesture()">Save</button>
     </div>
   </div>
 </div>

@@ -40,14 +40,15 @@ export class Signup implements OnInit {
       return;
     }
     this.signupService.saveUser(form)
-      .subscribe(
-        result => {
-          console.log('signupService result:', result)
-          this.appState.set('authenticated', true);
-          //need to set token in local storage
-          this.router.navigate(['/profile']);
-        },
-        error => console.log('signupService error:', error));
+                       .subscribe(
+                         result => {
+                           console.log('signupService result:', result)
+                           this.appState.set('authenticated', true);
+                           //need to set token in local storage
+                           this.router.navigate(['/profile']);
+                           // window.history.pushState(this.appState._state, null, 'profile');
+                         },
+                         error => console.log('signupService error:', error));
   }
 
   googleSignIn() {
