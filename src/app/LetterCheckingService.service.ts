@@ -10,7 +10,7 @@ export class LetterCheckingService {
   private results = [];
   public controller = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
   private _ = require('underscore');
-  
+
   constructor(private appState: AppState) {
   }
 
@@ -34,24 +34,24 @@ export class LetterCheckingService {
       frame.hands.forEach((hand) => {
         let data = [];
         let input = {};
-        
+
         if (this._(hand.fingers).every(finger => !finger.extended)) {
           hand.fingers.forEach(finger => {
             data.push(finger.extended, finger.direction);
           });
-         
+
           input['extended'] = false;
           input['rotated'] = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
           input['oc'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
           input['e'] = hand.thumb.stabilizedTipPosition[2] - hand.middleFinger.stabilizedTipPosition[2];
           input['a'] = hand.thumb.stabilizedTipPosition[0] - hand.indexFinger.pipPosition[0];
           input['s'] = hand.thumb.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
-          input['t'] = hand.thumb.stabilizedTipPosition[0] > hand.indexFinger.pipPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.middleFinger.stabilizedTipPosition[0] && hand.thumb.pipPosition[1] > hand.indexFinger.pipPosition[1]; 
+          input['t'] = hand.thumb.stabilizedTipPosition[0] > hand.indexFinger.pipPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.middleFinger.stabilizedTipPosition[0] && hand.thumb.pipPosition[1] > hand.indexFinger.pipPosition[1];
           input['n'] = hand.thumb.stabilizedTipPosition[0] > hand.middleFinger.pipPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.ringFinger.pipPosition[0] && hand.thumb.pipPosition[1] > hand.middleFinger.pipPosition[1];
           input['m'] = hand.thumb.stabilizedTipPosition[0] > hand.ringFinger.mcpPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.pinky.mcpPosition[0] && hand.thumb.pipPosition[1] > hand.middleFinger.pipPosition[1];;
 
         } else {
-            //This starts the section for if not all fingers are closed 
+            //This starts the section for if not all fingers are closed
           // console.log('open');
           input['extended'] = true;
           input['rotated'] = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
@@ -65,14 +65,14 @@ export class LetterCheckingService {
           input['td'] = hand.thumb.stabilizedTipPosition[1] - hand.indexFinger.mcpPosition[1];
           input['md'] = hand.indexFinger.mcpPosition[1] - hand.middleFinger.stabilizedTipPosition[1];
           input['id'] = hand.middleFinger.mcpPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
-          input['tbr'] = hand.ringFinger.stabilizedTipPosition[0] - hand.thumb.stabilizedTipPosition[0];        
+          input['tbr'] = hand.ringFinger.stabilizedTipPosition[0] - hand.thumb.stabilizedTipPosition[0];
           input['ibm'] = hand.middleFinger.stabilizedTipPosition[1] - hand.indexFinger.stabilizedTipPosition[1];
           input['uvk'] = hand.indexFinger.stabilizedTipPosition[0] = hand.indexFinger.stabilizedTipPosition[0];
           input['vk'] = hand.ringFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
           input['xd'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
           input['x'] = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
           input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
-    
+
         }
 
         var checked = this.checkInput(input);
@@ -97,7 +97,7 @@ export class LetterCheckingService {
 
     var checkExtendedNet = require('./neurons/checkExtended.js');
     var extendedCheckResults = checkExtendedNet.run([1,1,1,1,1]);
-    if (input.extended) { 
+    if (input.extended) {
       let rotated_checkNet = require('./neurons/isRotated.js');
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
       if(isRotated.true > isRotated.false) {
@@ -114,7 +114,7 @@ export class LetterCheckingService {
         let isTD = TD_checkNet.run([input.td]); //input.td
         if (isTD.true > isTD.false) {
           let MD_checkNet = require('./neurons/isMiddleDown.js');
-          let isMD = MD_checkNet.run([input.md]); 
+          let isMD = MD_checkNet.run([input.md]);
           if (isMD.true > isMD.false) {
             this.results.push('P');
             //P
@@ -238,7 +238,7 @@ export class LetterCheckingService {
 
     } else {
       //CLOSED POSITION LETTERS DECISION TREE
-      //is not extended then send to neuron that will parse 
+      //is not extended then send to neuron that will parse
       //and transfer data to [a, e, m, n, o, s, t, c] paths
      // console.log('CLOSED');
       //Check for rotation
@@ -291,7 +291,7 @@ export class LetterCheckingService {
             }
           }
         }
-        
+
       }
 
     }
@@ -334,11 +334,11 @@ export class LetterCheckingService {
           //    console.log('response is =====', response);
               this.results= [];
             }
-          }   
+          }
         }
       }
         return response;
-    
+
   }
 
 }
