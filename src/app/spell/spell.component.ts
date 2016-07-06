@@ -56,7 +56,7 @@ export class Spell implements OnInit {
     }, 3000);
     setInterval(() => {
       this.checkLetter();
-    }, 100);
+    }, 1000);
   }
 
   skippedClick(event) {
@@ -68,10 +68,12 @@ export class Spell implements OnInit {
   }
 
   checkLetter() {
-    this.capturedLetter = this.letterCheckingService.getLetter();
-  //  console.log('captured letter is ... ', this.capturedLetter);
+    this.capturedLetter = this.letterCheckingService.getLetter().toLowerCase();
+    console.log('expected letter = ', this.nextLetter);
+    console.log('captured letter is ... ', this.capturedLetter);
    // console.log('Captured Letter in component is ==== ', this.capturedLetter);
     if (this.capturedLetter === this.nextLetter) {
+      console.log('entered matched letters');
       this.capturedLetterColor = 'green';
       this.rightPanelWord += this.capturedLetter.toUpperCase();
       this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
