@@ -33,16 +33,16 @@ export class Login implements OnInit {
   onSubmit(form: any): void {
     // console.log('submitting')
     this.loginService.login(form)
-      .subscribe(
-        result => {
-          localStorage.setItem('tkn', result[0].access_token);
-          localStorage.setItem('exp', result[0].expires_at);
-          this.appState.set('authenticated', true);
-          this.appState.set('learn', true);
-          // console.log('navigating to profile page now...', this.appState.get('authenticated'));
-          this.router.navigate(['/profile']);
-          window.history.pushState(this.appState._state, null, 'profile');
-        },
-        error => console.log(error));
+        .subscribe(
+          result => {
+            localStorage.setItem('tkn', result[0].access_token);
+            localStorage.setItem('exp', result[0].expires_at);
+            this.appState.set('authenticated', true);
+            this.appState.set('learn', true);
+            // console.log('navigating to profile page now...', this.appState.get('authenticated'));
+            this.router.navigate(['/profile']);
+            window.history.pushState(this.appState._state, null, 'profile');
+          },
+          error => console.log(error));
   }
 }

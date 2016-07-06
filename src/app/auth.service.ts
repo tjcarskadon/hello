@@ -7,23 +7,26 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 export class AuthService {
 
-  constructor(private appState: AppState, private router: Router, private http: Http) {}
+  constructor(
+    private appState: AppState,
+    private router: Router,
+    private http: Http) { }
 
 
   authenticate (page) {
     //get token
-    
+
     let exp: Date = new Date(localStorage.getItem('exp'));
     let currentDate: Date = new Date();
     let tkn: string = localStorage.getItem('tkn')
-    let url: string = 'http://127.0.0.1:3333/logins?access_token=' + tkn;
+    let url: string = `http://52.90.139.255:3333/logins?access_token=${tkn}`;
 
      if (tkn) {
       this.http.get(url).forEach(response => {
         let a = JSON.parse(response._body);
-        console.log(a)
+        // console.log(a)
         if(a.data[0] !== "Authorized") {
-          this.router.navigate(['/welcome']); 
+          this.router.navigate(['/welcome']);
           window.history.replaceState(null, null, '');
         } else {
           this.appState.set('authenticated', true);
@@ -33,11 +36,11 @@ export class AuthService {
         }
       }).catch(err => console.log(err));
      } else {
-        this.router.navigate(['/welcome']); 
+        this.router.navigate(['/welcome']);
         window.history.replaceState(null, null, '');
      }
- 
-   
+
+
 
     // if(tkn && exp > currentDate) {
     //   //logged in
@@ -52,7 +55,7 @@ export class AuthService {
     //   return true;
     // } else {
     //   console.log('LOGGED OUT', exp, tkn)
-    //   this.router.navigate(['/welcome']); 
+    //   this.router.navigate(['/welcome']);
     //   window.history.replaceState(null, null, '');
 
     //   return false;
@@ -64,7 +67,7 @@ export class AuthService {
     let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
     localStorage.clear();
     this.appState.set('authenticated', false);
-    console.log('navigating to welcome...');
+    // console.log('navigating to welcome...');
 
     this.http.get(url).forEach(x => console.log('logged out')).catch(err => console.log(err));
     this.router.navigate(['/welcome']);

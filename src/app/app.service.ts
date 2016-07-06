@@ -10,7 +10,7 @@ export class AppState {
   _state = {
     authenticated: false,
     learnPage: false,
-    isDisabled: true,
+    isDisabled: false,
     myName: 'Richard',
     title: 'hello',
     google: false
