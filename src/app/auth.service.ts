@@ -26,8 +26,10 @@ export class AuthService {
           this.router.navigate(['/welcome']); 
           window.history.replaceState(null, null, '');
         } else {
+          this.appState.set('authenticated', true);
+          this.appState.set('isDisabled', false);
           this.router.navigate(['/'+page]);
-          window.history.pushState(null, null, page);
+          window.history.pushState(this.appState._state, null, page);
         }
       }).catch(err => console.log(err));
      } else {

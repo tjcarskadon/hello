@@ -46,6 +46,7 @@ export class Signup implements OnInit {
                            localStorage.setItem('tkn', result[0].access_token);
                            localStorage.setItem('exp', result[0].expires_at);
                            this.appState.set('authenticated', true);
+                           this.appState.set('isDisabled', false);
                            window.history.pushState(this.appState._state,null, 'profile')
                            this.router.navigate(['/profile']);
                            // window.history.pushState(this.appState._state, null, 'profile');

@@ -25,15 +25,14 @@ export class SignupService {
   }
 
   private parseData(res: Response) {
-    let body = res.json();
-    return body.data ||  { };
+      let body = res.json();
+      return body.data ||  { };
   }
 
   private handleError(error: any) {
-    let errBody = JSON.parse(error._body);
-    let errMsg = errBody.meta.error.message
-    console.error('handleError Msg:', errMsg);
-    return Observable.throw(errMsg);
+        let errBody = JSON.parse(error._body);
+        let errMsg = errBody.meta.error.message
+        return Observable.throw(errMsg);
   }
 
 }
