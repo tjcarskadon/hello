@@ -11,6 +11,7 @@ import { AppState } from '../app.service';
 })
 
 export class Learn implements OnInit {
+  leapCtrl;
 
   private riggedHand: boolean = false;
   private imageUrl: string = '';
@@ -51,7 +52,11 @@ export class Learn implements OnInit {
   constructor(
     private alphabetCaptureCheck: AlphabetCaptureCheck,
     private authService: AuthService,
-    private appState: AppState) { }
+    private appState: AppState) {
+
+    this.leapCtrl = this.appState._initLeapController();
+    this.leapCtrl.connect();
+  }
 
   ngOnInit() {
     this.letters.forEach( letter => {
@@ -101,8 +106,9 @@ export class Learn implements OnInit {
 
   showRiggedHand() {
     this.riggedHand = true;
-    this.appState._initLeapController();
-    // document.getElementById('ltContainer').appendChild(document.riggedElement);
+    setTimeout(function() {
+      document.dispatchEvent(new Event('ltContainerAdded'));
+    }, 0)
   }
 
 }

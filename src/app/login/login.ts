@@ -31,7 +31,7 @@ export class Login implements OnInit {
   ngOnInit() { }
 
   onSubmit(form: any): void {
-    console.log('submitting')
+    // console.log('submitting')
     this.loginService.login(form)
       .subscribe(
         result => {

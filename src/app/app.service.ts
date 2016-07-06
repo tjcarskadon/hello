@@ -48,8 +48,8 @@ export class AppState {
     var controller = new Leap.Controller();
 
     //connect ctrl at the end of logic
-    controller.use('riggedHand')
-      .on('connect', () => console.log('Controller connected.'));
+    controller.use('riggedHand');
+      // .on('connect', () => console.log('Controller connected.'));
     return controller;
   }
 }
