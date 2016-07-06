@@ -22,8 +22,8 @@ export class Play implements OnInit {
     public authService: AuthService,
     private letterCheckingService: LetterCheckingService ) {
 
-    this.leapCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
-    this.leapCtrl.connect();
+    //this.leapCtrl = this.appState._initLeapController();
+    //this.leapCtrl.connect();
   }
 
   connected;
