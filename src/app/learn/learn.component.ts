@@ -65,7 +65,6 @@ export class Learn implements OnInit {
       }
     });
 
-    this.authService.authenticate('profile');
     this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
 
