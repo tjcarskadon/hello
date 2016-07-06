@@ -36,9 +36,10 @@ export class Signup implements OnInit {
                        .subscribe(
                          result => {
                            console.log('signupService result:', result)
+                           localStorage.setItem('tkn', result[0].access_token);
+                           localStorage.setItem('exp', result[0].expires_at);
                            this.appState.set('authenticated', true);
-                           //need to set token in local storage
-                           
+                           window.history.pushState(this.appState._state,null, 'profile')
                            this.router.navigate(['/profile']);
                          },
                          error => console.log('signupService error:', error));

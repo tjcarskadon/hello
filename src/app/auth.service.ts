@@ -57,15 +57,16 @@ export class AuthService {
   }
 
   logout() {
+    console.log('logout');
     let tkn: string = localStorage.getItem('tkn')
     let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
-    localStorage.clear();k
+    localStorage.clear();
     this.appState.set('authenticated', false);
     console.log('navigating to welcome...');
 
     this.http.get(url).forEach(x => console.log('logged out')).catch(err => console.log(err));
-    this.router.navigate(['/welcome']);
     window.history.pushState(this.appState._state, null, '');
+    this.router.navigate(['/welcome']);
 
   }
 
