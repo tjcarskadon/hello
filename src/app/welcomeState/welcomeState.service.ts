@@ -3,7 +3,6 @@ import { AppState } from '../app.service';
 
 @Injectable()
 
-
 export class WelcomeStateService {
 
   _state = {
@@ -22,7 +21,7 @@ export class WelcomeStateService {
 
   changeView(view) {
     this.set('landing', view);
-  }  
+  }
 
   get(prop?: any) {
     // use our state getter for the clone
@@ -34,7 +33,6 @@ export class WelcomeStateService {
     // internally mutate our state
     return this._state[prop] = value;
   }
-
 
   _clone(object) {
     // simple object clone

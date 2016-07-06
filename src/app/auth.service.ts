@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { AppState } from './app.service';
 import { Router } from '@angular/router';
 
-@Injectable() 
+@Injectable()
 
 export class AuthService {
-  constructor(private appState: AppState, private router: Router) {}
+  constructor(
+    private appState: AppState,
+    private router: Router) { }
 
   authenticate (page) {
     //get token
@@ -15,9 +17,7 @@ export class AuthService {
 
     if(tkn && exp > currentDate) {
       //logged in
-      console.log('LOGGED IN');
-       console.log(this.appState._state.learnPage, '11111');
-
+      // console.log('LOGGED IN');
       this.appState.set('authenticated', true);
       // this.appState.learn =true;
       this.router.navigate(['/'+page]);
@@ -25,22 +25,20 @@ export class AuthService {
       // this.appState.landing = 'profile';
       return true;
     } else {
-      console.log('LOGGED OUT', exp, tkn)
-      this.router.navigate(['/welcome']); 
+      // console.log('LOGGED OUT', exp, tkn)
+      this.router.navigate(['/welcome']);
       window.history.replaceState(null, null, '');
-
       return false;
     }
   }
 
   logout() {
     localStorage.clear();
-    console.log('logging out!');
+    // console.log('Logging out...');
     this.appState.set('authenticated', false);
-    console.log('navigating to welcome...');
+    // console.log('Navigating to welcome...');
     this.router.navigate(['/welcome']);
     window.history.pushState(this.appState._state, null, '');
-
   }
 
   learnRoute() {

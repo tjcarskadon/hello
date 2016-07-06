@@ -8,7 +8,7 @@ import { CreatePageState } from './createPageState.service';
   selector: 'create',
   template: require('./create.component.html'),
   styles: [require('./create.component.css')],
-  providers: [LeapTrainerService, AppState, CreatePageState]
+  providers: [ LeapTrainerService, AppState, CreatePageState ]
 })
 
 export class Create implements OnInit {
@@ -18,22 +18,24 @@ export class Create implements OnInit {
   constructor(
     private leapTrainerService: LeapTrainerService,
     private appState: AppState,
-    private createPageState: CreatePageState, 
+    private createPageState: CreatePageState,
     private authService: AuthService) {
+
     this.leapTrainerService._initLeapTrainer();
   }
 
   ngOnInit() {
    this.authService.authenticate('create');
   }
+
   ngOnDestroy() {
-    console.log('disconnecting leap controller ')
+    // console.log('disconnecting leap controller ')
     this.leapTrainerService.trainerCtrl.disconnect();
   }
 
   ngAfterViewInit() {
-    var event = new Event('ltContainerAdded');
-     document.dispatchEvent(event);
+    // var event = new Event('ltContainerAdded');
+    document.dispatchEvent(new Event('ltContainerAdded'));
   }
 
   setActiveGesture(gestureName) {
@@ -86,7 +88,7 @@ export class Create implements OnInit {
 
   update(gestureName) {
     var gesture = this.createPageState.get('gestureData');
-    // //only one gesture is being saved so change property to reflect this 
+    // //only one gesture is being saved so change property to reflect this
     //-- allows the 'training complete' event to fire when expected (default is after 3 samples saved)
     console.log("Ok, one sec! Let me see if I can understand this one better");
     this.leapTrainerService.trainer.trainingGestures = 1;

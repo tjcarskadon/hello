@@ -3,7 +3,7 @@ import { AppState } from '../app.service';
 import { FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup } from '@angular/common';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
-import {WelcomeStateService} from '../welcomeState/welcomeState.service';
+import { WelcomeStateService } from '../welcomeState/welcomeState.service';
 
 @Component({
   selector: 'login',
@@ -16,32 +16,33 @@ import {WelcomeStateService} from '../welcomeState/welcomeState.service';
 export class Login implements OnInit {
   myForm: ControlGroup;
 
-  constructor(private loginService: LoginService, 
-    private router: Router, fb: FormBuilder, private appState: AppState, private ws: WelcomeStateService) {
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private fb: FormBuilder,
+    private appState: AppState,
+    private ws: WelcomeStateService) {
     this.myForm = fb.group({
       'email': [],
       'password': []
     })
   }
-  
 
-  ngOnInit() {
-    
-  }  
+  ngOnInit() { }
 
   onSubmit(form: any): void {
-    console.log('submitting')
+    // console.log('submitting')
     this.loginService.login(form)
-                           .subscribe(
-                            result => {
-                              localStorage.setItem('tkn', result[0].access_token);
-                              localStorage.setItem('exp', result[0].expires_at);
-                              this.appState.set("authenticated", true);
-                              this.appState.set('learn', true);
-                              console.log('navigating to profile page now...', this.appState.get('authenticated'));
-                              this.router.navigate(['/profile']);
-                              window.history.pushState(this.appState._state, null, 'profile');
-                            },
-                            error => console.log(error));
+      .subscribe(
+        result => {
+          localStorage.setItem('tkn', result[0].access_token);
+          localStorage.setItem('exp', result[0].expires_at);
+          this.appState.set('authenticated', true);
+          this.appState.set('learn', true);
+          // console.log('navigating to profile page now...', this.appState.get('authenticated'));
+          this.router.navigate(['/profile']);
+          window.history.pushState(this.appState._state, null, 'profile');
+        },
+        error => console.log(error));
   }
 }
