@@ -14,6 +14,7 @@ import { LetterCheckingService } from '../LetterCheckingService.service';
 
 export class Play implements OnInit {
   leapCtrl;
+  private results = [];
 
   constructor(
     private appState: AppState,
@@ -22,8 +23,6 @@ export class Play implements OnInit {
     public authService: AuthService,
     private letterCheckingService: LetterCheckingService ) {
 
-    //this.leapCtrl = this.appState._initLeapController();
-    //this.leapCtrl.connect();
   }
 
   connected;
@@ -39,10 +38,18 @@ export class Play implements OnInit {
   ngOnInit() {
     this.authService.authenticate('play');
     this.letterCheckingService._initCheckingService();
+    setInterval(() => {
+      this.check();
+    }, 1000);
   }
 
   ngAfterViewInit() {
     document.dispatchEvent(new Event('ltContainerAdded'));
+  }
+
+  check() {
+    let result = this.letterCheckingService.getLetter();
+    this.results.push(result);
   }
 
 }

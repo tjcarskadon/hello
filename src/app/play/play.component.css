@@ -31,8 +31,17 @@ canvas {
   text-align: center;
 }
 
+
 #deviceStatus {
   color: grey;
   position: absolute;
   bottom: 0;
+}
+
+#output-container {
+  float: left;
+}
+
+#result {
+  float: left;
 }
