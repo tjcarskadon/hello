@@ -32,6 +32,8 @@ export class Spell implements OnInit {
   private rightPanelWord:string = '';
   private wordPercent:number = 0;
   private correctWords = [];
+  checkLetterTimer;
+  showSkipTimer;
 
   ngOnInit() {
     this.letterCheckingService._initCheckingService();
@@ -51,10 +53,10 @@ export class Spell implements OnInit {
     setTimeout(() => {
       spell.showWord = true;
     }, 2000);
-    setTimeout(() => {
+    this.showSkipTimer = setTimeout(() => {
       spell.showSkip = true;
     }, 3000);
-    setInterval(() => {
+    this.checkLetterTimer = setInterval(() => {
       this.checkLetter();
     }, 1000);
   }
@@ -92,6 +94,12 @@ export class Spell implements OnInit {
 
   ngAfterViewInit() {
     document.dispatchEvent(new Event('ltContainerAdded'));
+  }
+
+  ngOnDestroy() {
+    this.letterCheckingService.controller.disconnect();
+    clearInterval(this.checkLetterTimer);
+    clearInterval(this.showSkipTimer);
   }
 
 }

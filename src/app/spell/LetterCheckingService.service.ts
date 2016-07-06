@@ -8,7 +8,7 @@ export class LetterCheckingService {
   private url: string = '';
   private letter = '';
   private results = [];
-  private controller = this.appState._initLeapController();
+  public controller = this.appState._initLeapController();
   private _ = require('underscore');
   
   constructor(private appState: AppState) {
@@ -92,7 +92,8 @@ export class LetterCheckingService {
       let rotated_checkNet = require('./neurons/isRotated.js');
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
       if(isRotated.true > isRotated.false) {
-        let GH_checkNet = require('./neurons/gh_yRangeFinder.js');  
+        let GH_checkNet = require('./neurons/gh_yRangeFinder.js');
+        let isGH = GH_checkNet.run(input.gh);
         //This check is working with dummy data
         if(isGH.g > isGH.h) {
           this.results.push('G');
