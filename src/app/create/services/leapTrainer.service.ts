@@ -28,10 +28,12 @@ export class LeapTrainerService {
 
   deviceStopped_CB() {
     console.log('device has stopped streaming');
+    //TODO: handle UI 
   }
 
   deviceStreaming_CB() {
     console.log('device has started streaming');
+    //TODO: handle UI 
   }
 
   _initLeapTrainerWatch() {

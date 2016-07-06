@@ -78,7 +78,7 @@ export class AppState {
     //connect ctrl at the end of logic
     controller.use('riggedHand');
     controller.on('deviceStopped', deviceStopped_CB);
-    controller.on('deviceStreaing', deviceStreaming_CB);
+    controller.on('deviceStreaming', deviceStreaming_CB);
       // .on('connect', () => console.log('Controller connected.'));
     return controller;
   }
