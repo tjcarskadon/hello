@@ -86,6 +86,10 @@ export class Create implements OnInit {
     return;
   }
 
+  showOptions(gestureName) {
+    return gestureName === this.createPageState.get('selectedGesture');
+  }
+
   playback(gestureName) {
     this.createPageState.set('selectedGesture', gestureName);
     //TODO: add more options

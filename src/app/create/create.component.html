@@ -17,7 +17,7 @@
         <div class='button-container'>
           <div class="savedGestureNames" *ngFor="let key of state.gestureListKeys">
             <button id="gestureOption" md-raised-button color="{{setActiveGesture(key)}}" (click)="playback(key)">{{key}}</button>
-            <div *ngIf="true">
+            <div *ngIf="showOptions(key)">
               <button md-raised-button (click)="test(key)">Test</button>
               <button md-raised-button (click)="update(key)">Update</button>
               <button md-raised-button (click)='save(key)'>Save</button>
