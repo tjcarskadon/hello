@@ -47,7 +47,7 @@ module.exports = (function() {
   router.route('/users/{id}').use(UsersController);
   router.route('/access_tokens/{id}').use(AccessTokensController);
   router.route('/gestures/{id}').use(GesturesController);
-  router.route('/logins/{id}').use(LoginsController);
+  router.route('/logins/{access_token}').use(LoginsController);
 
   /* generator: end routes */
 

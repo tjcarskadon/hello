@@ -28,6 +28,7 @@ export class SignupService {
 
   private parseData(res: Response) {
       let body = res.json();
+      console.log('!!!!!', body);
       return body.data ||  { };
   }
 

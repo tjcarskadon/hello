@@ -8,23 +8,26 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 export class AuthService {
   constructor(private appState: AppState, private router: Router, private http: Http) {}
 
+
   authenticate (page) {
     //get token
-    let tkn: string = localStorage.getItem('tkn')
+    
     let exp: Date = new Date(localStorage.getItem('exp'));
     let currentDate: Date = new Date();
-
-
-   let url: string = 'http://127.0.0.1:3333/logins?access_token=' + tkn;
+    let tkn: string = localStorage.getItem('tkn')
+    let url: string = 'http://127.0.0.1:3333/logins?access_token=' + tkn;
 
      if (tkn) {
-      this.http.get(url).forEach(x => {
-        let a = JSON.parse(x._body);
+      this.http.get(url).forEach(response => {
+        let a = JSON.parse(response._body);
         console.log(a)
         if(a.data[0] !== "Authorized") {
           this.router.navigate(['/welcome']); 
           window.history.replaceState(null, null, '');
-        } 
+        } else {
+          this.router.navigate(['/'+page]);
+          window.history.pushState(null, null, page);
+        }
       }).catch(err => console.log(err));
      } else {
         this.router.navigate(['/welcome']); 
@@ -54,10 +57,13 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.clear();
-    console.log('logging out!');
+    let tkn: string = localStorage.getItem('tkn')
+    let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
+    localStorage.clear();k
     this.appState.set('authenticated', false);
     console.log('navigating to welcome...');
+
+    this.http.get(url).forEach(x => console.log('logged out')).catch(err => console.log(err));
     this.router.navigate(['/welcome']);
     window.history.pushState(this.appState._state, null, '');
 
