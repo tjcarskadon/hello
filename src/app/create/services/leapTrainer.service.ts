@@ -20,8 +20,8 @@ export class LeapTrainerService {
     this.trainerCtrl.connect();
     this.trainer = new this.LeapTrainer.Controller({
       controller: this.trainerCtrl,
-      convolutionFactor: 2,
-      trainingGestures: 3
+      convolutionFactor: 2, 
+      trainingGestures: 2
     });
   }
 
@@ -55,7 +55,7 @@ export class LeapTrainerService {
   _initLeapTrainerRecord() {
     //remove any/all previous event listeners from Watch Trainer
     this.trainer.removeAllListeners();
-    this.trainer.trainingGestures = 3;
+    this.trainer.trainingGestures = 2;
     this.trainer.on('gesture-created', (gestureName, trianingSkipped) => {
       //TODO: show the div element or component that renders this message on the page
       console.log('We are now recording...');
