@@ -55,8 +55,6 @@ export class Signup implements OnInit {
   }
 
   googleSignIn() {
-    console.log('Google signin....');
-
     // this.http.get('http://localhost:8080/auth/google')
     //   .then(r => console.log('r', r))
     //   .catch(e => console.log('e:', e));

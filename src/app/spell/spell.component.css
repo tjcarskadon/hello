@@ -1,3 +1,4 @@
+
 #ltMainContainer {
   float: left;
   position: relative;
@@ -30,4 +31,89 @@ canvas {
 
 .head-center {
   text-align: center;
+}
+
+.capture-container {
+  width: 1000px;
+  height: 500px;
+  margin-left: 30px;
+  padding: 20px;
+  float: left;
+}
+
+
+.head-center {
+  text-align: center;
+}
+
+#card {
+  margin: 20px;
+  width: 400px;
+  height: 300px;
+  float: left;
+}
+
+#word {
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  color: red;
+  background-color: white;
+}
+
+#recognizedLetter {
+  background-color: white;
+  font-size: 20px;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: blue;
+}
+
+#button {
+  text-align: center;
+  padding: 10px;
+}
+
+#skippedWords {
+  text-align: center;
+  padding: 5px;
+}
+
+#skipped-container {
+  max-height: 400px;
+  overflow: scroll;
+}
+
+#right-panel-word {
+  height: 40px;
+  color: green;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  background-color: white;
+}
+
+#progress-bar {
+  width: 75%;
+  padding: 20px;
+  text-align: center;
+}
+
+#correct-words {
+  text-align: center;
+  padding: 5px;
+}
+
+#correct-container {
+  max-height: 300px;
+  overflow: scroll;
+  text-align: center;
+}
+
+#right-top {
+  height: 180px;
 }

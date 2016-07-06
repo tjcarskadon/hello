@@ -17,7 +17,7 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
  * Webpack Constants
  */
 const METADATA = {
-  title: 'hello introducing you to a world of communication',
+  title: 'hello ', //introducing you to a world of communication
   baseUrl: '/'
 };
 
