@@ -65,7 +65,7 @@ export class Spell implements OnInit {
   }
 
   checkLetter() {
-    this.capturedLetter = this.letterCheckingService.getLetter();
+    this.capturedLetter = this.letterCheckingService.getLetter()['letter'];
     if (this.capturedLetter === this.nextLetter) {
       this.capturedLetterColor = 'green';
       this.rightPanelWord += this.capturedLetter.toUpperCase();

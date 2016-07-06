@@ -2,23 +2,21 @@ import { Injectable } from '@angular/core';
 import { AppState } from '../app.service';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { AlgorithmService } from './algorithmService.service.ts'
 
 @Injectable()
 export class LetterCheckingService {
 
   private letters = ['a', 'b', 'c', 'd', 'e', 'f', 'l', 'o', 's', 'u', 'w'];
   private url: string = '';
-
-  getLetter() {
-    return this.letters[Math.floor(Math.random() * 11)];
-  }
-  
+  private letter = {};
   controller = this.appState._initLeapController();
   
   constructor(private appState: AppState,
-              private http: Http) {
+              private http: Http,
+              private algorithmService: AlgorithmService) {
     this.controller.connect();
-    this.watch();
+   // this.watch();
   }
 
   watch() {
@@ -49,31 +47,39 @@ export class LetterCheckingService {
         input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
         
         console.log(input);
+        this.letter = this.algorithmService.checkInput(input);
+        console.log('this.letter in letterCheckingService= ', this.letter);
       })
     })
   }
 
-  sendInput(input): Observable<Response> {
-    let body = JSON.stringify (input);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+  getLetter() {
+    return this.letters[Math.floor(Math.random() * 11)];
+    //return this.letter;
 
-    return this.http.post(this.url, body, options)
-                .map(this.extractData)
-                .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    let body = res.json();
-    return body.data || { };
-  }
+  // sendInput(input): Observable<Response> {
+  //   let body = JSON.stringify (input);
+  //   let headers = new Headers({ 'Content-Type': 'application/json' });
+  //   let options = new RequestOptions({ headers: headers });
 
-  private handleError (error: any) {
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
-  }
+  //   return this.http.post(this.url, body, options)
+  //               .map(this.extractData)
+  //               .catch(this.handleError);
+  // }
+
+  // private extractData(res: Response) {
+  //   let body = res.json();
+  //   return body.data || { };
+  // }
+
+  // private handleError (error: any) {
+  //   let errMsg = (error.message) ? error.message :
+  //     error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+  //   console.error(errMsg); // log to console instead
+  //   return Observable.throw(errMsg);
+  // }
 
 
 }
