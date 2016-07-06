@@ -104,6 +104,7 @@ export class LetterCheckingService {
         let GH_checkNet = require('./neurons/gh_yRangeFinder.js');
         let isGH = GH_checkNet.run(input.gh);
         //This check is working with dummy data
+        let isGH = GH_checkNet.run(input.gh);
         if(isGH.g > isGH.h) {
           this.results.push('G');
         } else {
