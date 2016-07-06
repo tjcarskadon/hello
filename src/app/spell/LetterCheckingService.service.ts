@@ -9,7 +9,7 @@ export class LetterCheckingService {
 
   private letters = ['a', 'b', 'c', 'd', 'e', 'f', 'l', 'o', 's', 'u', 'w'];
   private url: string = '';
-  private letter = {};
+  private letter = '';
   private results = [];
   private controller = this.appState._initLeapController();
   private _ = require('underscore');
@@ -49,18 +49,6 @@ export class LetterCheckingService {
           input['n'] = hand.thumb.stabilizedTipPosition[0] > hand.middleFinger.pipPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.ringFinger.pipPosition[0] && hand.thumb.pipPosition[1] > hand.middleFinger.pipPosition[1];
           input['m'] = hand.thumb.stabilizedTipPosition[0] > hand.ringFinger.mcpPosition[0] && hand.thumb.stabilizedTipPosition[0] < hand.pinky.mcpPosition[0] && hand.thumb.pipPosition[1] > hand.middleFinger.pipPosition[1];;
 
-          // fetch('http://52.90.139.255:3000/brain', {
-          //     method: 'POST', 
-          //     body: JSON.stringify(input),
-          //     headers: {"Content-type": "application/json"}
-          //   }).then(response => {
-          //     // console.log(response);
-          //     return response.text();
-          //   }).then(t => {
-          //     if(t) {
-          //       console.log(t);
-          //     }
-          //   });
         } else {
             //This starts the section for if not all fingers are closed 
           // console.log('open');
@@ -83,19 +71,7 @@ export class LetterCheckingService {
           input['xd'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
           input['x'] = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
           input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
-         
-          // fetch('http://52.90.139.255:3000/brain', {
-          //     method: 'POST',
-          //     body: JSON.stringify(input),
-          //     headers:{"Content-type": "application/json"}
-          // }).then(response => {
-          //     // console.log(response);
-          //     return response.text();
-          //   }).then(t => {
-          //     if(t) {
-          //       console.log(t);
-          //     }
-          //   });
+    
         }
 
          //this.letter = this.checkInput(input);
@@ -285,7 +261,7 @@ export class LetterCheckingService {
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
 
       if(isRotated.true > isRotated.false) {
-        console.log('---------ROTATED--------------');
+        //console.log('---------ROTATED--------------');
         let OC_checkNet = require('./neurons/thumbMiddle_zTipRangeFinder');
         let isOC = OC_checkNet.run([input.oc]);
         // console.log(input.oc);
@@ -298,7 +274,7 @@ export class LetterCheckingService {
           this.results.push('C');
         }
       } else {
-        console.log('-----------NOT ROTATED-----------');
+       // console.log('-----------NOT ROTATED-----------');
         let E_checkNet = require('./neurons/isthumbBelow.js');
         let isE = E_checkNet.run([input.e]);
         if(isE.true > isE.false)  {
@@ -377,7 +353,9 @@ export class LetterCheckingService {
         }
       }
       console.log('response = ', response);
-      // return response;
+      if (response !== 'undefined') {
+        return response;
+      }
   }
 
   // sendInput(input): Observable<Response> {
