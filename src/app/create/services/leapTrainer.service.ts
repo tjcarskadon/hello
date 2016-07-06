@@ -36,7 +36,7 @@ export class LeapTrainerService {
       //save the gesture information in createPage state to be saved when update function is called
       this.cpS.set('gestureData', gesture);
 
-      // console.log('unknown', allHits);
+      console.log('unknown', allHits);
     });
 
     this.trainer.on('gesture-recognized', (bestHit, closestGestureName, allHits) => {

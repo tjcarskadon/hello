@@ -10,7 +10,8 @@ export class AppState {
     learnPage: false,
     myName: 'Richard',
     title: 'hello',
-    isDisabled: false
+    isDisabled: false,
+    google: false
   };
 
   constructor() { }
