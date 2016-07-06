@@ -16,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
 export class Create implements OnInit {
 
   state = this.createPageState._state;
+  delete_icon = 'assets/img/delete-icon.png';
 
   constructor(
     private leapTrainerService: LeapTrainerService,
@@ -86,6 +87,10 @@ export class Create implements OnInit {
     return;
   }
 
+  showOptions(gestureName) {
+    return gestureName === this.createPageState.get('selectedGesture');
+  }
+
   playback(gestureName) {
     this.createPageState.set('selectedGesture', gestureName);
     //TODO: add more options
@@ -102,19 +107,27 @@ export class Create implements OnInit {
 
   update(gestureName) {
     var gesture = this.createPageState.get('gestureData');
+    console.log("Ok, one sec! Let me see if I can understand this one better");
     // //only one gesture is being saved so change property to reflect this
     //-- allows the 'training complete' event to fire when expected (default is after 3 samples saved)
-    console.log("Ok, one sec! Let me see if I can understand this one better");
     this.leapTrainerService.trainer.trainingGestures = 1;
     this.leapTrainerService.trainer.updateTrainingData(gestureName, gesture);
     // //TODO: handle UI message for currently made gesture to be updated to saved DB -- improves ML
   }
 
-  reset() {
+  reset(gestureName) {
     console.log('Attempting to reset value...');
-    setTimeout(function() {
-      console.log('...value not reset.')
-    }, 2000);
+    this.leapTrainerService._initLeapTrainerRecord();
+    this.leapTrainerService.trainer.retrain(gestureName);
+  }
+
+  delete(gestureName) {
+    //TODO: remove from gesture list
+    console.log('deleting...');
+    var gestureListKeys = this.createPageState.get('gestureListKeys');
+    var idx = gestureListKeys.indexOf(gestureName);
+    gestureListKeys.splice(idx, 1);
+    this.createPageState.set('gestureListKeys', gestureListKeys);
   }
 
 }

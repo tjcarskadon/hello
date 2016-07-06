@@ -79,7 +79,9 @@ export class LeapTrainerService {
       this.trainer.stop();
       //add name to listKeys array so gestures can be added to page with most recent on top
       var gestureListKeys = this.cpS.get('gestureListKeys');
-      gestureListKeys.unshift(gestureName);
+      if (gestureListKeys.indexOf(gestureName) < 0) {
+        gestureListKeys.unshift(gestureName);
+      }
       this.cpS.set('gestureListKeys', gestureListKeys);
       //store the information needed for each gesture in gestureList object
       var gestureList = this.cpS.get('gestureList');

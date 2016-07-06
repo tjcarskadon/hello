@@ -20,6 +20,7 @@ export class AuthService {
     let currentDate: Date = new Date();
     let tkn: string = localStorage.getItem('tkn')
     let url: string = `http://52.90.139.255:3333/logins?access_token=${tkn}`;
+    // let url: string = 'http://127.0.0.1:3333/logins?access_token=' + tkn;
 
      if (tkn) {
       this.http.get(url).forEach(response => {
