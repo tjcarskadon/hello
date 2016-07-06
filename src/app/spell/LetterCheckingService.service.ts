@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AppState } from '../app.service';
-//import { Observable } from 'rxjs/Observable';
-//import { Http, Response, Headers, RequestOptions } from '@angular/http';
-//import { AlgorithmService } from './algorithmService.service.ts'
 
 @Injectable()
 export class LetterCheckingService {
@@ -14,11 +11,7 @@ export class LetterCheckingService {
   private controller = this.appState._initLeapController();
   private _ = require('underscore');
   
-  constructor(private appState: AppState
-            //  private http: Http,
-            //  private sS: SpellStateService
-              // private algorithmService: AlgorithmService
-              ) {
+  constructor(private appState: AppState) {
   }
 
   _initCheckingService() {
@@ -30,16 +23,11 @@ export class LetterCheckingService {
     this.controller.on ('frame', (frame) => {
 
       frame.hands.forEach((hand) => {
-      // console.log('inside frame');
         let data = [];
         let input = {};
-        //input['target'] = this.targetLetter;
         
         if (this._(hand.fingers).every(finger => !finger.extended)) {
-          // console.log('closed');
-          //TODO: determine if this is needed and remove it
           hand.fingers.forEach(finger => {
-            // console.log(finger.type, finger.extended, finger.direction);
             data.push(finger.extended, finger.direction);
           });
          
@@ -88,9 +76,6 @@ export class LetterCheckingService {
   }
 
   getLetter() {
-    //return this.letters[Math.floor(Math.random() * 11)];
-   // console.log('get letter.....', this.letter);
-    // !!this.letter && console.log('this.letter in getLetter == ', this.letter);
     return this.letter;
   }
 
@@ -103,42 +88,24 @@ export class LetterCheckingService {
 
     var checkExtendedNet = require('./neurons/checkExtended.js');
     var extendedCheckResults = checkExtendedNet.run([1,1,1,1,1]);
-    // if (extendedCheckResults.true > extendedCheckResults.false) {
     if (input.extended) { 
-      //is extdended
-     // console.log('extended');
-      //rotated?
       let rotated_checkNet = require('./neurons/isRotated.js');
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
       if(isRotated.true > isRotated.false) {
-        // console.log('---------ROTATED--------------');
         let GH_checkNet = require('./neurons/gh_yRangeFinder.js');  
-        //takes diff between index tip and mid tip
         //This check is working with dummy data
-        // console.log(input.gh);
-        let isGH = GH_checkNet.run([input.gh]) ;  //input.gh
         if(isGH.g > isGH.h) {
-          // console.log('G');
           this.results.push('G');
-          //G
         } else {
-          //H 
-         // console.log('H');
          this.results.push('H');
         }
       } else {
-       // console.log('______NOT ROTATED______');
-        //Check for down fingers
         let TD_checkNet = require('./neurons/isThumbDown.js');
         let isTD = TD_checkNet.run([input.td]); //input.td
         if (isTD.true > isTD.false) {
-          //thumb is down check for p or q
-          // console.log('thumb down')
-          // console.log(input.md)
           let MD_checkNet = require('./neurons/isMiddleDown.js');
           let isMD = MD_checkNet.run([input.md]); 
           if (isMD.true > isMD.false) {
-            // console.log('P');
             this.results.push('P');
             //P
           } else {
@@ -360,33 +327,8 @@ export class LetterCheckingService {
           }   
         }
       }
-    //  !!response && console.log('response in service === ', response);
-     // if (response !== 'undefined') {
         return response;
-    //  }
+    
   }
-
-  // sendInput(input): Observable<Response> {
-  //   let body = JSON.stringify (input);
-  //   let headers = new Headers({ 'Content-Type': 'application/json' });
-  //   let options = new RequestOptions({ headers: headers });
-
-  //   return this.http.post(this.url, body, options)
-  //               .map(this.extractData)
-  //               .catch(this.handleError);
-  // }
-
-  // private extractData(res: Response) {
-  //   let body = res.json();
-  //   return body.data || { };
-  // }
-
-  // private handleError (error: any) {
-  //   let errMsg = (error.message) ? error.message :
-  //     error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-  //   console.error(errMsg); // log to console instead
-  //   return Observable.throw(errMsg);
-  // }
-
 
 }
