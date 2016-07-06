@@ -322,7 +322,7 @@ export class LetterCheckingService {
       var response;
      // console.log(this.results.length,'>>>>>>>>>>>>>>>>>>>>>>>>>')
       if(this.results.length === numSamples) {
-        console.log('check')
+       // console.log('check')
         let str = this.results.join('');
         // console.log(input.target);
         if (input.target) {
@@ -331,11 +331,11 @@ export class LetterCheckingService {
           let num = (str.match(reg) || []).length;
           if (num / numSamples > 0.5) {
             this.results = [];
-            console.log('true');
+          //  console.log('true');
             response = true;
           } else {
             this.results = [];
-            console.log('false');
+          //  console.log('false');
             response = false;
           }
         } else {
@@ -360,7 +360,7 @@ export class LetterCheckingService {
           }   
         }
       }
-      !!response && console.log('response in service === ', response);
+    //  !!response && console.log('response in service === ', response);
      // if (response !== 'undefined') {
         return response;
     //  }
