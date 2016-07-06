@@ -22,10 +22,11 @@ export class AuthService {
     let url: string = `http://52.90.139.255:3333/logins?access_token=${tkn}`;
     // let url: string = 'http://127.0.0.1:3333/logins?access_token=' + tkn;
 
+
      if (tkn) {
       this.http.get(url).forEach(response => {
         let a = JSON.parse(response._body);
-        // console.log(a)
+        // console.log('@@@@@@',a)
         if(a.data[0] !== "Authorized") {
           this.router.navigate(['/welcome']);
           window.history.replaceState(null, null, '');
@@ -65,7 +66,7 @@ export class AuthService {
 
   logout() {
     let tkn: string = localStorage.getItem('tkn')
-    let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
+    let url: string = 'http://52.90.139.255:3333/access_tokens?access_token=' + tkn;
     localStorage.clear();
     this.appState.set('authenticated', false);
     // console.log('navigating to welcome...');
