@@ -4,14 +4,16 @@
     <p class="animated pulse">Expand our database with more signs and gestures.</p>
   </div>
 
-    <div id="createOptions" class="animated fadeInUp">
-      <ul id="createOptionsList">
-        <li>
-          <md-input id="gestureInput" [(ngModel)]="state.gestureNameInput" placeholder="Gesture / Sign Name"></md-input>
-          <span><button md-raised-button color="warn" (click)="recordGesture(state.gestureNameInput)">Create</button></span>
-          <span><button md-raised-button (click)="stopRecording(state.gestureNameInput)">Done</button></span>
-        </li>
-      </ul>
+    <div class="createOptions animated fadeInUp">
+      <!-- <ul class="createOptionsList"> -->
+        <!-- <li> -->
+        <md-input class="gestureInput" [(ngModel)]="state.gestureNameInput" placeholder="Gesture / Sign Name"></md-input>
+        <div>
+          <button md-raised-button color="warn" class="hand-btn" (click)="recordGesture(state.gestureNameInput)">Create</button>
+          <button md-raised-button class="hand-btn white-btn" (click)="stopRecording(state.gestureNameInput)">Done</button>
+        </div>
+        <!-- </li> -->
+      <!-- </ul> -->
         <div class='button-container'>
           <div class="savedGestureNames" *ngFor="let key of state.gestureListKeys">
             <button id="gestureOption" md-raised-button color="{{setActiveGesture(key)}}" (click)="playback(key)">{{key}}</button>

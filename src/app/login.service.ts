@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Login } from './login/login.ts';
 
-@Injectable ()
+@Injectable()
 
 export class LoginService {
 
