@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppState } from '../app.service';
-import { Observable } from 'rxjs/Observable';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+//import { Observable } from 'rxjs/Observable';
+//import { Http, Response, Headers, RequestOptions } from '@angular/http';
 //import { AlgorithmService } from './algorithmService.service.ts'
 
 @Injectable()
@@ -14,10 +14,14 @@ export class LetterCheckingService {
   private controller = this.appState._initLeapController();
   private _ = require('underscore');
   
-  constructor(private appState: AppState,
-              private http: Http
+  constructor(private appState: AppState
+            //  private http: Http,
+            //  private sS: SpellStateService
               // private algorithmService: AlgorithmService
               ) {
+  }
+
+  _initCheckingService() {
     this.controller.connect();
     this.watch();
   }
@@ -74,15 +78,19 @@ export class LetterCheckingService {
     
         }
 
-         //this.letter = this.checkInput(input);
-         this.checkInput(input);
-         // console.log('this.letter in letterCheckingService= ', this.letter);
+        var checked = this.checkInput(input);
+         if (!!checked) {
+           this.letter = checked;
+           console.log('this.letter in watch = ', this.letter);
+         }
       })
     })
   }
 
   getLetter() {
     //return this.letters[Math.floor(Math.random() * 11)];
+   // console.log('get letter.....', this.letter);
+    // !!this.letter && console.log('this.letter in getLetter == ', this.letter);
     return this.letter;
   }
 
@@ -98,7 +106,7 @@ export class LetterCheckingService {
     // if (extendedCheckResults.true > extendedCheckResults.false) {
     if (input.extended) { 
       //is extdended
-      console.log('extended');
+     // console.log('extended');
       //rotated?
       let rotated_checkNet = require('./neurons/isRotated.js');
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
@@ -119,7 +127,7 @@ export class LetterCheckingService {
          this.results.push('H');
         }
       } else {
-        console.log('______NOT ROTATED______');
+       // console.log('______NOT ROTATED______');
         //Check for down fingers
         let TD_checkNet = require('./neurons/isThumbDown.js');
         let isTD = TD_checkNet.run([input.td]); //input.td
@@ -168,7 +176,7 @@ export class LetterCheckingService {
                   let isTBR = TBR_checkNet.run([input.tbr]);
                   if (isTBR.true > isTBR.false) {
                     //B
-                    console.log('B');
+                    // console.log('B');
                     this.results.push('B');
                   }
                 } else {
@@ -255,7 +263,7 @@ export class LetterCheckingService {
       //CLOSED POSITION LETTERS DECISION TREE
       //is not extended then send to neuron that will parse 
       //and transfer data to [a, e, m, n, o, s, t, c] paths
-      console.log('CLOSED');
+     // console.log('CLOSED');
       //Check for rotation
       let rotated_checkNet = require('./neurons/isRotated.js');
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
@@ -312,7 +320,7 @@ export class LetterCheckingService {
     }
       const numSamples = 30
       var response;
-      console.log(this.results.length,'>>>>>>>>>>>>>>>>>>>>>>>>>')
+     // console.log(this.results.length,'>>>>>>>>>>>>>>>>>>>>>>>>>')
       if(this.results.length === numSamples) {
         console.log('check')
         let str = this.results.join('');
@@ -333,7 +341,7 @@ export class LetterCheckingService {
         } else {
           let holder = {};
 
-          console.log("$$$$$$$", this.results)
+       //   console.log("$$$$$$$", this.results)
           this.results.forEach(result => {
             if (holder.hasOwnProperty(result)) {
               holder[result]++
@@ -346,16 +354,16 @@ export class LetterCheckingService {
             if (holder[key] > rep) {
               rep = holder[key];
               response = key;
-              console.log('response is =====', response);
+          //    console.log('response is =====', response);
               this.results= [];
             }
           }   
         }
       }
-      console.log('response = ', response);
-      if (response !== 'undefined') {
+      !!response && console.log('response in service === ', response);
+     // if (response !== 'undefined') {
         return response;
-      }
+    //  }
   }
 
   // sendInput(input): Observable<Response> {

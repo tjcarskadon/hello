@@ -18,8 +18,9 @@ export class Spell implements OnInit {
     private appState: AppState,
     private wordsService: WordsService,
     private letterCheckingService: LetterCheckingService
-    ) { /*this.appState._initLeapController();*/}
-
+    ) {
+  }
+   
   private spellingWord:string = '';
   private showWord:boolean = false;
   private showSkip:boolean = false;
@@ -33,7 +34,9 @@ export class Spell implements OnInit {
   private correctWords = [];
 
   ngOnInit() {
+    this.letterCheckingService._initCheckingService();
     this.nextWord();
+
   }
 
   nextWord() {
@@ -53,7 +56,7 @@ export class Spell implements OnInit {
     }, 3000);
     setInterval(() => {
       this.checkLetter();
-    }, 1000);
+    }, 100);
   }
 
   skippedClick(event) {
@@ -66,6 +69,8 @@ export class Spell implements OnInit {
 
   checkLetter() {
     this.capturedLetter = this.letterCheckingService.getLetter();
+  //  console.log('captured letter is ... ', this.capturedLetter);
+   // console.log('Captured Letter in component is ==== ', this.capturedLetter);
     if (this.capturedLetter === this.nextLetter) {
       this.capturedLetterColor = 'green';
       this.rightPanelWord += this.capturedLetter.toUpperCase();
