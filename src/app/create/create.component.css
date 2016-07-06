@@ -20,6 +20,13 @@ canvas {
   pointer-events: none;
 }
 
+#deleteButton {
+  width: 1.5vw;
+  height: 1.5vh;
+  float: right;
+  margin-left: 1vw;
+}
+
 .savedGestureNames {
   float: left;
   overflow: hidden;

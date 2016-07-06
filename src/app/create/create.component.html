@@ -16,7 +16,7 @@
       <!-- </ul> -->
         <div class='button-container'>
           <div class="savedGestureNames" *ngFor="let key of state.gestureListKeys">
-            <button id="gestureOption" md-raised-button color="{{setActiveGesture(key)}}" (click)="playback(key)">{{key}}</button>
+            <button id="gestureOption" md-raised-button color="{{setActiveGesture(key)}}" (click)="playback(key)">{{key}}<img [src]='delete_icon' id='deleteButton' (click)='delete(key)'></button>
             <div *ngIf="showOptions(key)">
               <button md-raised-button (click)="test(key)">Test</button>
               <button md-raised-button (click)="update(key)">Update</button>

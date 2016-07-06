@@ -16,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
 export class Create implements OnInit {
 
   state = this.createPageState._state;
+  delete_icon = 'assets/img/delete-icon.png';
 
   constructor(
     private leapTrainerService: LeapTrainerService,
@@ -118,6 +119,15 @@ export class Create implements OnInit {
     console.log('Attempting to reset value...');
     this.leapTrainerService._initLeapTrainerRecord();
     this.leapTrainerService.trainer.retrain(gestureName);
+  }
+
+  delete(gestureName) {
+    //TODO: remove from gesture list
+    console.log('deleting...');
+    var gestureListKeys = this.createPageState.get('gestureListKeys');
+    var idx = gestureListKeys.indexOf(gestureName);
+    gestureListKeys.splice(idx, 1);
+    this.createPageState.set('gestureListKeys', gestureListKeys);
   }
 
 }
