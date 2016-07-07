@@ -24,7 +24,7 @@ export class Learn implements OnInit {
   private interval;
   private color: string = 'warn';
   private mastered = [];
-  private gestureNames;
+  private gestureNames: string[] = [];
 
   private letters = [
     {val: 'A', color:'primary', count: 0},
