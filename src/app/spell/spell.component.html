@@ -30,10 +30,17 @@
 <div class="animated fadeIn">
   <div id="ltMainContainer" class="animated pulse">
     <div id="ltContainer">
-      <div id="recognizedLetter" *ngIf="capturedLetter" color="capturedLetterColor">
+      <!-- <div id="recognizedLetter" *ngIf="capturedLetter" color="capturedLetterColor">
         {{capturedLetter}}
-      </div>
-      <div id='deviceStatus'> Leap Motion Device Status :
+      </div> -->
+
+      <md-toolbar color="primary" *ngIf="capturedLetter" class="animated fadeIn">
+        <span class="fill"></span>
+        {{capturedLetter.toUpperCase()}}
+        <span class="fill"></span>
+      </md-toolbar>
+
+      <div id="deviceStatus"> Leap Motion Device Status :
       <span [ngSwitch]="letterCheckingService.connected">
         <span *ngSwitchWhen='true' [ngStyle]='{"color":"green"}'>Connected</span>
         <span *ngSwitchWhen='false' [ngStyle]='{"color":"red"}'>Disconnected</span>
@@ -45,17 +52,23 @@
 
 <div id="spellPanel" class="animated zoomIn">
   <div id="right-top">
-    <div id="right-panel-word" *ngIf="rightPanelWord.length">
+    <!-- <div id="right-panel-word" *ngIf="rightPanelWord.length">
       {{rightPanelWord}}
-    </div>
+    </div> -->
+
+    <md-toolbar color="primary" *ngIf="rightPanelWord.length" class="animated tada">
+      <span class="fill"></span>
+      {{rightPanelWord}}
+      <span class="fill"></span>
+    </md-toolbar>
 
     <div *ngIf="rightPanelWord.length" id="progress-bar">
-      <md-progress-circle mode="determinate" [value]="wordPercent"></md-progress-circle>
+      <md-progress-circle mode="determinate" class="animated pulse" [value]="wordPercent"></md-progress-circle>
     </div>
   </div>
   <div id="correct-container">
     <div id="correct-words" *ngIf="correctWords.length" *ngFor="let word of correctWords">
-      <button md-button color = "primary" (click)="correctClick($event)"> {{word}} </button>
+      <button md-button color="primary" class="animated slideInDown" (click)="correctClick($event)">{{word}}</button>
     </div>
   </div>
 </div>

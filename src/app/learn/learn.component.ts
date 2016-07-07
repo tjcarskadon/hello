@@ -85,7 +85,7 @@ export class Learn implements OnInit {
          let name = r.data.name;
          let data = r.data.gestureData;
          gest[name] = data;
-         this.gestureNames.push(name);
+         name && this.gestureNames.push(name);
        });
          this.localState.gestures = gest;
     });

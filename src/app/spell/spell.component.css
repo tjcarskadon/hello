@@ -96,9 +96,15 @@ canvas {
 }
 
 #progress-bar {
-  width: 75%;
+  /*width: 75%;*/
   padding: 20px;
-  text-align: center;
+  /*text-align: center;*/
+}
+
+md-progress-circle {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #correct-words {
