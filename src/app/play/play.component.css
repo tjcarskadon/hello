@@ -40,8 +40,22 @@ canvas {
 
 #output-container {
   float: left;
+  max-height: 400px;
+  overflow: scroll;
 }
 
 #result {
   float: left;
+  padding: 5px;
+}
+ 
+#header {
+/*  background-color: white;*/
+  text-align: center;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+  height: 40px;
+  line-height: 40px;
 }

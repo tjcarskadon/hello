@@ -22,7 +22,6 @@ export class Play implements OnInit {
     private router: Router,
     public authService: AuthService,
     private letterCheckingService: LetterCheckingService ) {
-
   }
 
   connected;
@@ -48,8 +47,11 @@ export class Play implements OnInit {
   }
 
   check() {
+    console.log('results = ', this.results);
     let result = this.letterCheckingService.getLetter();
-    this.results.push(result);
+     if (result !== this.results[this.results.length - 1] && result !== '') {
+      this.results.push(result); 
+     }
   }
 
 }

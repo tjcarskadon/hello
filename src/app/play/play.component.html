@@ -11,7 +11,8 @@
 </div>
 
 <div id="composeOutput" class="animated fadeInUp">
+  <div *ngIf="results.length" id="header"> Results </div>
   <div id="output-container" *ngFor="let result of results">
-    <button md-button class="result"> {{ result }} </button>
+    <button md-button id="result" color="primary"> {{ result }} </button>
   </div>
 </div>
