@@ -117,3 +117,10 @@ canvas {
 #right-top {
   height: 180px;
 }
+
+
+#deviceStatus {
+  color: grey;
+  position: absolute;
+  bottom: 0;
+}

@@ -32,10 +32,6 @@ export class Create implements OnInit {
    this.authService.authenticate('create');
   }
 
-  disconnectLM() {
-    this.leapTrainerService.trainerCtrl.disconnect();
-  }
-
   ngOnDestroy() {
     // console.log('disconnecting leap controller ')
     this.leapTrainerService.trainerCtrl.disconnect();

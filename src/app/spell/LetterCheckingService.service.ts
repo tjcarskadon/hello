@@ -14,12 +14,13 @@ export class LetterCheckingService {
   constructor(private appState: AppState) {
   }
 
+  connected;
   deviceStopped_CB() {
-
+    this.connected = false;
   }
 
   deviceStreaming_CB() {
-
+    this.connected = true;
   }
 
   _initCheckingService() {

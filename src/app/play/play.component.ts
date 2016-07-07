@@ -24,12 +24,14 @@ export class Play implements OnInit {
     this.leapCtrl.connect();
   }
 
-  deviceStopped_CB() {
+  connected;
 
+  deviceStopped_CB() {
+    this.connected = false;
   }
 
   deviceStreaming_CB() {
-
+    this.connected = true;
   }
 
   ngOnInit() {

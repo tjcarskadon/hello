@@ -49,6 +49,7 @@ export class Learn implements OnInit {
     {val: 'Z', color:'primary', count: 0}
   ];
 
+
   constructor(
     private alphabetCaptureCheck: AlphabetCaptureCheck,
     private authService: AuthService,
@@ -58,12 +59,13 @@ export class Learn implements OnInit {
     this.leapCtrl.connect();
   }
 
+  connected;
   deviceStopped_CB() {
-
+    this.connected = false;
   }
 
   deviceStreaming_CB() {
-
+    this.connected = true;
   }
 
   ngOnInit() {
