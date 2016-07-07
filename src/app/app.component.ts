@@ -55,6 +55,7 @@ export class App {
       this.learnPage = window.history.state.learnPage;
       this.authenticated = window.history.state.authenticated;
       this.isDisabled = window.history.state.isDisabled; 
+      this.name=window.history.state.email;
     }
  }
 

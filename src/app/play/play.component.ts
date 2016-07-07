@@ -15,7 +15,7 @@ import { LetterCheckingService } from '../LetterCheckingService.service';
 export class Play implements OnInit {
   leapCtrl;
   private results = [];
-
+  private checkInterval;
   constructor(
     private appState: AppState,
     public loginService: LoginService,
@@ -37,13 +37,18 @@ export class Play implements OnInit {
   ngOnInit() {
     this.authService.authenticate('play');
     this.letterCheckingService._initCheckingService();
-    setInterval(() => {
+    this.checkInterval = setInterval(() => {
       this.check();
     }, 1000);
   }
 
   ngAfterViewInit() {
     document.dispatchEvent(new Event('ltContainerAdded'));
+  }
+
+   ngOnDestroy() {
+    this.letterCheckingService.controller.disconnect();
+    clearInterval(this.checkInterval);
   }
 
   check() {
