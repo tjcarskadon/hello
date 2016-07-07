@@ -16,6 +16,8 @@ export class Play implements OnInit {
   leapCtrl;
   private results = [];
   checkInterval;
+  private intervalId;
+  private checkLetterTimer;
 
   constructor(
     private appState: AppState,
@@ -38,7 +40,7 @@ export class Play implements OnInit {
   ngOnInit() {
     this.authService.authenticate('play');
     this.letterCheckingService._initCheckingService();
-    this.checkInterval = setInterval(() => {
+    this.checkLetterTimer = setInterval(() => {
       this.check();
     }, 1000);
   }
@@ -58,6 +60,11 @@ export class Play implements OnInit {
   ngOnDestroy() {
     this.letterCheckingService.controller.disconnect();
     clearInterval(this.checkInterval);
+  }
+
+  ngOnDestroy() {
+    this.letterCheckingService.controller.disconnect();
+    clearInterval(this.checkLetterTimer);
   }
 
 }
