@@ -85,7 +85,7 @@ export class LetterCheckingService {
         var checked = this.checkInput(input);
          if (!!checked) {
            this.letter = checked;
-           console.log('this.letter in watch = ', this.letter);
+          // console.log('this.letter in watch = ', this.letter);
          }
       })
     })
@@ -93,6 +93,10 @@ export class LetterCheckingService {
 
   getLetter() {
     return this.letter;
+  }
+
+  getIsLetter() {
+    return this.isLetter;
   }
 
 

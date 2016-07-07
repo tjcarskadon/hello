@@ -17,6 +17,7 @@ export class Learn implements OnInit {
   private localState = {gestures: {}};
   //leapCtrl;
   GestureRecCtrl;
+  ltrCtrlConnected:boolean = false;
   private riggedHand: boolean = false;
   private imageUrl: string = '';
   private clickedLtr: string;
@@ -82,11 +83,15 @@ export class Learn implements OnInit {
       this.localState.gestures = gest;
     });
     // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
-    this.letterCheckingService._initCheckingService();
   }
 
   clicked(ltr) {
     ltr = ltr.toLowerCase();
+   // this.GestureRecCtrl.disconnect();
+    if (!this.ltrCtrlConnected) {
+      this.letterCheckingService._initCheckingService();
+      this.ltrCtrlConnected = true;
+    }
     this.imageUrl = `assets/img/${ltr}.png`;
     this.clickedLtr = ltr;
     // this.showCaptureDiv = false;
@@ -112,8 +117,8 @@ export class Learn implements OnInit {
     let idx = this.clickedLtr.charCodeAt(0) - 97;
     const letter = this.letters[idx];
     this.letterCheckingService.target = letter.val;
-    let isCorrectLetter = this.letterCheckingService.isLetter;
-    console.log('correct = ', isCorrectLetter);
+    //let isCorrectLetter = this.letterCheckingService.isLetter;
+    //console.log('correct = ', isCorrectLetter);
     console.log(this.letterCheckingService.target);
 
     // if (isCorrectLetter) {
