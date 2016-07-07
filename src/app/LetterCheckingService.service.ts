@@ -8,7 +8,7 @@ export class LetterCheckingService {
   private url: string = '';
   private letter = '';
   private results = [];
-  private controller = this.appState._initLeapController();
+  public controller = this.appState._initLeapController();
   private _ = require('underscore');
   
   constructor(private appState: AppState) {
