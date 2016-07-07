@@ -50,7 +50,12 @@
     "preversion": "npm test",
     "version": "npm run build",
     "postversion": "git push && git push --tags",
-    "image": "cd server && node server.js"
+    "api-deps": "cd servers/api && npm install",
+    "deps":"npm install && npm run api-deps",
+    "db-build":"cd servers/api && nodal db:create",
+    "nodal": "cd servers/api && nodal s"
+    "hello-prod": "npm run build:prod && cd severs/static node server.js",
+
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.1",
