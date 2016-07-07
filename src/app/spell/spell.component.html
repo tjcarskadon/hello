@@ -5,18 +5,22 @@
   </div>
 </div>
 
-<div id="spellPanel" class="animated zoomIn"> 
-  <div id="word" *ngIf="showWord" class="animated tada"> 
-    {{ spellingWord }} 
-  </div>
+<div id="spellPanel" class="animated zoomIn">
+  <!-- <div id="word" *ngIf="showWord" class="animated tada">
+    {{spellingWord}}
+  </div> -->
 
-  <div *ngIf="showSkip" id="button"> 
-    <button md-raised-button color="warn" (click)="nextWord()"> Skip </button> 
+  <md-toolbar color="primary" class="animated tada">
+    {{spellingWord}}
+  </md-toolbar>
+
+  <div *ngIf="showSkip" id="button">
+    <button md-raised-button color="warn" (click)="nextWord()">Skip</button>
   </div>
 
   <div id="skipped-container">
-    <div id="skippedWords" *ngIf="skippedWords.length" *ngFor="let word of skippedWords"> 
-      <button md-button color = "primary" (click)="skippedClick($event)"> {{ word }} </button>
+    <div id="skippedWords" *ngIf="skippedWords.length" *ngFor="let word of skippedWords">
+      <button md-button color = "primary" (click)="skippedClick($event)"> {{word}} </button>
     </div>
   </div>
 </div>
@@ -24,8 +28,8 @@
 <div class="animated fadeIn">
   <div id="ltMainContainer" class="animated pulse">
     <div id="ltContainer">
-      <div id="recognizedLetter" *ngIf="capturedLetter" color="capturedLetterColor"> 
-        {{ capturedLetter }}
+      <div id="recognizedLetter" *ngIf="capturedLetter" color="capturedLetterColor">
+        {{capturedLetter}}
       </div>
       <div id='deviceStatus'> Leap Motion Device Status :
       <span [ngSwitch]="letterCheckingService.connected">
@@ -38,19 +42,19 @@
 </div>
 
 <div id="spellPanel" class="animated zoomIn">
-<div id="right-top">
-  <div id="right-panel-word" *ngIf="rightPanelWord.length">
-    {{ rightPanelWord }}
-  </div>
-
-  <div *ngIf="rightPanelWord.length" id="progress-bar">   
-    <md-progress-circle mode="determinate" [value]="wordPercent"></md-progress-circle>
-  </div>
- </div> 
- <div id="correct-container">
-    <div id="correct-words" *ngIf="correctWords.length" *ngFor="let word of correctWords">
-      <button md-button color = "primary" (click)="correctClick($event)"> {{ word }} </button>
+  <div id="right-top">
+    <div id="right-panel-word" *ngIf="rightPanelWord.length">
+      {{rightPanelWord}}
     </div>
-</div>
+
+    <div *ngIf="rightPanelWord.length" id="progress-bar">
+      <md-progress-circle mode="determinate" [value]="wordPercent"></md-progress-circle>
+    </div>
+  </div>
+  <div id="correct-container">
+    <div id="correct-words" *ngIf="correctWords.length" *ngFor="let word of correctWords">
+      <button md-button color = "primary" (click)="correctClick($event)"> {{word}} </button>
+    </div>
+  </div>
 </div>
 

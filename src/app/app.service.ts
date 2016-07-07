@@ -13,7 +13,8 @@ export class AppState {
     isDisabled: true,
     myName: 'Richard',
     title: 'hello',
-    google: false
+    google: false,
+    userEmail: ''
   };
 
   token = localStorage.getItem('tkn');

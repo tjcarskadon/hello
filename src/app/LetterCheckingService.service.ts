@@ -11,8 +11,7 @@ export class LetterCheckingService {
   public controller = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
   private _ = require('underscore');
 
-  constructor(private appState: AppState) {
-  }
+  constructor(private appState: AppState) { }
 
    connected = false;
    deviceStopped_CB() {
@@ -222,7 +221,7 @@ export class LetterCheckingService {
                   }
                 }
               }
-             }
+            }
           } else {
             //check if thumb is below index
             let TI_checkNet= require('./neurons/thumbIndexTip_yRangeFinder.js');
@@ -240,7 +239,7 @@ export class LetterCheckingService {
       //CLOSED POSITION LETTERS DECISION TREE
       //is not extended then send to neuron that will parse
       //and transfer data to [a, e, m, n, o, s, t, c] paths
-     // console.log('CLOSED');
+      // console.log('CLOSED');
       //Check for rotation
       let rotated_checkNet = require('./neurons/isRotated.js');
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
@@ -295,7 +294,7 @@ export class LetterCheckingService {
       }
 
     }
-      const numSamples = 30
+      const numSamples = 30;
       var response;
      // console.log(this.results.length,'>>>>>>>>>>>>>>>>>>>>>>>>>')
       if(this.results.length === numSamples) {
@@ -318,7 +317,7 @@ export class LetterCheckingService {
         } else {
           let holder = {};
 
-       //   console.log("$$$$$$$", this.results)
+        //   console.log("$$$$$$$", this.results)
           this.results.forEach(result => {
             if (holder.hasOwnProperty(result)) {
               holder[result]++
@@ -337,8 +336,6 @@ export class LetterCheckingService {
           }
         }
       }
-        return response;
-
+      return response;
   }
-
 }
