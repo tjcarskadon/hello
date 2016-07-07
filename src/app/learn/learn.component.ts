@@ -12,8 +12,11 @@ import { LetterCheckingService } from '../LetterCheckingService.service';
 })
 
 export class Learn implements OnInit {
+
   leapCtrl;
   private localState = {gestures: {}};
+  //leapCtrl;
+  GestureRecCtrl;
   private riggedHand: boolean = false;
   private imageUrl: string = '';
   private clickedLtr: string;
@@ -109,8 +112,8 @@ export class Learn implements OnInit {
     let idx = this.clickedLtr.charCodeAt(0) - 97;
     const letter = this.letters[idx];
     this.letterCheckingService.target = letter.val;
-    //let isCorrectLetter = this.letterCheckingService.watch(letter.val);
-    //console.log('correct = ', isCorrectLetter);
+    let isCorrectLetter = this.letterCheckingService.isLetter;
+    console.log('correct = ', isCorrectLetter);
     console.log(this.letterCheckingService.target);
 
     // if (isCorrectLetter) {
@@ -135,6 +138,11 @@ export class Learn implements OnInit {
       document.dispatchEvent(new Event('ltContainerAdded'));
     }, 0);
     this.checkLetter();
+  }
+
+  ngOnDestroy() {
+    this.letterCheckingService.controller.disconnect();
+    this.letterCheckingService.target = '';
   }
 
 }

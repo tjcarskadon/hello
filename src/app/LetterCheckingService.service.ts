@@ -10,6 +10,8 @@ export class LetterCheckingService {
   private results = [];
   public controller = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
   private _ = require('underscore');
+  public target = '';
+  public isLetter:boolean;
 
   constructor(private appState: AppState) { }
 
@@ -19,7 +21,7 @@ export class LetterCheckingService {
   }
 
   deviceStreaming_CB() {
-    this.connected = true;
+    this.connected = true;  
   }
 
   _initCheckingService() {
@@ -72,8 +74,12 @@ export class LetterCheckingService {
           input['vk'] = hand.ringFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
           input['xd'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
           input['x'] = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
+<<<<<<< a1a0c0ff34f41f549e37bc5786793a01e287073f
           input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
 
+=======
+          input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1]; 
+>>>>>>> make changes to service
         }
 
         var checked = this.checkInput(input);
@@ -311,10 +317,14 @@ export class LetterCheckingService {
             this.results = [];
           //  console.log('true');
             response = true;
+            this.isLetter = true;
+            console.log('isLetter in service = ', this.isLetter);
           } else {
             this.results = [];
           //  console.log('false');
             response = false;
+            this.isLetter = false;
+            console.log('isLetter in service = ', this.isLetter);
           }
         } else {
           let holder = {};
