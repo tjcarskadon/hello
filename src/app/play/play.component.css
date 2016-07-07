@@ -1,3 +1,7 @@
+md-toolbar {
+  border-radius: 4px 4px 0 0;
+}
+
 #ltMainContainer {
   float: left;
   position: relative;
@@ -42,13 +46,14 @@ canvas {
   float: left;
   max-height: 400px;
   overflow: scroll;
+  padding: 15px;
 }
 
 #result {
   float: left;
   padding: 5px;
 }
- 
+
 #header {
 /*  background-color: white;*/
   text-align: center;

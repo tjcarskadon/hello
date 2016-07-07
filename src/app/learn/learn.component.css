@@ -1,4 +1,3 @@
-
 md-toolbar {
   border-radius: 4px 4px 0 0;
 }
@@ -29,6 +28,13 @@ md-toolbar {
 .letter-buttons {
   float: left;
   margin: 3px;
+}
+
+.gestures {
+  margin: auto;
+  margin-top: 19px;
+  width: 282px;
+  height: 380px;
 }
 
 .graphic-container {

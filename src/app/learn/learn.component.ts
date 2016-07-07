@@ -80,14 +80,14 @@ export class Learn implements OnInit {
 
     this.appState.retreiveGestures().subscribe(result => {
       var gest = {}
-       result.forEach(r => {
-         // console.log('@@@@@', r.data.name)
-         let name = r.data.name;
-         let data = r.data.gestureData;
-         gest[name] = data;
-         name && this.gestureNames.push(name);
-       });
-         this.localState.gestures = gest;
+      result.forEach(r => {
+        // console.log('@@@@@', r.data.name)
+        let name = r.data.name;
+        let data = r.data.gestureData;
+        gest[name] = data;
+        name && this.gestureNames.push(name);
+      });
+      this.localState.gestures = gest;
     });
 
     // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
