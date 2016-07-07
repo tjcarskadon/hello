@@ -25,7 +25,7 @@ md-toolbar {
   height: 380px;
 }
 
-.letter-buttons {
+.letter-buttons, .gestureNames {
   float: left;
   margin: 3px;
 }

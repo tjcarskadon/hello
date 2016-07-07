@@ -13,11 +13,11 @@
         </div>
       </template>
     </md-tab>
-    <md-tab md-on-select="onTabChanges(tabNumber)">
-      <template md-tab-label>Gestures</template>
+    <md-tab>
+      <template md-tab-label>Gestures!!</template>
       <template md-tab-content>
         <div class="gestures">
-          <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn" color="primary">{{gestureName}}</button>
+          <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn" color="primary" (click)='startGestureRecognition()'>{{gestureName}}</button>
         </div>
       </template>
     </md-tab>

@@ -77,7 +77,7 @@ export class Learn implements OnInit {
     });
     this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
-
+  
   clicked(ltr) {
     ltr = ltr.toLowerCase();
     // this.GestureRecCtrl.disconnect();
@@ -145,4 +145,66 @@ export class Learn implements OnInit {
     this.letterCheckingService.target = '';
   }
 
+  checkActiveTab(e) {
+    console.log(e, 'hello');
+  }
+
+  //logic for gesture recognition below
+  connected;
+  GestureRecCtrl;
+  deviceStopped_CB() {
+    console.log('device has stopped streaming');
+    this.connected = false;
+    //TODO: handle UI 
+  }
+
+  deviceStreaming_CB() {
+    console.log('device has started streaming');
+    this.connected = true;
+    //TODO: handle UI 
+  }
+
+  trainer;
+  LeapTrainer = require('../lib/leap-trainer.js');
+  _initGestureRecognition() {
+    console.log('clicked');
+    //show playback
+    this.GestureRecCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
+    this.GestureRecCtrl.connect();
+    this.trainer = new this.LeapTrainer.Controller({
+      controller: this.GestureRecCtrl
+    })
+
+    //TODO: Playback plugin...
+
+    this.trainer.on('gesture-recognized', (bestHit, closestGestureName, allHits) => {
+      console.log('Gesture recognized! -- ', closestGestureName);
+    });
+  }
+
+  startGestureRecognition() {
+    console.log(this.GestureRecCtrl.streaming(), 'streaming')
+    if (!this.GestureRecCtrl.streaming()) {
+      this._initGestureRecognition(); 
+    }
+  }
+
+
 }
+  // changeLetterColor() {
+  //   let idx = this.clickedLtr.charCodeAt(0) - 97;
+  //   const letter = this.letters[idx];
+  //   if (this.alphabetCaptureCheck.getResult()) {
+  //     letter.count += 1;
+  //     letter.color = 'white';
+  //   } else {
+  //     letter.color = 'warn';
+  //   }
+  //   sessionStorage.setItem(letter.val, letter.color);
+  //   // console.log(sessionStorage.getItem(letter.val));
+  //   if (letter.count > 1) {
+  //     this.mastered.push(letter.val);
+  //     // console.log(this.mastered);
+  //   }
+  //   sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
+  // }
