@@ -21,6 +21,7 @@ export class AuthService {
     let tkn: string = localStorage.getItem('tkn')
     let url: string = 'http://52.90.139.255:3333/logins?access_token=' + tkn;
 
+
      if (tkn) {
       this.http.get(url).forEach(response => {
         let a = JSON.parse(response._body);
@@ -32,7 +33,6 @@ export class AuthService {
           this.appState.set('authenticated', true);
           this.appState.set('isDisabled', false);
           this.router.navigate(['/'+page]);
-          window.history.pushState(this.appState._state, null, page);
         }
       }).catch(err => console.log(err));
      } else {

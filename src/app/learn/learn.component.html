@@ -15,7 +15,11 @@
     </md-tab>
     <md-tab>
       <template md-tab-label>Gestures</template>
-      <template md-tab-content>not the poops</template>
+      <template md-tab-content>
+        <div class="gestures">
+          <button *ngFor="let gestureName of gestureNames">{{gestureName}}</button>"  
+        </div>
+      </template>
     </md-tab>
   </md-tab-group>
 

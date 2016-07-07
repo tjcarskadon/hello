@@ -31,11 +31,15 @@ export class Profile {
   constructor(
     // public appState: AppState,
     public title: Title,
-    private authService: AuthService) { }
+    private authService: AuthService) { 
+
+
+  }
 
   ngOnInit() {
     // console.log('Profile component loaded.');
     // this.title.getData().subscribe(data => this.data = data);
+
     this.authService.authenticate('profile');
   }
 
