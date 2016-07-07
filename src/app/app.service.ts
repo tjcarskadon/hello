@@ -24,23 +24,11 @@ export class AppState {
   public gestureUrl: string = this.urls;
 
   constructor(private http: Http) {
-    // retrieve gestures from database and store in client's localStorage
-    this.retreiveGestures().subscribe(result => {
-       var gest = {}
-       result.forEach(r => {
-         // console.log('@@@@@', r.data.name)
-         let name = r.data.name;
-         let data = r.data.gestureData;
-         // console.log(name, data);
-         gest[name] = data;
-       });
-         this.set('gestures', gest);
-
+    // retrieve gestures from database and store in client's localStorage 
          // let path = window.location.href.split('/');
          // window.history.pushState(this.appState._state, null, path[path.length -1]);
          // console.log(history.state);
       // localStorage.setItem('gestures', JSON.stringify(result));
-    });
   }
 
   retreiveGestures(): Observable<Response[]> {

@@ -12,6 +12,7 @@ module.exports = (function() {
 
 
    this.authorize((accesToken, user) => {
+    
         this.setHeader('Cache-Control', 'no-store');
         this.setHeader('Pragma', 'no-cache');
         this.respond("Authorized");
