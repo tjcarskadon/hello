@@ -74,12 +74,7 @@ export class LetterCheckingService {
           input['vk'] = hand.ringFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
           input['xd'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
           input['x'] = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
-<<<<<<< a1a0c0ff34f41f549e37bc5786793a01e287073f
           input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
-
-=======
-          input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1]; 
->>>>>>> make changes to service
         }
 
         var checked = this.checkInput(input);
@@ -96,6 +91,7 @@ export class LetterCheckingService {
   }
 
   getIsLetter() {
+    console.log('getisletter was called');
     return this.isLetter;
   }
 
@@ -328,7 +324,7 @@ export class LetterCheckingService {
           //  console.log('false');
             response = false;
             this.isLetter = false;
-            console.log('isLetter in service = ', this.isLetter);
+  //          console.log('isLetter in service = ', this.isLetter);
           }
         } else {
           let holder = {};
@@ -352,12 +348,7 @@ export class LetterCheckingService {
           }
         }
       }
-<<<<<<< 3301ecacd8c718b5b955250d3f26d1a7a44fd1b7
-      return response;
-=======
-        console.log('response in service  == ', response);
         return response;
     
->>>>>>> fix leap motion connected
   }
 }

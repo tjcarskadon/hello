@@ -54,6 +54,7 @@
         <span class="fill"></span>
       </md-toolbar>
       <div id="ltContainer">
+        <div id="start-timer" *ngIf="startTimer">Ready ? {{ sec }} seconds to go </div>
         <div id="recognizedGesture"></div>
       <div id='deviceStatus'> Leap Motion Device Status :
         <span [ngSwitch]="letterCheckingService.connected">
@@ -66,3 +67,4 @@
   </div>
 
 </div>
+

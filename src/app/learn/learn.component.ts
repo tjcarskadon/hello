@@ -21,11 +21,13 @@ export class Learn implements OnInit {
   private riggedHand: boolean = false;
   private imageUrl: string = '';
   private clickedLtr: string;
-  // private showImgDiv: boolean = false;
-  // private showCaptureDiv: boolean = false;
-  // private color:string = 'warn';
-  // private mastered = [];
-  private gestureNames: string[] = [];
+  private _ = require('underscore');
+  private startTimer:boolean = false;
+  private sec:number = 5;
+  private interval;
+  private color:string = 'warn';
+  private mastered = [];
+ 
   private letters = [
     {val: 'A', color:'primary', count: 0},
     {val: 'B', color:'primary', count: 0},
@@ -82,7 +84,8 @@ export class Learn implements OnInit {
       });
       this.localState.gestures = gest;
     });
-    // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+    
+    this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
 
   clicked(ltr) {
@@ -94,20 +97,10 @@ export class Learn implements OnInit {
     }
     this.imageUrl = `assets/img/${ltr}.png`;
     this.clickedLtr = ltr;
-    // this.showCaptureDiv = false;
-    // this.showImgDiv = true;
     this.riggedHand = false;
   }
 
-  // hideImgDiv() {
-  //   this.showImgDiv = false;
-  //   this.showCaptureDiv = true;
-  // }
-
-  // hideCaptureDiv() {
-  //   this.showCaptureDiv = false;
-  //   this.changeLetterColor();
-  // }
+  //let isLetter = this._.debounce(this.letterCheckingService.getIsLetter, 1000);
 
   onTabChanges(tabNumber) {
     console.log('selected tab = ', tabNumber);
@@ -117,24 +110,36 @@ export class Learn implements OnInit {
     let idx = this.clickedLtr.charCodeAt(0) - 97;
     const letter = this.letters[idx];
     this.letterCheckingService.target = letter.val;
-    //let isCorrectLetter = this.letterCheckingService.isLetter;
-    //console.log('correct = ', isCorrectLetter);
-    console.log(this.letterCheckingService.target);
+    let isCorrectLetter;
+    this.startTimer = true;
+    // this.inetrval = setInterval(() => {
+    // }, 1000);
 
-    // if (isCorrectLetter) {
-    //   console.log('letter found');
-    //   letter.count += 1;
-    //   letter.color = 'white';
-    // } else {
-    //   letter.color = 'warn';
-    // }
-    // sessionStorage.setItem(letter.val, letter.color);
-    // // console.log(sessionStorage.getItem(letter.val));
-    // if (letter.count > 1) {
-    //   this.mastered.push(letter.val);
-    //   // console.log(this.mastered);
-    // }
-    // sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
+    setTimeout(() => {
+      this.startTimer = false;
+      this.changeLetterColor();
+    }, 6000);
+  }
+
+  changeLetterColor() {
+    let isCorrectLetter = this.letterCheckingService.getIsLetter();
+    console.log('isCorrectLetter = ', isCorrectLetter);
+
+     let idx = this.clickedLtr.charCodeAt(0) - 97;
+     const letter = this.letters[idx];
+
+    if (isCorrectLetter) {
+      console.log('letter found');
+      letter.count += 1;
+      letter.color = 'white';
+    } else {
+      letter.color = 'warn';
+    }
+    sessionStorage.setItem(letter.val, letter.color);
+    if (letter.count > 1) {
+      this.mastered.push(letter.val);
+    }
+    sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
   }
 
   showRiggedHand() {

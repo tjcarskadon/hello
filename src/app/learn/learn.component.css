@@ -89,6 +89,17 @@ canvas {
   position: absolute;
   bottom: 0;
 }
+
+#start-timer {
+  color: white;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 18px;
+}
+
+
 /*
 #createOptions {
   float: left;

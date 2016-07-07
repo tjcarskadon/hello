@@ -77,6 +77,7 @@ export class AuthService {
     // deployed URL
     let url: string = `http://52.90.139.255:3333/access_tokens?access_token=${tkn}`;
     localStorage.clear();
+    sessionStorage.clear();
     this.appState.set('authenticated', false);
     // console.log('navigating to welcome...');
 
