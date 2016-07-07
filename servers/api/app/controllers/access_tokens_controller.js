@@ -15,7 +15,8 @@ module.exports = (function() {
 
     create() {
       AccessToken.login(this.params, (err, accessToken) => {
-        
+        console.log(accessToken);
+        console.log(this.params);
         if(!err) {
           accessToken._data.email = this.params.body.email;
         }

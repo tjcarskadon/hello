@@ -61,7 +61,7 @@ module.exports = (function() {
     }
 
     update() {
-
+        console.log(this.params);
       User.update(this.params.route.id, this.params.body, (err, model) => {
 
         this.respond(err || model);
