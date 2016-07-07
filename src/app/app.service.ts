@@ -10,7 +10,7 @@ export class AppState {
   _state = {
     authenticated: false,
     learnPage: false,
-    isDisabled: false,
+    isDisabled: true,
     myName: 'Richard',
     title: 'hello',
     google: false
@@ -23,7 +23,20 @@ export class AppState {
   constructor(private http: Http) {
     // retrieve gestures from database and store in client's localStorage
     this.retreiveGestures().subscribe(result => {
-      localStorage.setItem('gestures', JSON.stringify(result));
+       var gest = {}
+       result.forEach(r => {
+         // console.log('@@@@@', r.data.name)
+         let name = r.data.name;
+         let data = r.data.gestureData;
+         // console.log(name, data);
+         gest[name] = data;
+       });
+         this.set('gestures', gest);
+         
+         let path = window.location.href.split('/');
+         window.history.pushState(this.appState._state, null, path[path.length -1]);
+         // console.log(history.state);
+      // localStorage.setItem('gestures', JSON.stringify(result));
     });
   }
 

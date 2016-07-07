@@ -12,7 +12,7 @@ import { AppState } from '../app.service';
 
 export class Learn implements OnInit {
   leapCtrl;
-
+  private localState = {gestures: {}};
   private riggedHand: boolean = false;
   private imageUrl: string = '';
   private clickedLtr: string;
@@ -20,6 +20,7 @@ export class Learn implements OnInit {
   // private showCaptureDiv: boolean = false;
   // private color:string = 'warn';
   // private mastered = [];
+  private gestureNames: string[] = [];
   private letters = [
     {val: 'A', color:'primary', count: 0},
     {val: 'B', color:'primary', count: 0},
@@ -56,6 +57,7 @@ export class Learn implements OnInit {
     private appState: AppState) {
 
     this.leapCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
+
     this.leapCtrl.connect();
   }
 
@@ -69,11 +71,28 @@ export class Learn implements OnInit {
   }
 
   ngOnInit() {
-    this.letters.forEach( letter => {
-      if (sessionStorage.getItem(letter.val)) {
-        letter.color = sessionStorage.getItem(letter.val);
-      }
+
+    //  this.letters.forEach( letter => {
+    //   if (sessionStorage.getItem(letter.val)) {
+    //     letter.color = sessionStorage.getItem(letter.val);
+    //   }
+    // });
+
+    this.appState.retreiveGestures().subscribe(result => {
+      var gest = {}
+       result.forEach(r => {
+         // console.log('@@@@@', r.data.name)
+         let name = r.data.name;
+         let data = r.data.gestureData;
+         gest[name] = data;
+         this.gestureNames.push(name);
+       });
+         this.localState.gestures = gest;
     });
+
+    for(let key in this.localState.gestures) {
+
+    }
 
     // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
