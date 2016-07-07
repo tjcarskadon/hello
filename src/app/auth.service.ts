@@ -20,18 +20,21 @@ export class AuthService {
     let currentDate: Date = new Date();
     let tkn: string = localStorage.getItem('tkn')
     //deployed URL
-    let urls: string = 'http://52.90.139.255:3333/access_tokens';
+    let url: string = 'http://52.90.139.255:3333/logins?access_token=' + tkn;
     //Local Docker Machine URL
-    // let urls: string = 'http://192.168.99.100:3333/users';
+    // let url: string = 'http://192.168.99.100:3333/logins?access_token=' + tkn;
    //Local host
-   // let urls: string = 'http://127.0.0.1:3333/access_tokens';
-    let url: string = this.urls;
+   // let url: string = 'http://127.0.0.1:3333/logins?access_token=' + tkn;
+    // let url: string = this.urls;
 
      if (tkn) {
       this.http.get(url).forEach(response => {
+        // console.log(response);
         let a = JSON.parse(response._body);
-        // console.log('@@@@@@',a)
+        // console.log('@@@@@@@',a);
         if(a.data[0] !== "Authorized") {
+          this.appState.set('authenticated', true);
+          this.appState.set('learn', true);
           this.router.navigate(['/welcome']);
           window.history.replaceState(null, null, '');
         } else {
@@ -39,7 +42,7 @@ export class AuthService {
           this.appState.set('isDisabled', false);
           this.router.navigate(['/'+page]);
         }
-      }).catch(err => console.log(err));
+      }).catch(err => console.log("ERROR:", err));
      } else {
         this.router.navigate(['/welcome']);
         window.history.replaceState(null, null, '');

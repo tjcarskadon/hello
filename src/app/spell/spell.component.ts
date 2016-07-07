@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { WordsService } from './wordsService.service';
 import { LetterCheckingService } from '../LetterCheckingService.service';
+import { AuthService} from '../auth.service'
 
 
 @Component({
@@ -17,7 +18,8 @@ export class Spell implements OnInit {
   constructor(
     private appState: AppState,
     private wordsService: WordsService,
-    private letterCheckingService: LetterCheckingService
+    private letterCheckingService: LetterCheckingService,
+    private authService: AuthService
     ) {
   }
    
@@ -36,6 +38,7 @@ export class Spell implements OnInit {
   showSkipTimer;
 
   ngOnInit() {
+    this.authService.authenticate('spell');
     this.letterCheckingService._initCheckingService();
     this.nextWord();
 
