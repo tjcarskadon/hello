@@ -71,17 +71,11 @@ export class AuthService {
     let tkn: string = localStorage.getItem('tkn')
     // local docker machine
     // let url: string = 'http://192.168.99.100:3333/access_tokens?access_token=' + tkn;
-<<<<<<< 203dea33dc3580868e4a92a7816e5a8b9c1900cc
     // localhost
     // let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
     // deployed URL
     let url: string = `http://52.90.139.255:3333/access_tokens?access_token=${tkn}`;
-=======
-    //localhost
-    let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
-    //deployed URL
-    // let url: string = 'http://52.90.139.255:3333/access_tokens?access_token=' + tkn;
->>>>>>> (feat) Profile page in progress
+
     localStorage.clear();
     sessionStorage.clear();
     this.appState.set('authenticated', false);

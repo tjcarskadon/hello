@@ -50,22 +50,12 @@ export class Play implements OnInit {
     document.dispatchEvent(new Event('ltContainerAdded'));
   }
 
-   ngOnDestroy() {
-    this.letterCheckingService.controller.disconnect();
-    clearInterval(this.checkInterval);
-  }
-
   check() {
     console.log('results = ', this.results);
     let result = this.letterCheckingService.getLetter();
     if (result !== this.results[this.results.length - 1] && result !== '') {
       this.results.push(result);
     }
-  }
-
-  ngOnDestroy() {
-    this.letterCheckingService.controller.disconnect();
-    clearInterval(this.checkInterval);
   }
 
   ngOnDestroy() {
