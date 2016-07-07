@@ -15,6 +15,7 @@ import { LetterCheckingService } from '../LetterCheckingService.service';
 export class Play implements OnInit {
   leapCtrl;
   private results = [];
+
   checkInterval;
   private intervalId;
   private checkLetterTimer;
@@ -47,6 +48,11 @@ export class Play implements OnInit {
 
   ngAfterViewInit() {
     document.dispatchEvent(new Event('ltContainerAdded'));
+  }
+
+   ngOnDestroy() {
+    this.letterCheckingService.controller.disconnect();
+    clearInterval(this.checkInterval);
   }
 
   check() {
