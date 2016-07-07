@@ -5,7 +5,7 @@
   </div>
 
   <md-tab-group class="alphabet-container animated pulse">
-    <md-tab>
+    <md-tab md-on-select="onTabChanges(tabNumber)">
       <template md-tab-label>Alphabet</template>
       <template md-tab-content>
         <div class="letters">
@@ -13,7 +13,7 @@
         </div>
       </template>
     </md-tab>
-    <md-tab>
+    <md-tab md-on-select="onTabChanges(tabNumber)">
       <template md-tab-label>Gestures</template>
       <template md-tab-content>
         <div class="gestures">
@@ -54,9 +54,10 @@
         <span class="fill"></span>
       </md-toolbar>
       <div id="ltContainer">
+        <div id="start-timer" *ngIf="startTimer">Ready ? {{ sec }} seconds to go </div>
         <div id="recognizedGesture"></div>
       <div id='deviceStatus'> Leap Motion Device Status :
-        <span [ngSwitch]="connected">
+        <span [ngSwitch]="letterCheckingService.connected">
           <span *ngSwitchWhen='true' [ngStyle]='{"color":"green"}'>Connected</span>
           <span *ngSwitchWhen='false' [ngStyle]='{"color":"red"}'>Disconnected</span>
         </span>
@@ -66,3 +67,4 @@
   </div>
 
 </div>
+

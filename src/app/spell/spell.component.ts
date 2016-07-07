@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { WordsService } from './wordsService.service';
 import { LetterCheckingService } from '../LetterCheckingService.service';
-import { AuthService} from '../auth.service'
+import { AuthService} from '../auth.service';
 
 @Component({
   selector: 'spell',
@@ -49,7 +49,6 @@ export class Spell implements OnInit {
     this.spellingWord && this.skippedWords.push(this.spellingWord);
     this.spellingWord = this.wordsService.returnRandomWord();
     this.nextLetter = this.spellingWord[this.nextLetterIndex].toLowerCase();
-    //let spell = this;
     setTimeout(() => {
       this.showWord = true;
     }, 1500);
@@ -71,10 +70,12 @@ export class Spell implements OnInit {
 
   checkLetter() {
     this.capturedLetter = this.letterCheckingService.getLetter().toLowerCase();
-    console.log('Expected:', this.nextLetter, '\nCaptured:', this.capturedLetter);
+ //   console.log('expected letter = ', this.nextLetter);
+  //  console.log('captured letter is ... ', this.capturedLetter);
+   // console.log('Captured Letter in component is ==== ', this.capturedLetter);
     if (this.capturedLetter === this.nextLetter) {
-      console.log('Sign matches letter.');
-      // this.capturedLetterColor = 'green';
+  //    console.log('entered matched letters');
+      this.capturedLetterColor = 'green';
       this.rightPanelWord += this.capturedLetter.toUpperCase();
       this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
       if (this.nextLetterIndex < this.spellingWord.length - 1) {

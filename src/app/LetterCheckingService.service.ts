@@ -10,6 +10,8 @@ export class LetterCheckingService {
   private results = [];
   public controller = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
   private _ = require('underscore');
+  public target = '';
+  public isLetter:boolean;
 
   constructor(private appState: AppState) { }
 
@@ -19,11 +21,12 @@ export class LetterCheckingService {
   }
 
   deviceStreaming_CB() {
-    this.connected = true;
+    this.connected = true;  
   }
 
   _initCheckingService() {
     this.controller.connect();
+    console.log('connected');
     this.watch();
   }
 
@@ -39,6 +42,7 @@ export class LetterCheckingService {
             data.push(finger.extended, finger.direction);
           });
 
+          input['target'] = this.target;
           input['extended'] = false;
           input['rotated'] = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
           input['oc'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
@@ -71,13 +75,12 @@ export class LetterCheckingService {
           input['xd'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
           input['x'] = hand.indexFinger.stabilizedTipPosition[1] - hand.indexFinger.pipPosition[1];
           input['f'] = hand.indexFinger.stabilizedTipPosition[1] - hand.thumb.stabilizedTipPosition[1];
-
         }
 
         var checked = this.checkInput(input);
          if (!!checked) {
            this.letter = checked;
-           console.log('this.letter in watch = ', this.letter);
+          // console.log('this.letter in watch = ', this.letter);
          }
       })
     })
@@ -85,6 +88,11 @@ export class LetterCheckingService {
 
   getLetter() {
     return this.letter;
+  }
+
+  getIsLetter() {
+    console.log('getisletter was called');
+    return this.isLetter;
   }
 
 
@@ -309,10 +317,14 @@ export class LetterCheckingService {
             this.results = [];
           //  console.log('true');
             response = true;
+            this.isLetter = true;
+            console.log('isLetter in service = ', this.isLetter);
           } else {
             this.results = [];
           //  console.log('false');
             response = false;
+            this.isLetter = false;
+  //          console.log('isLetter in service = ', this.isLetter);
           }
         } else {
           let holder = {};
@@ -336,6 +348,7 @@ export class LetterCheckingService {
           }
         }
       }
-      return response;
+        return response;
+    
   }
 }

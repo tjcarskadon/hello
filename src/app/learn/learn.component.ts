@@ -2,25 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { AlphabetCaptureCheck } from './AlphabetCaptureCheck.service'
 import { AuthService } from '../auth.service';
 import { AppState } from '../app.service';
+import { LetterCheckingService } from '../LetterCheckingService.service';
 
 @Component({
   selector: 'learn',
   template: require('./learn.component.html'),
   styles: [require('./learn.component.css')],
-  providers: [ AlphabetCaptureCheck, AppState ]
+  providers: [ AlphabetCaptureCheck, AppState, LetterCheckingService ]
 })
 
 export class Learn implements OnInit {
+
   leapCtrl;
   private localState = {gestures: {}};
+  //leapCtrl;
+  GestureRecCtrl;
+  ltrCtrlConnected:boolean = false;
   private riggedHand: boolean = false;
   private imageUrl: string = '';
   private clickedLtr: string;
-  // private showImgDiv: boolean = false;
-  // private showCaptureDiv: boolean = false;
-  // private color:string = 'warn';
-  // private mastered = [];
-  private gestureNames: string[] = [];
+  private _ = require('underscore');
+  private startTimer:boolean = false;
+  private sec:number = 5;
+  private interval;
+  private color:string = 'warn';
+  private mastered = [];
+ 
   private letters = [
     {val: 'A', color:'primary', count: 0},
     {val: 'B', color:'primary', count: 0},
@@ -50,25 +57,13 @@ export class Learn implements OnInit {
     {val: 'Z', color:'primary', count: 0}
   ];
 
-
   constructor(
     private alphabetCaptureCheck: AlphabetCaptureCheck,
     private authService: AuthService,
-    private appState: AppState) {
-
-    this.leapCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
-
-    this.leapCtrl.connect();
-  }
-
-  connected = false;
-  deviceStopped_CB() {
-    this.connected = false;
-  }
-
-  deviceStreaming_CB() {
-    this.connected = true;
-  }
+    private appState: AppState,
+    private letterCheckingService: LetterCheckingService) {
+     }
+  connected = this.letterCheckingService.connected;
 
   ngOnInit() {
 
@@ -89,52 +84,75 @@ export class Learn implements OnInit {
       });
       this.localState.gestures = gest;
     });
-
-    // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+    
+    this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
-
-  // changeLetterColor() {
-  //   let idx = this.clickedLtr.charCodeAt(0) - 97;
-  //   const letter = this.letters[idx];
-  //   if (this.alphabetCaptureCheck.getResult()) {
-  //     letter.count += 1;
-  //     letter.color = 'white';
-  //   } else {
-  //     letter.color = 'warn';
-  //   }
-  //   sessionStorage.setItem(letter.val, letter.color);
-  //   // console.log(sessionStorage.getItem(letter.val));
-  //   if (letter.count > 1) {
-  //     this.mastered.push(letter.val);
-  //     // console.log(this.mastered);
-  //   }
-  //   sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
-  // }
 
   clicked(ltr) {
     ltr = ltr.toLowerCase();
+   // this.GestureRecCtrl.disconnect();
+    if (!this.ltrCtrlConnected) {
+      this.letterCheckingService._initCheckingService();
+      this.ltrCtrlConnected = true;
+    }
     this.imageUrl = `assets/img/${ltr}.png`;
     this.clickedLtr = ltr;
-    // this.showCaptureDiv = false;
-    // this.showImgDiv = true;
     this.riggedHand = false;
   }
 
-  // hideImgDiv() {
-  //   this.showImgDiv = false;
-  //   this.showCaptureDiv = true;
-  // }
+  //let isLetter = this._.debounce(this.letterCheckingService.getIsLetter, 1000);
 
-  // hideCaptureDiv() {
-  //   this.showCaptureDiv = false;
-  //   this.changeLetterColor();
-  // }
+  onTabChanges(tabNumber) {
+    console.log('selected tab = ', tabNumber);
+  }
+
+  checkLetter() {
+    let idx = this.clickedLtr.charCodeAt(0) - 97;
+    const letter = this.letters[idx];
+    this.letterCheckingService.target = letter.val;
+    let isCorrectLetter;
+    this.startTimer = true;
+    // this.inetrval = setInterval(() => {
+    // }, 1000);
+
+    setTimeout(() => {
+      this.startTimer = false;
+      this.changeLetterColor();
+    }, 6000);
+  }
+
+  changeLetterColor() {
+    let isCorrectLetter = this.letterCheckingService.getIsLetter();
+    console.log('isCorrectLetter = ', isCorrectLetter);
+
+     let idx = this.clickedLtr.charCodeAt(0) - 97;
+     const letter = this.letters[idx];
+
+    if (isCorrectLetter) {
+      console.log('letter found');
+      letter.count += 1;
+      letter.color = 'white';
+    } else {
+      letter.color = 'warn';
+    }
+    sessionStorage.setItem(letter.val, letter.color);
+    if (letter.count > 1) {
+      this.mastered.push(letter.val);
+    }
+    sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
+  }
 
   showRiggedHand() {
     this.riggedHand = true;
     setTimeout(function() {
       document.dispatchEvent(new Event('ltContainerAdded'));
-    }, 0)
+    }, 0);
+    this.checkLetter();
+  }
+
+  ngOnDestroy() {
+    this.letterCheckingService.controller.disconnect();
+    this.letterCheckingService.target = '';
   }
 
 }
