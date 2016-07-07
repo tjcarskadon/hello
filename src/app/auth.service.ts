@@ -19,10 +19,10 @@ export class AuthService {
     let exp: Date = new Date(localStorage.getItem('exp'));
     let currentDate: Date = new Date();
     let tkn: string = localStorage.getItem('tkn')
-    let url: string = `http://52.90.139.255:3333/logins?access_token=${tkn}`;
-    // let url: string = 'http://127.0.0.1:3333/logins?access_token=' + tkn;
-
-
+    let urls: string = 'http://52.90.139.255:3333/access_tokens';
+    // let urls: string = 'http://192.168.99.100:3333/users';
+   // let urls: string = 'http://127.0.0.1:3333/access_tokens';
+    let url: string = this.urls;
 
      if (tkn) {
       this.http.get(url).forEach(response => {
@@ -66,6 +66,7 @@ export class AuthService {
 
   logout() {
     let tkn: string = localStorage.getItem('tkn')
+    // let url: string = 'http://192.168.99.100:3333/access_tokens?access_token=' + tkn;
     let url: string = 'http://52.90.139.255:3333/access_tokens?access_token=' + tkn;
     localStorage.clear();
     this.appState.set('authenticated', false);

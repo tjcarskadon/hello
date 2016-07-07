@@ -90,10 +90,6 @@ export class Learn implements OnInit {
          this.localState.gestures = gest;
     });
 
-    for(let key in this.localState.gestures) {
-
-    }
-
     // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
 

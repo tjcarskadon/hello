@@ -35,6 +35,7 @@ export class Login implements OnInit {
     this.loginService.login(form)
         .subscribe(
           result => {
+            console.log(result);
             localStorage.setItem('tkn', result[0].access_token);
             localStorage.setItem('exp', result[0].expires_at);
             this.appState.set('authenticated', true);
