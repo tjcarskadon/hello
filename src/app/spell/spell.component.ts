@@ -46,7 +46,7 @@ export class Spell implements OnInit {
     this.nextLetterIndex = 0;
     this.nextLetter = '';
     this.wordPercent = 0;
-    this.skippedWords.push(this.spellingWord);
+    this.spellingWord && this.skippedWords.push(this.spellingWord);
     this.spellingWord = this.wordsService.returnRandomWord();
     this.nextLetter = this.spellingWord[this.nextLetterIndex].toLowerCase();
     //let spell = this;
@@ -78,7 +78,7 @@ export class Spell implements OnInit {
       this.rightPanelWord += this.capturedLetter.toUpperCase();
       this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
       if (this.nextLetterIndex < this.spellingWord.length - 1) {
-        this.nextLetterIndex ++;
+        this.nextLetterIndex++;
         this.nextLetter = this.spellingWord[this.nextLetterIndex];
       } else {
         this.correctWords.push(this.rightPanelWord);

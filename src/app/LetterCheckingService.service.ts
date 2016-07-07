@@ -13,15 +13,15 @@ export class LetterCheckingService {
 
   constructor(private appState: AppState) { }
 
-   connected = false;
-   deviceStopped_CB() {
-     this.connected = false;
-   }
- 
-   deviceStreaming_CB() {
-     this.connected = true;
-   }
- 
+  connected = false;
+  deviceStopped_CB() {
+    this.connected = false;
+  }
+
+  deviceStreaming_CB() {
+    this.connected = true;
+  }
+
   _initCheckingService() {
     this.controller.connect();
     this.watch();
@@ -100,7 +100,7 @@ export class LetterCheckingService {
       let rotated_checkNet = require('./neurons/isRotated.js');
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
       if(isRotated.true > isRotated.false) {
-        let GH_checkNet = require('./neurons/gh_yRangeFinder.js');  
+        let GH_checkNet = require('./neurons/gh_yRangeFinder.js');
         //This check is working with dummy data
         let isGH = GH_checkNet.run(input.gh);
         if(isGH.g > isGH.h) {
