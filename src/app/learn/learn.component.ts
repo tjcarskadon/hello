@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AlphabetCaptureCheck } from './AlphabetCaptureCheck.service'
 import { AuthService } from '../auth.service';
 import { AppState } from '../app.service';
+import { LetterCheckingService } from '../LetterCheckingService.service';
 
 @Component({
   selector: 'learn',
   template: require('./learn.component.html'),
   styles: [require('./learn.component.css')],
-  providers: [ AlphabetCaptureCheck, AppState ]
+  providers: [ AlphabetCaptureCheck, AppState, LetterCheckingService ]
 })
 
 export class Learn implements OnInit {
@@ -50,25 +51,13 @@ export class Learn implements OnInit {
     {val: 'Z', color:'primary', count: 0}
   ];
 
-
   constructor(
     private alphabetCaptureCheck: AlphabetCaptureCheck,
     private authService: AuthService,
-    private appState: AppState) {
-
-    this.leapCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
-
-    this.leapCtrl.connect();
-  }
-
-  connected = false;
-  deviceStopped_CB() {
-    this.connected = false;
-  }
-
-  deviceStreaming_CB() {
-    this.connected = true;
-  }
+    private appState: AppState,
+    private letterCheckingService: LetterCheckingService) {
+     }
+  connected = this.letterCheckingService.connected;
 
   ngOnInit() {
 
@@ -89,27 +78,9 @@ export class Learn implements OnInit {
       });
       this.localState.gestures = gest;
     });
-
     // this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+    this.letterCheckingService._initCheckingService();
   }
-
-  // changeLetterColor() {
-  //   let idx = this.clickedLtr.charCodeAt(0) - 97;
-  //   const letter = this.letters[idx];
-  //   if (this.alphabetCaptureCheck.getResult()) {
-  //     letter.count += 1;
-  //     letter.color = 'white';
-  //   } else {
-  //     letter.color = 'warn';
-  //   }
-  //   sessionStorage.setItem(letter.val, letter.color);
-  //   // console.log(sessionStorage.getItem(letter.val));
-  //   if (letter.count > 1) {
-  //     this.mastered.push(letter.val);
-  //     // console.log(this.mastered);
-  //   }
-  //   sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
-  // }
 
   clicked(ltr) {
     ltr = ltr.toLowerCase();
@@ -130,11 +101,40 @@ export class Learn implements OnInit {
   //   this.changeLetterColor();
   // }
 
+  onTabChanges(tabNumber) {
+    console.log('selected tab = ', tabNumber);
+  }
+
+  checkLetter() {
+    let idx = this.clickedLtr.charCodeAt(0) - 97;
+    const letter = this.letters[idx];
+    this.letterCheckingService.target = letter.val;
+    //let isCorrectLetter = this.letterCheckingService.watch(letter.val);
+    //console.log('correct = ', isCorrectLetter);
+    console.log(this.letterCheckingService.target);
+
+    // if (isCorrectLetter) {
+    //   console.log('letter found');
+    //   letter.count += 1;
+    //   letter.color = 'white';
+    // } else {
+    //   letter.color = 'warn';
+    // }
+    // sessionStorage.setItem(letter.val, letter.color);
+    // // console.log(sessionStorage.getItem(letter.val));
+    // if (letter.count > 1) {
+    //   this.mastered.push(letter.val);
+    //   // console.log(this.mastered);
+    // }
+    // sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
+  }
+
   showRiggedHand() {
     this.riggedHand = true;
     setTimeout(function() {
       document.dispatchEvent(new Event('ltContainerAdded'));
-    }, 0)
+    }, 0);
+    this.checkLetter();
   }
 
 }

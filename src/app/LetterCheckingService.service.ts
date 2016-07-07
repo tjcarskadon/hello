@@ -24,6 +24,7 @@ export class LetterCheckingService {
 
   _initCheckingService() {
     this.controller.connect();
+    console.log('connected');
     this.watch();
   }
 
@@ -39,6 +40,7 @@ export class LetterCheckingService {
             data.push(finger.extended, finger.direction);
           });
 
+          input['target'] = this.target;
           input['extended'] = false;
           input['rotated'] = hand.pinky.mcpPosition[1] - hand.indexFinger.mcpPosition[1];
           input['oc'] = hand.middleFinger.stabilizedTipPosition[2] - hand.thumb.stabilizedTipPosition[2];
@@ -336,6 +338,12 @@ export class LetterCheckingService {
           }
         }
       }
+<<<<<<< 3301ecacd8c718b5b955250d3f26d1a7a44fd1b7
       return response;
+=======
+        console.log('response in service  == ', response);
+        return response;
+    
+>>>>>>> fix leap motion connected
   }
 }
