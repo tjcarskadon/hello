@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { WordsService } from './wordsService.service';
-import { LetterCheckingService } from './LetterCheckingService.service';
+import { LetterCheckingService } from '../LetterCheckingService.service';
 
 
 @Component({
@@ -49,12 +49,12 @@ export class Spell implements OnInit {
     this.skippedWords.push(this.spellingWord);
     this.spellingWord = this.wordsService.returnRandomWord();
     this.nextLetter = this.spellingWord[this.nextLetterIndex].toLowerCase();
-    let spell = this;
+    //let spell = this;
     setTimeout(() => {
-      spell.showWord = true;
+      this.showWord = true;
     }, 2000);
-    this.showSkipTimer = setTimeout(() => {
-      spell.showSkip = true;
+    setTimeout(() => {
+      this.showSkip = true;
     }, 3000);
     this.checkLetterTimer = setInterval(() => {
       this.checkLetter();

@@ -3,28 +3,28 @@ import { AppState } from '../app.service';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { LetterCheckingService } from '../LetterCheckingService.service';
 
 @Component({
   selector: 'play',
-  providers: [ LoginService, AuthService, AppState ],
+  providers: [ LoginService, AuthService, AppState, LetterCheckingService ],
   template: require('./play.component.html'),
   styles: [ require('./play.component.css') ]
 })
 
 export class Play implements OnInit {
   leapCtrl;
+  private results = [];
 
   constructor(
     private appState: AppState,
     public loginService: LoginService,
     private router: Router,
-    public authService: AuthService ) {
-
-    this.leapCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
-    this.leapCtrl.connect();
+    public authService: AuthService,
+    private letterCheckingService: LetterCheckingService ) {
   }
 
-  connected;
+  connected = false;
 
   deviceStopped_CB() {
     this.connected = false;
@@ -36,10 +36,22 @@ export class Play implements OnInit {
 
   ngOnInit() {
     this.authService.authenticate('play');
+    this.letterCheckingService._initCheckingService();
+    setInterval(() => {
+      this.check();
+    }, 1000);
   }
 
   ngAfterViewInit() {
     document.dispatchEvent(new Event('ltContainerAdded'));
+  }
+
+  check() {
+    console.log('results = ', this.results);
+    let result = this.letterCheckingService.getLetter();
+     if (result !== this.results[this.results.length - 1] && result !== '') {
+      this.results.push(result); 
+     }
   }
 
 }

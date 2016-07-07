@@ -9,7 +9,7 @@ export class LeapTrainerService {
   trainerCtrl;
   trainer;
   LeapTrainer = require('../../lib/leap-trainer.js');
-  connected;
+  connected = false;
 
   constructor(
     private cpS: CreatePageState,
