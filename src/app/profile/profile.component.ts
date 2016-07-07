@@ -3,6 +3,7 @@ import { AuthService} from '../auth.service'
 import { AppState } from '../app.service';
 import { Title } from './title';
 import { XLarge } from './x-large';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Component({
   // The selector is what angular internally uses
@@ -26,12 +27,18 @@ import { XLarge } from './x-large';
   template: require('./profile.html')
 })
 export class Profile {
-  localState = { email1: '', email2: '', password1: '', password2: '', name: ''};
+  localState = { email1: '', email2: '', password1: '', password2: '', name: '', userId: ''};
   // TypeScript public modifiers
+  // urls = 'http://52.90.139.255:3333/users?email=';
+  // urls = 'http://192.168.99.100:3333/users?email=';
+  urls = 'http://127.0.0.1:3333/users?email=';
+  public url: string = this.urls;
+
   constructor(
     // public appState: AppState,
     public title: Title,
-    private authService: AuthService) { 
+    private authService: AuthService,
+    private http: Http) { 
 
 
   }
@@ -42,15 +49,26 @@ export class Profile {
 
     this.authService.authenticate('profile');
     // console.log(history.state);
-    // this.localState.name=window.history.state.email;
+    this.localState.name=window.history.state.email;
   }
 
   submitEmail(email1, email2) {
     // console.log('submitState', value);
+    //get the user id
+
     this.localState.email1 = email1;
     this.localState.email2 = email2;
+    let url = this.url + this.localState.name;
+    console.log('url', url);
     if (this.localState.email1 === this.localState.email2 && this.localState.email1.length) {
-      // this.appState.set('email', email1);
+      this.http.get(url).forEach(response => {
+        let r = JSON.parse(response._body);
+        this.localState.userId = r[0].id;
+      }).catch(error => console.log(error));
+
+      //left off here --- need to add the url plus id to make the put
+     // let putUrl = this.url + 
+
     } else {
       alert('Both fields must match.');
     }
@@ -63,7 +81,6 @@ export class Profile {
     if (this.localState.password1 === this.localState.password2) {
       if (this.localState.password1.length > 7) {
         // this.appState.set('password', pw1);
-      } else {
         alert('Password must be at least eight characters long.');
       }
     } else {

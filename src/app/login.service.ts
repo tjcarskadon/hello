@@ -11,11 +11,11 @@ export class LoginService {
 
   public email: string;
   //deployed URL
-  urls = 'http://52.90.139.255:3333/access_tokens';
+  // urls = 'http://52.90.139.255:3333/access_tokens';
   //local docker machine
   // urls = 'http://192.168.99.100:3333/access_tokens';
   //local host
-  // urls = 'http://127.0.0.1:3333/access_tokens';
+  urls = 'http://127.0.0.1:3333/access_tokens';
   public url: string = this.urls; 
  
   login(data: any): Observable<Response> {
