@@ -59,7 +59,7 @@ export class Learn implements OnInit {
     this.leapCtrl.connect();
   }
 
-  connected;
+  connected = false;
   deviceStopped_CB() {
     this.connected = false;
   }

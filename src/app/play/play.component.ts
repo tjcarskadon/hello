@@ -24,7 +24,7 @@ export class Play implements OnInit {
     private letterCheckingService: LetterCheckingService ) {
   }
 
-  connected;
+  connected = false;
 
   deviceStopped_CB() {
     this.connected = false;
