@@ -4,12 +4,11 @@ import { WordsService } from './wordsService.service';
 import { LetterCheckingService } from '../LetterCheckingService.service';
 import { AuthService} from '../auth.service'
 
-
 @Component({
   selector: 'spell',
   template: require('./spell.component.html'),
   styles: [require('./spell.component.css')],
-  providers: [AppState, WordsService, LetterCheckingService],
+  providers: [ AppState, WordsService, LetterCheckingService ],
 })
 
 export class Spell implements OnInit {
@@ -19,20 +18,19 @@ export class Spell implements OnInit {
     private appState: AppState,
     private wordsService: WordsService,
     private letterCheckingService: LetterCheckingService,
-    private authService: AuthService
-    ) {
+    private authService: AuthService ) {
   }
-   
+
   private spellingWord:string = '';
   private showWord:boolean = false;
   private showSkip:boolean = false;
   private skippedWords = [];
-  private capturedLetter:string = '';
-  private capturedLetterColor:string = '';
-  private nextLetter:string = '';
-  private nextLetterIndex:number = 0;
-  private rightPanelWord:string = '';
-  private wordPercent:number = 0;
+  private capturedLetter: string = '';
+  // private capturedLetterColor: string = '';
+  private nextLetter: string = '';
+  private nextLetterIndex: number = 0;
+  private rightPanelWord: string = '';
+  private wordPercent: number = 0;
   private correctWords = [];
   checkLetterTimer;
   showSkipTimer;
@@ -41,7 +39,6 @@ export class Spell implements OnInit {
     this.authService.authenticate('spell');
     this.letterCheckingService._initCheckingService();
     this.nextWord();
-
   }
 
   nextWord() {
@@ -49,16 +46,16 @@ export class Spell implements OnInit {
     this.nextLetterIndex = 0;
     this.nextLetter = '';
     this.wordPercent = 0;
-    this.skippedWords.push(this.spellingWord);
+    this.spellingWord && this.skippedWords.push(this.spellingWord);
     this.spellingWord = this.wordsService.returnRandomWord();
     this.nextLetter = this.spellingWord[this.nextLetterIndex].toLowerCase();
     //let spell = this;
     setTimeout(() => {
       this.showWord = true;
-    }, 2000);
+    }, 1500);
     setTimeout(() => {
       this.showSkip = true;
-    }, 3000);
+    }, 2500);
     this.checkLetterTimer = setInterval(() => {
       this.checkLetter();
     }, 1000);
@@ -74,25 +71,22 @@ export class Spell implements OnInit {
 
   checkLetter() {
     this.capturedLetter = this.letterCheckingService.getLetter().toLowerCase();
-    console.log('expected letter = ', this.nextLetter);
-    console.log('captured letter is ... ', this.capturedLetter);
-   // console.log('Captured Letter in component is ==== ', this.capturedLetter);
+    console.log('Expected:', this.nextLetter, '\nCaptured:', this.capturedLetter);
     if (this.capturedLetter === this.nextLetter) {
-      console.log('entered matched letters');
-      this.capturedLetterColor = 'green';
+      console.log('Sign matches letter.');
+      // this.capturedLetterColor = 'green';
       this.rightPanelWord += this.capturedLetter.toUpperCase();
       this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
       if (this.nextLetterIndex < this.spellingWord.length - 1) {
-        this.nextLetterIndex ++;
+        this.nextLetterIndex++;
         this.nextLetter = this.spellingWord[this.nextLetterIndex];
       } else {
         this.correctWords.push(this.rightPanelWord);
         this.nextWord();
       }
     } else {
-      this.capturedLetterColor = 'red';
+      // this.capturedLetterColor = 'red';
     }
-
   }
 
   ngAfterViewInit() {

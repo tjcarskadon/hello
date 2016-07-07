@@ -6,7 +6,7 @@
 2. Cut a namespaced feature branch from master named appropriate to the issue being addressed.
 3. Make commits to your feature branch.
 4. When finished with fix or feature, rebase upstream changes into your branch and push to your fork.
-5. Submit a [pull request][] directly to the `Dev` branch.  Include a description of your changes.
+5. Submit a pull request directly to the `Dev` branch.  Include a description of your changes.
 6. Your pull request must be reviewed by another contributor before being merged.
 7. Fix any issues raised by the code reviewer and push fixes as a single new commit.
 8. Once the pull request has been reviewed, it will be merged by another member of the team.  Do not merge your own commits.
@@ -50,7 +50,7 @@ Make changes and commits on your branch that are relevant only to this branch.  
 #### Commit Message Guidelines
 
 - Write commit messages in the present tense; e.g. "Add session store".
-- The first line of should be a brief summary of what the commit changes within about 60 characters.
+- The first line should be a brief summary of what the commit changes within about 60 characters.
 - Following the first line should be a blank line and then a more detailed description as necessary with each line wrapping at around 75 characters.
 
 ### Rebase upstream changes into your branch
@@ -62,9 +62,9 @@ Once done making changes, you can begin the process of getting your code merged 
 git pull --rebase upstream master
 ```
 
-This will start the rebase process.  All of your changes must be commited before doing this.  If there are no conflicts, this will roll all of your changes back on top of the changes from upstream, leading to a clean, linear commit history.
+This will start the rebase process.  All of your changes must be committed before doing this.  If there are no conflicts, this will roll all of your changes back on top of the changes from upstream, leading to a clean, linear commit history.
 
-If there are conflicts, git will complain during the rebasing process.  Git will pause rebasing to allow you to address the conflicts.  Git will list which files contain conflicts.  Open the conflicting files using a text editor like Sublime and pick the versions you want.  A conflict will look like the following:
+If there are conflicts, git will complain during the rebasing process.  Git will pause rebasing allowing you to address the conflicts.  Git will list which files contain conflicts.  Open the conflicting files using a text editor like Sublime and pick the versions you want.  A conflict will look like the following:
 
 ```
 <<<<<<< HEAD
@@ -88,12 +88,12 @@ git rebase --continue
 
 Make a pull request from your fork and branch to the upstream Dev branch, detailing exactly what changes you made and following the PR checklist below.
 
-1. [ ] Rebased from upstream
-2. [ ] Confirmed existing tests pass
-3. [ ] Added new tests as necessary
-4. [ ] Commented code where necessary
-5. [ ] Updated relevant documentation
-6. [ ] Purged debugging console logs and debuggers
+1. [ ] Rebase from upstream
+2. [ ] Confirm existing tests pass
+3. [ ] Add new tests as necessary
+4. [ ] Comment code where necessary
+5. [ ] Update relevant documentation
+6. [ ] Purge debugging console logs and debuggers
 
 At least one other person MUST perform a code review of your PR.  They will either merge your changes into upstream or request changes.  If changes are requested, make more commits to your branch to fix these, then follow this process again from rebasing onwards.
 
@@ -101,9 +101,9 @@ Once you get back here, make a comment requesting further review and someone wil
 
 ### Guidelines
 
-1. Keep your code [DRY][].
+1. Keep your code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
 2. Follow [STYLE-GUIDE.md](STYLE-GUIDE.md)
-3. Run [tests][] before submitting a pull request.
+3. Run tests before submitting a pull request.
 4. Submit tests if your pull request contains new, testable behavior.
 
 ## Checklist:

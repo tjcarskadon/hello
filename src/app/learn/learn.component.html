@@ -1,8 +1,7 @@
-
 <div class="animated fadeIn">
   <div class="head-center">
     <h1 class="animated fadeInDown">Learn</h1>
-    <p class="animated pulse">Expand your knowledge of American Sign Language.</p>
+    <p class="animated pulse">Expand your knowledge of American Sign Language using flash cards or a Leap Motion device.</p>
   </div>
 
   <md-tab-group class="alphabet-container animated pulse">
@@ -10,7 +9,7 @@
       <template md-tab-label>Alphabet</template>
       <template md-tab-content>
         <div class="letters">
-          <button *ngFor="let letter of letters" class="letter-buttons animated zoomIn" md-raised-button color="{{letter.color}}" (click)="clicked(letter.val)">{{letter.val}}</button>
+          <button md-raised-button *ngFor="let letter of letters" class="letter-buttons animated zoomIn" color="{{letter.color}}" (click)="clicked(letter.val)">{{letter.val}}</button>
         </div>
       </template>
     </md-tab>
@@ -18,7 +17,7 @@
       <template md-tab-label>Gestures</template>
       <template md-tab-content>
         <div class="gestures">
-          <button *ngFor="let gestureName of gestureNames">{{gestureName}}</button>"  
+          <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn" color="primary">{{gestureName}}</button>
         </div>
       </template>
     </md-tab>
@@ -67,9 +66,3 @@
   </div>
 
 </div>
-
-<!-- 
-
-
-
--->

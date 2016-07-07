@@ -1,3 +1,6 @@
+md-toolbar {
+  border-radius: 4px 4px 0 0;
+}
 
 #ltMainContainer {
   float: left;
@@ -39,11 +42,6 @@ canvas {
   margin-left: 30px;
   padding: 20px;
   float: left;
-}
-
-
-.head-center {
-  text-align: center;
 }
 
 #card {
@@ -98,9 +96,15 @@ canvas {
 }
 
 #progress-bar {
-  width: 75%;
+  /*width: 75%;*/
   padding: 20px;
-  text-align: center;
+  /*text-align: center;*/
+}
+
+md-progress-circle {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #correct-words {
@@ -117,7 +121,6 @@ canvas {
 #right-top {
   height: 180px;
 }
-
 
 #deviceStatus {
   color: grey;
