@@ -30,3 +30,9 @@ canvas {
 .head-center {
   text-align: center;
 }
+
+#deviceStatus {
+  color: grey;
+  position: absolute;
+  bottom: 0;
+}

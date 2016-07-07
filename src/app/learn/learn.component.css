@@ -77,6 +77,12 @@ md-toolbar {
 canvas {
   pointer-events: none;
 }
+
+#deviceStatus {
+  color: grey;
+  position: absolute;
+  bottom: 0;
+}
 /*
 #createOptions {
   float: left;
