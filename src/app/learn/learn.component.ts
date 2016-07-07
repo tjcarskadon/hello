@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlphabetCaptureCheck } from './AlphabetCaptureCheck.service'
+import { AlphabetCaptureCheck } from './AlphabetCaptureCheck.service';
 import { AuthService } from '../auth.service';
 import { AppState } from '../app.service';
 import { LetterCheckingService } from '../LetterCheckingService.service';
@@ -81,7 +81,7 @@ export class Learn implements OnInit {
 
   clicked(ltr) {
     ltr = ltr.toLowerCase();
-   // this.GestureRecCtrl.disconnect();
+    // this.GestureRecCtrl.disconnect();
     if (!this.ltrCtrlConnected) {
       this.letterCheckingService._initCheckingService();
       this.ltrCtrlConnected = true;

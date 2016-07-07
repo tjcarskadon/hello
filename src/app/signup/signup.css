@@ -1,12 +1,13 @@
- .form-container {
-  position: relative;
+.form-container {
   font-family: 'Maitree', serif;
+  position: relative;
   top: 100px  ;
   margin-left: 750px;
   height: 500px;
   width: 500px;
   color: #fff;
 }
+
 h1, h3 {
   color: #F4A846;
   display: inline-block;
@@ -16,6 +17,7 @@ h1, h3 {
 .alt{
   margin-left: 170px;
 }
+
 input {
   margin: 10px;
   text-align: center;
@@ -44,6 +46,18 @@ button {
   border-radius: 5px;
 }
 
+button:hover {
+  background-color: #F4A846;
+  color: black;
+  font-weight: bold;
+}
+
+.signup:hover {
+  background-color: #F4A846;
+  color: black;
+  font-weight: bold;
+}
+
 button.login {
   text-transform: none;
   height: 0;
@@ -57,4 +71,24 @@ button.login {
 .googleSignIn {
   margin: 10px;
   width: 350px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
 }

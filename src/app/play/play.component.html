@@ -8,7 +8,7 @@
 <div id="ltMainContainer" class="animated fadeInLeft">
   <div id="ltContainer">
     <div id="deviceStatus"> Leap Motion Device Status :
-      <span [ngSwitch]="connected">
+      <span [ngSwitch]="letterCheckingService.connected">
         <span *ngSwitchWhen='true' [ngStyle]='{"color":"green"}'>Connected</span>
         <span *ngSwitchWhen='false' [ngStyle]='{"color":"red"}'>Disconnected</span>
       </span>

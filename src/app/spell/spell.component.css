@@ -126,4 +126,5 @@ md-progress-circle {
   color: grey;
   position: absolute;
   bottom: 0;
+  margin-left: 3px;
 }

@@ -54,6 +54,14 @@ button {
   border-radius: 5px;
 }
 
-.cancel {
+.cancel:hover {
+  background-color: #F4A846;
+  color: black;
+  font-weight: bold;
+}
 
+.signup:hover {
+  background-color: #F4A846;
+  color: black;
+  font-weight: bold;
 }

@@ -108,6 +108,7 @@ export class LetterCheckingService {
       let rotated_checkNet = require('./neurons/isRotated.js');
       let isRotated = rotated_checkNet.run([input.rotated]);  //input.rotated
       if(isRotated.true > isRotated.false) {
+        // console.log('ROTATED.....')
         let GH_checkNet = require('./neurons/gh_yRangeFinder.js');
         //This check is working with dummy data
         let isGH = GH_checkNet.run(input.gh);
