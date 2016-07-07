@@ -56,12 +56,12 @@
       <div id="ltContainer">
         <div id="start-timer" *ngIf="startTimer">Ready ? {{ sec }} seconds to go </div>
         <div id="recognizedGesture"></div>
-      <div id='deviceStatus'> Leap Motion Device Status :
-        <span [ngSwitch]="letterCheckingService.connected">
-          <span *ngSwitchWhen='true' [ngStyle]='{"color":"green"}'>Connected</span>
-          <span *ngSwitchWhen='false' [ngStyle]='{"color":"red"}'>Disconnected</span>
-        </span>
-      </div>
+        <div id='deviceStatus'> Leap Motion Device Status :
+          <span [ngSwitch]="letterCheckingService.connected">
+            <span *ngSwitchWhen='true' [ngStyle]='{"color":"green"}'>Connected</span>
+            <span *ngSwitchWhen='false' [ngStyle]='{"color":"red"}'>Disconnected</span>
+          </span>
+        </div>
       </div>
     </div>
   </div>

@@ -13,23 +13,19 @@ import { LetterCheckingService } from '../LetterCheckingService.service';
 
 export class Learn implements OnInit {
 
-  leapCtrl;
   private localState = {gestures: {}, temp: {}};
-  //leapCtrl;
-  GestureRecCtrl;
-  gestureNames;
-  ltrCtrlConnected:boolean = false;
+  private ltrCtrlConnected: boolean = false;
   private riggedHand: boolean = false;
   private imageUrl: string = '';
   private clickedLtr: string;
   private _ = require('underscore');
-  private startTimer:boolean = false;
-  private sec:number = 5;
+  private startTimer: boolean = false;
+  private sec: number = 5;
   private interval;
-  private color:string = 'warn';
+  private color: string = 'warn';
   private mastered = [];
   private gestureNames;
- 
+
   private letters = [
     {val: 'A', color:'primary', count: 0},
     {val: 'B', color:'primary', count: 0},
@@ -64,11 +60,9 @@ export class Learn implements OnInit {
     private authService: AuthService,
     private appState: AppState,
     private letterCheckingService: LetterCheckingService) {
-     }
-  connected = this.letterCheckingService.connected;
+  }
 
   ngOnInit() {
-
     this.appState.retreiveGestures().subscribe(result => {
       var gest = {}
 
@@ -100,7 +94,7 @@ export class Learn implements OnInit {
   //let isLetter = this._.debounce(this.letterCheckingService.getIsLetter, 1000);
 
   onTabChanges(tabNumber) {
-    console.log('selected tab = ', tabNumber);
+    // console.log('selected tab = ', tabNumber);
   }
 
   checkLetter() {
@@ -120,13 +114,13 @@ export class Learn implements OnInit {
 
   changeLetterColor() {
     let isCorrectLetter = this.letterCheckingService.getIsLetter();
-    console.log('isCorrectLetter = ', isCorrectLetter);
+    // console.log('isCorrectLetter = ', isCorrectLetter);
 
      let idx = this.clickedLtr.charCodeAt(0) - 97;
      const letter = this.letters[idx];
 
     if (isCorrectLetter) {
-      console.log('letter found');
+      // console.log('letter found');
       letter.count += 1;
       letter.color = 'white';
     } else {
