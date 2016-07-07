@@ -19,8 +19,11 @@ export class AuthService {
     let exp: Date = new Date(localStorage.getItem('exp'));
     let currentDate: Date = new Date();
     let tkn: string = localStorage.getItem('tkn')
+    //deployed URL
     let urls: string = 'http://52.90.139.255:3333/access_tokens';
+    //Local Docker Machine URL
     // let urls: string = 'http://192.168.99.100:3333/users';
+   //Local host
    // let urls: string = 'http://127.0.0.1:3333/access_tokens';
     let url: string = this.urls;
 
@@ -66,7 +69,11 @@ export class AuthService {
 
   logout() {
     let tkn: string = localStorage.getItem('tkn')
+    //local docker machine
     // let url: string = 'http://192.168.99.100:3333/access_tokens?access_token=' + tkn;
+    //localhost
+    // let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
+    //deployed URL
     let url: string = 'http://52.90.139.255:3333/access_tokens?access_token=' + tkn;
     localStorage.clear();
     this.appState.set('authenticated', false);
