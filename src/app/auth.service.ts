@@ -19,13 +19,18 @@ export class AuthService {
     let exp: Date = new Date(localStorage.getItem('exp'));
     let currentDate: Date = new Date();
     let tkn: string = localStorage.getItem('tkn')
-    let url: string = `http://52.90.139.255:3333/logins?access_token=${tkn}`;
-    // let url: string = 'http://127.0.0.1:3333/logins?access_token=' + tkn;
+    //deployed URL
+    let urls: string = 'http://52.90.139.255:3333/access_tokens';
+    //Local Docker Machine URL
+    // let urls: string = 'http://192.168.99.100:3333/users';
+   //Local host
+   // let urls: string = 'http://127.0.0.1:3333/access_tokens';
+    let url: string = this.urls;
 
      if (tkn) {
       this.http.get(url).forEach(response => {
         let a = JSON.parse(response._body);
-        // console.log(a)
+        // console.log('@@@@@@',a)
         if(a.data[0] !== "Authorized") {
           this.router.navigate(['/welcome']);
           window.history.replaceState(null, null, '');
@@ -33,7 +38,6 @@ export class AuthService {
           this.appState.set('authenticated', true);
           this.appState.set('isDisabled', false);
           this.router.navigate(['/'+page]);
-          window.history.pushState(this.appState._state, null, page);
         }
       }).catch(err => console.log(err));
      } else {
@@ -65,7 +69,12 @@ export class AuthService {
 
   logout() {
     let tkn: string = localStorage.getItem('tkn')
-    let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
+    //local docker machine
+    // let url: string = 'http://192.168.99.100:3333/access_tokens?access_token=' + tkn;
+    //localhost
+    // let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
+    //deployed URL
+    let url: string = 'http://52.90.139.255:3333/access_tokens?access_token=' + tkn;
     localStorage.clear();
     this.appState.set('authenticated', false);
     // console.log('navigating to welcome...');

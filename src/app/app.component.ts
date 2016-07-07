@@ -54,7 +54,7 @@ export class App {
     if (window.history.state) {
       this.learnPage = window.history.state.learnPage;
       this.authenticated = window.history.state.authenticated;
-      this.isDisabled = window.history.state.isDisabled;
+      this.isDisabled = window.history.state.isDisabled; 
     }
  }
 

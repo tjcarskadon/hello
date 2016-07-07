@@ -10,7 +10,7 @@ export class AppState {
   _state = {
     authenticated: false,
     learnPage: false,
-    isDisabled: false,
+    isDisabled: true,
     myName: 'Richard',
     title: 'hello',
     google: false
@@ -18,12 +18,28 @@ export class AppState {
 
   token = localStorage.getItem('tkn');
   urls = `http://52.90.139.255:3333/gestures?access_tokens=${this.token}`;
+    // urls = `http://192.168.99.100:3333/gestures?access_tokens=${this.token}`;
+  // urls = `http://127.0.0.1:3333//gestures?access_tokens=${this.token}`;
+  public url: string = this.urls;
   public gestureUrl: string = this.urls;
 
   constructor(private http: Http) {
     // retrieve gestures from database and store in client's localStorage
     this.retreiveGestures().subscribe(result => {
-      localStorage.setItem('gestures', JSON.stringify(result));
+       var gest = {}
+       result.forEach(r => {
+         // console.log('@@@@@', r.data.name)
+         let name = r.data.name;
+         let data = r.data.gestureData;
+         // console.log(name, data);
+         gest[name] = data;
+       });
+         this.set('gestures', gest);
+
+         // let path = window.location.href.split('/');
+         // window.history.pushState(this.appState._state, null, path[path.length -1]);
+         // console.log(history.state);
+      // localStorage.setItem('gestures', JSON.stringify(result));
     });
   }
 

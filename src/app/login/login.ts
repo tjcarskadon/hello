@@ -35,10 +35,12 @@ export class Login implements OnInit {
     this.loginService.login(form)
         .subscribe(
           result => {
+            console.log(result);
             localStorage.setItem('tkn', result[0].access_token);
             localStorage.setItem('exp', result[0].expires_at);
             this.appState.set('authenticated', true);
             this.appState.set('learn', true);
+            this.appState.set('isDisabled', false);
             // console.log('navigating to profile page now...', this.appState.get('authenticated'));
             this.router.navigate(['/profile']);
             window.history.pushState(this.appState._state, null, 'profile');

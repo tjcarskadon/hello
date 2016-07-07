@@ -43,14 +43,14 @@ module.exports = (function() {
               return callback(new Error('Invalid credentials'));
 
             }
-
             new AccessToken({
               user_id: user.get('id'),
+              email: user.get('email'),
               access_token: this.generateAccessTokenString(user.get('id'), user.get('email'), new Date().valueOf()),
               token_type: 'bearer',
               expires_at: (new Date(new Date().valueOf() + (30 * 24 * 60 * 60 * 1000))),
               ip_address: params.ip_address
-            }).save(callback);
+            }).save(callback, user.get('email'));
 
           });
 
