@@ -20,6 +20,7 @@ export class Profile {
   // TypeScript public modifiers
   // urls = 'http://52.90.139.255:3333/users?email=';
   // urls = 'http://192.168.99.100:3333/users?email=';
+  // urls = `${process.env.NODE_URL}users?email=`;
   urls = 'http://127.0.0.1:3333/users?email=';
   public url: string = this.urls;
 
@@ -52,7 +53,7 @@ export class Profile {
     console.log('url', url);
     if (this.localState.email1 === this.localState.email2 && this.localState.email1.length) {
       this.http.get(url).forEach(response => {
-        let r = JSON.parse(response._body);
+        let r = response.json();
         this.localState.userId = r[0].id;
       }).catch(error => console.log(error));
 

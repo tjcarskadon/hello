@@ -282,7 +282,7 @@ function bindReady(handler){
         handler()
     }
     if ( document.addEventListener ) {
-        document.addEventListener('ltContainerAdded', () => {
+        document.addEventListener('ltContainerAdded', function () {
           ready();
         }, false)
 
