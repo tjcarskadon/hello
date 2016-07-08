@@ -173,7 +173,7 @@ export class Learn implements OnInit {
   private clickedGesture = '';
   startGestureRecognition(gestureName) {
     this.showRecFinalMessage = false;
-
+    this.ltrChecked = false;
     this.clickedLtr = '';
     this.riggedHand = false;
     //disconnect ltrCtrl
