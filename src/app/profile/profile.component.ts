@@ -16,7 +16,7 @@ export class Profile {
 
   localState = { email1: '', email2: '', password1: '', password2: '', name: '', userId: ''};
   // TypeScript public modifiers
-  urls = 'http://52.90.139.255:3333/users?email=';
+  urls = 'http://52.205.170.83:3333/users?email=';
   // urls = 'http://192.168.99.100:3333/users?email=';
   // urls = `${process.env.NODE_URL}users?email=`;
   // urls = 'http://127.0.0.1:3333/users?email=';

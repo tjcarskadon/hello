@@ -12,7 +12,8 @@ export class SignupService {
   //local docker machine 
   // urls = 'http://192.168.99.100:3333/users';
   //deployed URL
-  urls = 'http://52.90.139.255:3333/users';
+  urls = 'http://52.205.170.83:3333/users';
+  //urls = `http://ec2-52-205-170-83.compute-1.amazonaws.com/`;
 
   private url: string = this.urls; //
 
