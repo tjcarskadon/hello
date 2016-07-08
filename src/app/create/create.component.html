@@ -31,6 +31,7 @@
     <div id="ltContainer">
       <div *ngIf='createPageState.get("countdown")' class='animated flash' id='countdownTimer'>{{createPageState.get('countdown')}}</div>
       <div *ngIf='createPageState.get("countdown") === 0' id='recordingStartedMessage' class='animated flash'>Recording...</div>
+      <div *ngIf='savedMessage' class="animated fadeOut" id='savedMessage'>Saved!</div>
     </div>
     <div id='deviceStatus'> Leap Motion Device Status :
       <span [ngSwitch]="leapTrainerService.connected">
