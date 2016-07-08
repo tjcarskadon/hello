@@ -101,7 +101,7 @@ export class Learn implements OnInit {
     let isCorrectLetter;
     this.startTimer = true;
     this.sec = 5;
-    this.inetrval = setInterval(() => {
+    this.interval = setInterval(() => {
       if (this.sec > 0) {
         this.sec--;
       }
@@ -181,7 +181,7 @@ export class Learn implements OnInit {
 
     this.startTimer = true;
     this.sec = 5;
-    this.inetrval = setInterval(() => {
+    this.interval = setInterval(() => {
       if (this.sec > 0) {
         this.sec--;
       }
