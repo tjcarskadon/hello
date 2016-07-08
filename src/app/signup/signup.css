@@ -8,14 +8,14 @@
   color: #fff;
 }
 
-h1, h3 {
+h1, h4 {
   color: #F4A846;
   display: inline-block;
   margin-bottom: 0;
 }
 
 .alt{
-  margin-left: 170px;
+  margin-left: 128px;
 }
 
 input {
@@ -37,7 +37,7 @@ input.signup {
 }
 
 button {
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   width: 150px;
   height: 50px;
   color: #fff;
@@ -68,27 +68,18 @@ button.login {
   color: #F4A846;
 }
 
-.googleSignIn {
+/*.googleSignIn {
   margin: 10px;
   width: 350px;
+}*/
+
+.login-title {
+  color: #F4A846;
+  border: none;
+  width: 112px;
 }
 
-a {
-  text-decoration: none;
-}
-
-a:link {
-  text-decoration: none;
-}
-
-a:visited {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-a:active {
-  text-decoration: underline;
-}
+/*.login-title:hover {
+  background: transparent;
+  color: #fff;
+}*/

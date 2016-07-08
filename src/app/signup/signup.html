@@ -1,7 +1,7 @@
 <div id="main-container">
   <div class="form-container">
     <div>
-      <h1>Signup....</h1><h3 class="alt"><button class="login" (click)="ws.changeView('login')">....Login</button></h3>
+      <h1>Sign up....</h1><h4 class="alt"><button class="login-title" (click)="ws.changeView('login')">Go to Login</button></h4>
     </div>
     <form [ngFormModel]="signupForm" (ngSubmit)="onSubmit(signupForm.value)">
       <input type="email" name="email" placeholder="EMAIL" [ngFormControl]="signupForm.controls['email']">
@@ -13,7 +13,7 @@
       <div class="button">
         <input type="submit" value="SIGN UP" class="signup">
         <button type="button" class="cancel" (click)="ws.changeView('welcome')">
-          Cancel
+          CANCEL
         </button>
       </div>
     </form>
