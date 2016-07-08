@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService} from '../auth.service'
 import { AppState } from '../app.service';
-import { Title } from './title';
-import { XLarge } from './x-large';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Component({
   selector: 'profile',
-  providers: [ Title, AppState ],
-  directives: [ XLarge ],
+  providers: [ AppState ],
+  directives: [ ],
   pipes: [ ],
   styles: [ require('./profile.css') ],
   template: require('./profile.html')
@@ -18,17 +16,16 @@ export class Profile {
 
   localState = { email1: '', email2: '', password1: '', password2: '', name: '', userId: ''};
   // TypeScript public modifiers
-  // urls = 'http://52.90.139.255:3333/users?email=';
+  urls = 'http://52.90.139.255:3333/users?email=';
   // urls = 'http://192.168.99.100:3333/users?email=';
   // urls = `${process.env.NODE_URL}users?email=`;
-  urls = 'http://127.0.0.1:3333/users?email=';
+  // urls = 'http://127.0.0.1:3333/users?email=';
   public url: string = this.urls;
 
   constructor(
     // public appState: AppState,
-    public title: Title,
     private authService: AuthService,
-    private http: Http) { 
+    private http: Http) {
 
 
   }
@@ -58,7 +55,7 @@ export class Profile {
       }).catch(error => console.log(error));
 
       //left off here --- need to add the url plus id to make the put
-     // let putUrl = this.url + 
+     // let putUrl = this.url +
 
     } else {
       alert('Both fields must match.');
