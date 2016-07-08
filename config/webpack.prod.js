@@ -221,7 +221,7 @@ module.exports = webpackMerge(commonConfig, {
   node: {
     global: 'window',
     crypto: 'empty',
-    process: false,
+    process: true,
     module: false,
     clearImmediate: false,
     setImmediate: false
