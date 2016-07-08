@@ -62,16 +62,11 @@ export class Create implements OnInit {
     this.leapTrainerService.trainer.stop();
   }
 
-  testGesture(gestureName) {
-    //initialize Testing trainer
-    this.leapTrainerService._initLeapTrainerRecord();
-    console.log('test')
-  }
-
   save(gestureName): Observable<Response> {
     var tkn = localStorage.getItem('tkn');
     var url = `http://52.90.139.255:3333/gestures?access_token=${tkn}`;
     var gesture = this.leapTrainerService.trainer.gestures[gestureName];
+    //TODO: add playback json to data object
     let body = JSON.stringify({
       data: {name: gestureName, gestureData: gesture},
       grant_type: 'password'
@@ -101,6 +96,7 @@ export class Create implements OnInit {
 
   test(gestureName) {
     //signal to Trainer that we are now listening to test a gesture
+    console.log('gestures', this.leapTrainerService.trainer.gestures);
     this.leapTrainerService._initLeapTrainerWatch();
     this.leapTrainerService.trainer.listening = true;
   }

@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AlphabetCaptureCheck } from './AlphabetCaptureCheck.service';
 import { AuthService } from '../auth.service';
 import { AppState } from '../app.service';
+<<<<<<< b0684dd1828574d9da6f74fd0550d870871d169f
 import { LetterCheckingService } from '../LetterCheckingService.service';
+=======
+import { LetterCheckingService } from '../LetterCheckingService.service'
+>>>>>>> (feat) - gesture recognition complete for learn page
 
 @Component({
   selector: 'learn',
@@ -61,9 +65,12 @@ export class Learn implements OnInit {
     private letterCheckingService: LetterCheckingService) {
   }
 
+
+
   ngOnInit() {
     this.appState.retreiveGestures().subscribe(result => {
       var gest = {}
+<<<<<<< adfb5d08a49855ba74ae7f076c01519b5ad08c3a
 
       for (var name in result) {
         gest[name] = result[name];
@@ -73,6 +80,16 @@ export class Learn implements OnInit {
         names.push(n);
       }
       this.gestureNames = names;
+=======
+      result.forEach(r => {
+        // console.log('@@@@@', r.data.name)
+        let name = r.data.name;
+        let data = r.data.gestureData;
+        gest[name] = data;
+        name && this.gestureNames.push(name);
+      });
+
+>>>>>>> (feat) - gesture recognition complete for learn page
       this.localState.gestures = gest;
     });
     this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
@@ -86,11 +103,10 @@ export class Learn implements OnInit {
       this.ltrCtrlConnected = true;
     }
     this.imageUrl = `assets/img/${ltr}.png`;
+    this.clickedGesture = '';
     this.clickedLtr = ltr;
     this.riggedHand = false;
   }
-
-  //let isLetter = this._.debounce(this.letterCheckingService.getIsLetter, 1000);
 
   onTabChanges(tabNumber) {
     // console.log('selected tab = ', tabNumber);
@@ -131,7 +147,6 @@ export class Learn implements OnInit {
     }
     sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
   }
-
   showRiggedHand() {
     this.riggedHand = true;
     setTimeout(function() {
@@ -143,52 +158,94 @@ export class Learn implements OnInit {
   ngOnDestroy() {
     this.letterCheckingService.controller.disconnect();
     this.letterCheckingService.target = '';
-  }
-
-  checkActiveTab(e) {
-    console.log(e, 'hello');
+    this.GestureRecCtrl.disconnect();
   }
 
   //logic for gesture recognition below
+
+  GestureRecCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
   connected;
-  GestureRecCtrl;
-  deviceStopped_CB() {
-    console.log('device has stopped streaming');
-    this.connected = false;
-    //TODO: handle UI 
-  }
+   deviceStopped_CB() {
+      console.log('device has stopped streaming');
+      this.connected = false;
+      //TODO: handle UI 
+    }
 
-  deviceStreaming_CB() {
-    console.log('device has started streaming');
-    this.connected = true;
-    //TODO: handle UI 
-  }
+    deviceStreaming_CB() {
+      console.log('device has started streaming');
+      this.connected = true;
+      //TODO: handle UI 
+    }
 
+   
+  clickedGesture = '';
   trainer;
   LeapTrainer = require('../lib/leap-trainer.js');
-  _initGestureRecognition() {
-    console.log('clicked');
-    //show playback
-    this.GestureRecCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
+  _initGestureRecognition(gestureName) {
+
     this.GestureRecCtrl.connect();
+    
+    // var player = this.GestureRecCtrl.plugins.playback.player;
+    // console.log('llllllll', player)
+
+    console.log('testing...');
+
+
+    console.log(this.localState.gestures);
+    var poses = {};
+    this.gestureNames.forEach(name => {
+      poses[name] = false;
+    })
+    console.log(poses, 'poses');
     this.trainer = new this.LeapTrainer.Controller({
-      controller: this.GestureRecCtrl
+      controller: this.GestureRecCtrl,
+      gestures: this.localState.gestures,
+      poses: poses,
+      listening: true
     })
 
-    //TODO: Playback plugin...
+    this.trainer.on('gesture-unknown', (allHits, gesture) => {
+      /*TODO: check to see what hit percentage is for clicked gesture
+      ...if it is < 50% send message to user accordingly. ie: 'Not quite...'
+      ...if it is <65% send message to user accordingly. ie: 'Almost...'
+      */
+      let percentage = allHits[gestureName];
+      if (percentage <= 0.5) {
+        console.log('Not quite...', allHits)
+      } else {
+        console.log('Almost...', allHits)
+      }
+
+    });
 
     this.trainer.on('gesture-recognized', (bestHit, closestGestureName, allHits) => {
-      console.log('Gesture recognized! -- ', closestGestureName);
+      /*TODO: check to see if recognized gesture is the gesture clicked
+      ...if so, then send message to user accordingly. ie: 'Congratulations!' or '{Gesture Name}!'
+      */
+      if (closestGestureName === gestureName) {
+        console.log(gestureName + '!');
+      } else {
+        console.log('Not quite...')
+        console.log('That\'s more like ', closestGestureName);
+      }
     });
   }
 
-  startGestureRecognition() {
-    console.log(this.GestureRecCtrl.streaming(), 'streaming')
-    if (!this.GestureRecCtrl.streaming()) {
-      this._initGestureRecognition(); 
+  startGestureRecognition(gestureName) {
+    this.clickedLtr = '';
+    this.riggedHand = false;
+    //TODO: playback plugin...
+      //.....
+     // this.GestureRecCtrl.use('playback');
+     //  document.getElementById('connect-leap').remove();
+    this.clickedGesture = gestureName;
+    if (this.GestureRecCtrl.streaming()) {}
+    else {
+      this._initGestureRecognition(gestureName);
     }
-  }
 
+
+  }
 
 }
   // changeLetterColor() {

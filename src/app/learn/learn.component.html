@@ -17,7 +17,7 @@
       <template md-tab-label>Gestures!!</template>
       <template md-tab-content>
         <div class="gestures">
-          <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn" color="primary" (click)='startGestureRecognition()'>{{gestureName}}</button>
+          <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn jello" color="primary" (click)='startGestureRecognition(gestureName)'>{{gestureName}}!</button>
         </div>
       </template>
     </md-tab>
@@ -27,14 +27,20 @@
     <div *ngIf="!riggedHand">
       <md-toolbar color="primary">
         <span class="fill"></span>
+<<<<<<< adfb5d08a49855ba74ae7f076c01519b5ad08c3a
         <span *ngIf="!clickedLtr" class="animated bounce">
           Click a letter to view a sign
         </span>
+=======
+        <button *ngIf="!clickedLtr" md-button color="warn" class="hand-btn animated bounce">
+          Click a letter or gesture to view it
+        </button>
+>>>>>>> (feat) - gesture recognition complete for learn page
         <button *ngIf="clickedLtr" md-raised-button color="warn" class="hand-btn animated bounceIn" (click)="clickedLtr = ''">
           Hide the image
         </button>
         <span *ngIf="clickedLtr" class="fill"></span>
-        <button *ngIf="clickedLtr" md-raised-button color="warn" class="hand-btn animated bounceIn" (click)="showRiggedHand()">
+        <button *ngIf="clickedLtr || clickedGesture" md-raised-button color="warn" class="hand-btn animated bounceIn" (click)="showRiggedHand()">
           Try it with Leap Motion
         </button>
         <span class="fill"></span>
@@ -48,9 +54,18 @@
     <div *ngIf="riggedHand" id="ltMainContainer">
       <md-toolbar color="primary">
         <span class="fill"></span>
+<<<<<<< adfb5d08a49855ba74ae7f076c01519b5ad08c3a
         <span class="animated flipInY">
           Try signing the letter {{clickedLtr.toUpperCase()}}
         </span>
+=======
+        <button *ngIf='clickedLtr' md-button color="warn" class="hand-btn animated flipInY">
+          Try signing the letter {{clickedLtr.toUpperCase()}}
+        </button>
+        <button *ngIf='clickedGesture' md-button color="warn" class="hand-btn animated flipInY">
+          Try signing the gesture {{clickedGesture.toUpperCase()}}
+        </button>
+>>>>>>> (feat) - gesture recognition complete for learn page
         <span class="fill"></span>
       </md-toolbar>
       <div id="ltContainer">
