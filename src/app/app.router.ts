@@ -14,7 +14,7 @@ export const routes: RouterConfig = [
   { path: 'spell',   component: Spell },
   { path: 'play',    component: Play },
   { path: 'profile', component: Profile },
-  { path: '**', component: Welcome }
+  { path: '**', component: Profile }
 ];
 
 export const APP_ROUTER_PROVIDERS = [

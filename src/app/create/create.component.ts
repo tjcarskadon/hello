@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 import { Component, OnInit } from '@angular/core';
 import { LeapTrainerService } from './services/leapTrainer.service';
 import { AppState } from '../app.service';
@@ -5,6 +7,7 @@ import { AuthService} from '../auth.service'
 import { CreatePageState } from './createPageState.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'create',
@@ -61,6 +64,15 @@ export class Create implements OnInit {
     this.leapTrainerService.trainer.stop();
   }
 
+  savedMessage = false;
+  resetSavedMessage() {
+    var fn = _.debounce(() => {
+      this.savedMessage = false;
+    }, 3000);
+    fn();
+    console.log('resetting to ...', this.savedMessage);
+
+  }
   save(gestureName): Observable<Response> {
     var tkn = localStorage.getItem('tkn');
     var url = `http://52.205.170.83:3333/gestures?access_token=${tkn}`;
@@ -75,7 +87,12 @@ export class Create implements OnInit {
     let options = new RequestOptions({headers: headers});
     //TODO: handle UI for success and error responses
     this.http.post(url, body, options)
-    .forEach(r => console.log('response back: ', r))
+    .forEach(r => {
+      console.log('response back: ', r);
+      //TODO: Handle UI for save successful
+      this.savedMessage = true;
+      this.resetSavedMessage();
+    })
     .catch(e => console.log('error', e));
 
     return;
@@ -86,18 +103,30 @@ export class Create implements OnInit {
   }
 
   playback(gestureName) {
+    let selection = this.createPageState.get('selectedGesture');
+
+    this.createPageState.set('showTestingMessage', false);
+
+    if (selection === gestureName) {
+      this.createPageState.set('selectedGesture', '');
+      return;
+    }
+
     this.createPageState.set('selectedGesture', gestureName);
     //TODO: add more options
     //display options for : ['Test', ...options]
-    this.createPageState.set('displayGestureOptions', true);
+
+    // this.createPageState.set('displayGestureOptions', !bool);
 
   }
+
 
   test(gestureName) {
     //signal to Trainer that we are now listening to test a gesture
     console.log('gestures', this.leapTrainerService.trainer.gestures);
     this.leapTrainerService._initLeapTrainerWatch();
     this.leapTrainerService.trainer.listening = true;
+    this.createPageState.set('currentlyTesting', true);
   }
 
   update(gestureName) {

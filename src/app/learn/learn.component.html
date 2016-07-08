@@ -56,7 +56,11 @@
         </span>
         <button *ngIf='ltrChecked' md-raised-button color="warn" class="hand-btn animated bounceIn" (click)='retryLtr()'> Try again</button>
         <span *ngIf='clickedGesture' class="hand-btn animated flipInY">
-          Try signing the gesture {{clickedGesture.toUpperCase()}}
+          <div *ngIf='!showRecFinalMessage'>Try signing the gesture {{clickedGesture.toUpperCase()}}</div>
+          <div *ngIf='showRecFinalMessage' id='recognizedFinalMessage' [ngSwitch]='recMessageToShow'>
+          <div *ngSwitchWhen='"incorrect"' [ngStyle]='{"text-align":"center"}'>That's not correct</div>
+          <div *ngSwitchWhen='"correct"' [ngStyle]='{"text-align":"center"}'>Nice! You got it</div>
+        </div>
         </span>
         <span class="fill"></span>
       </md-toolbar>

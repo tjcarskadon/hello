@@ -38,8 +38,6 @@ export class LetterCheckingService {
   watch() {
     this.controller.on ('frame', (frame) => {
 
-      if (frame.hands.length) console.log('frame!')
-
       frame.hands.forEach((hand) => {
         let data = [];
         let input = {};

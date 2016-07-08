@@ -51,12 +51,27 @@ export class LeapTrainerService {
       this.cpS.set('gestureData', gesture);
 
       console.log('unknown', allHits);
+      let name = this.cpS.get('selectedGesture');
+      console.log('nameeee', allHits[name]);
+      this.cpS.set('testingHit', allHits[name]);
+      this.cpS.set('testingMessage', 'unknown');
+      this.cpS.set('showTestingMessage', true);
+        setTimeout(() => {
+        this.cpS.set('showTestingMessage', false);
+      }, 3000);
+
+      this.cpS.set('currentlyTesting', false);
     });
 
     this.trainer.on('gesture-recognized', (bestHit, closestGestureName, allHits) => {
       //TODO: handle UI message for this event
       console.log('Gesture recognized:', closestGestureName);
-
+      this.cpS.set('testingMessage', 'recognized');
+      this.cpS.set('showTestingMessage', true);
+        setTimeout(() => {
+        this.cpS.set('showTestingMessage', false);
+      }, 3000);
+      this.cpS.set('currentlyTesting', false);
     });
 
     this.trainer.on('update-complete', (gestureName, trainingGestures, isPose) => {

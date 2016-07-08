@@ -15,7 +15,11 @@ export class CreatePageState {
     trainingComplete: false,
     displayGestureOptions: false, 
     countdown: null,
-    recordingLeft: 2
+    recordingLeft: 2,
+    testingHit: null,
+    showTestingMessage: false,
+    testingMessage: 'unknown',
+    currentlyTesting: false
   };
 
   constructor(private appState: AppState) { }

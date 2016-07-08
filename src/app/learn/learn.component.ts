@@ -172,6 +172,8 @@ export class Learn implements OnInit {
    //logic for gesture recognition below
   private clickedGesture = '';
   startGestureRecognition(gestureName) {
+    this.showRecFinalMessage = false;
+
     this.clickedLtr = '';
     this.riggedHand = false;
     //disconnect ltrCtrl
@@ -253,6 +255,8 @@ export class Learn implements OnInit {
       */
       this.trainer.listening = false;
       this.gColor[this.clickedGesture] = 'warn';
+      this.showRecFinalMessage = true;
+      this.recMessageToShow = 'incorrect';
       let percentage = allHits[this.clickedGesture];
       if (percentage <= 0.5) {
         console.log('Not quite', this.clickedGesture,'...', allHits)
@@ -267,15 +271,20 @@ export class Learn implements OnInit {
       ...if so, then send message to user accordingly. ie: 'Congratulations!' or '{Gesture Name}!'
       */
       this.trainer.listening = false;
+      this.showRecFinalMessage = true;
       if (closestGestureName === this.clickedGesture) {
         console.log(this.clickedGesture + '!');
         this.gColor[this.clickedGesture] = 'white';
+        this.recMessageToShow = 'correct';
       } else {
+        this.recMessageToShow = 'incorrect';
         console.log('Not quite...', this.clickedGesture)
         console.log('That\'s more like ', closestGestureName);
       }
     });
   }
+  showRecFinalMessage = false;
+  recMessageToShow = 'incorrect';
 
   ngOnDestroy() {
     !!this.letterCheckingService.controller && this.letterCheckingService.controller.disconnect();
