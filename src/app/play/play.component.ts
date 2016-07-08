@@ -74,7 +74,7 @@ export class Play implements OnInit {
   checkFnIntervalized() {
     this.checkLetterTimer = setInterval(() => {
       this.check();
-    }, 1000);
+    }, 2000);
   }
 
   ngAfterViewInit() {
