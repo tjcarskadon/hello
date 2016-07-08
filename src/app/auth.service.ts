@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 import { Injectable } from '@angular/core';
 import { AppState } from './app.service';
 import { Router } from '@angular/router';
@@ -30,6 +32,8 @@ export class AuthService {
 
     if (tkn) {
       this.http.get(url).forEach(response => {
+        var tempState = window.history.state;
+
         let a = response.json();
         if(a.data[0] !== "Authorized") {
           this.appState.set('authenticated', true);
@@ -40,6 +44,8 @@ export class AuthService {
           this.appState.set('authenticated', true);
           this.appState.set('isDisabled', false);
           this.router.navigate(['/'+page]);
+          tempState = _.extend(tempState, this.appState._state);
+          window.history.pushState(tempState, null, page);
         }
       }).catch(err => console.log("ERROR:", err));
     } else {

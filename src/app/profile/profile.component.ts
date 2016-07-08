@@ -35,8 +35,6 @@ export class Profile {
     // this.title.getData().subscribe(data => this.data = data);
 
     this.authService.authenticate('profile');
-    // console.log(history.state);
-    this.localState.name=window.history.state.email;
   }
 
 

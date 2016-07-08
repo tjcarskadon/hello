@@ -80,6 +80,8 @@ export class Learn implements OnInit {
 
   }
   
+  ngOnInit() {}
+
   clicked(ltr) {
     ltr = ltr.toLowerCase();
     // this.GestureRecCtrl.disconnect();
@@ -261,20 +263,3 @@ export class Learn implements OnInit {
     !!this.GestureRecCtrl && this.GestureRecCtrl.disconnect();
   }
 }
-  // changeLetterColor() {
-  //   let idx = this.clickedLtr.charCodeAt(0) - 97;
-  //   const letter = this.letters[idx];
-  //   if (this.alphabetCaptureCheck.getResult()) {
-  //     letter.count += 1;
-  //     letter.color = 'white';
-  //   } else {
-  //     letter.color = 'warn';
-  //   }
-  //   sessionStorage.setItem(letter.val, letter.color);
-  //   // console.log(sessionStorage.getItem(letter.val));
-  //   if (letter.count > 1) {
-  //     this.mastered.push(letter.val);
-  //     // console.log(this.mastered);
-  //   }
-  //   sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
-  // }
