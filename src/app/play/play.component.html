@@ -7,13 +7,19 @@
 
 <div id="ltMainContainer" class="animated fadeInLeft">
   <div id="ltContainer">
+    <div id="deviceStatus"> Leap Motion Device Status :
+      <span [ngSwitch]="letterCheckingService.connected">
+        <span *ngSwitchWhen='true' [ngStyle]='{"color":"green"}'>Connected</span>
+        <span *ngSwitchWhen='false' [ngStyle]='{"color":"red"}'>Disconnected</span>
+      </span>
+    </div>
   </div>
 </div>
 
 <div id="composeOutput" class="animated fadeInUp">
   <!-- <div *ngIf="results.length" id="header"> Results </div> -->
 
-  <md-toolbar color="primary">
+  <md-toolbar color="primary" class="animated bounceInDown">
     <span class="fill"></span>
       Composition View
     <span class="fill"></span>

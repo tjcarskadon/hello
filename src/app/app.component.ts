@@ -57,7 +57,7 @@ export class App {
     if (window.history.state) {
       this.learnPage = window.history.state.learnPage;
       this.authenticated = window.history.state.authenticated;
-      this.isDisabled = window.history.state.isDisabled; 
+      this.isDisabled = window.history.state.isDisabled;
       this.name=window.history.state.email;
     }
  }
@@ -77,9 +77,10 @@ export class App {
   routeToWelcome() {
     this.appState.set('welcome', true);
     this.appState.set('welcomePage', true);
-    var state = this.appState._state;
+    let state = this.appState._state;
     this.router.navigate(['/welcome']);
-    window.history.pushState(state, null, 'welcome');
+    window.history.pushState(state, null, '/');
+    this.ws.set('landing', 'login');
     //this.ws.changeView('signup');
   }
 

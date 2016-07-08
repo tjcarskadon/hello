@@ -28,9 +28,16 @@ button {
   border-radius: 5px;
 }
 
+button:hover {
+  background-color: #F4A846;
+  color: black;
+  font-weight: bold;
+}
+
 button.signin {
     /*margin-left: 800px;*/
 }
+
 button.learn {
   position: relative;
   margin-left: 50px;

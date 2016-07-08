@@ -40,6 +40,7 @@ canvas {
   color: grey;
   position: absolute;
   bottom: 0;
+  margin-left: 3px;
 }
 
 #output-container {

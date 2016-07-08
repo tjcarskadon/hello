@@ -93,10 +93,17 @@ canvas {
 
 #deviceStatus {
   color: grey;
+  position: absolute;
+  bottom: 0;
+  margin-left: 3px;
 }
 /*
 #gestureOptions {
   width: 100%;
   position: absolute;
   bottom: 0;
+}*/
+
+.center {
+  text-align: center;
 }

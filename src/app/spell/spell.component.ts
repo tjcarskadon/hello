@@ -26,7 +26,7 @@ export class Spell implements OnInit {
   private showSkip:boolean = false;
   private skippedWords = [];
   private capturedLetter: string = '';
-  private capturedLetterColor: string = '';
+  // private capturedLetterColor: string = '';
   private nextLetter: string = '';
   private nextLetterIndex: number = 0;
   private rightPanelWord: string = '';
@@ -34,7 +34,6 @@ export class Spell implements OnInit {
   private correctWords = [];
   checkLetterTimer;
   showSkipTimer;
-  capturedLetterColor;
 
   ngOnInit() {
     this.authService.authenticate('spell');
@@ -52,10 +51,10 @@ export class Spell implements OnInit {
     this.nextLetter = this.spellingWord[this.nextLetterIndex].toLowerCase();
     setTimeout(() => {
       this.showWord = true;
-    }, 1500);
+    }, 1000);
     setTimeout(() => {
       this.showSkip = true;
-    }, 2500);
+    }, 2000);
     this.checkLetterTimer = setInterval(() => {
       this.checkLetter();
     }, 1000);
@@ -76,7 +75,7 @@ export class Spell implements OnInit {
    // console.log('Captured Letter in component is ==== ', this.capturedLetter);
     if (this.capturedLetter === this.nextLetter) {
   //    console.log('entered matched letters');
-      this.capturedLetterColor = 'green';
+      // this.capturedLetterColor = 'green';
       this.rightPanelWord += this.capturedLetter.toUpperCase();
       this.wordPercent = (this.rightPanelWord.length / this.spellingWord.length) * 100;
       if (this.nextLetterIndex < this.spellingWord.length - 1) {
