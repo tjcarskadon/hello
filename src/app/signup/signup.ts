@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup } from '@angular/common';
@@ -47,7 +49,10 @@ export class Signup implements OnInit {
             localStorage.setItem('exp', result[0].expires_at);
             this.appState.set('authenticated', true);
             this.appState.set('isDisabled', false);
-            window.history.pushState(this.appState._state,null, 'profile')
+            window.history.state.email = form.email;
+            var temp = this.appState._state;
+            temp = _.extend(window.history.state, temp);
+            window.history.pushState(temp, null, 'profile')
             this.router.navigate(['/profile']);
             // window.history.pushState(this.appState._state, null, 'profile');
           },

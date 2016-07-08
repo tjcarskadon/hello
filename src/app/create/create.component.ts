@@ -64,7 +64,7 @@ export class Create implements OnInit {
 
   save(gestureName): Observable<Response> {
     var tkn = localStorage.getItem('tkn');
-    var url = `http://52.90.139.255:3333/gestures?access_token=${tkn}`;
+    var url = `http://52.205.170.83:3333/gestures?access_token=${tkn}`;
     var gesture = this.leapTrainerService.trainer.gestures[gestureName];
     //TODO: add playback json to data object
     let body = JSON.stringify({

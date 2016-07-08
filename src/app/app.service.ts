@@ -18,7 +18,6 @@ export class AppState {
   };
 
   token = localStorage.getItem('tkn');
- // urls = `http://ec2-52-205-170-83.compute-1.amazonaws.com/`;
   urls = `http://52.205.170.83:3333/gestures?access_tokens=${this.token}`;
     // urls = `http://192.168.99.100:3333/gestures?access_tokens=${this.token}`;
   // urls = `http://127.0.0.1:3333/gestures?access_tokens=${this.token}`;
