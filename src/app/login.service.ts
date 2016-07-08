@@ -13,9 +13,8 @@ export class LoginService {
   //deployed URL
   // urls = `${process.env.NODE_URL}access_tokens`;
 
-  urls = 'http://52.90.139.255:3333/access_tokens';
+  urls = 'http://52.205.170.83:3333/access_tokens';
   
-
   //local docker machine
   // urls = 'http://192.168.99.100:3333/access_tokens';
   //local host

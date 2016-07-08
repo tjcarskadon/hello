@@ -111,7 +111,6 @@ export class Learn implements OnInit {
       this.startTimer = false;
       this.changeLetterColor();
     }, 5000);
-    clearInterval(this.interval);
   }
 
   changeLetterColor() {
@@ -189,7 +188,6 @@ export class Learn implements OnInit {
     setTimeout(() => {
       this.startTimer = false;
     }, 5000);
-    clearInterval(this.interval);
   }
 
   private gestureCtrlConnected = false;
