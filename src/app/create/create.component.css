@@ -107,3 +107,16 @@ canvas {
 .center {
   text-align: center;
 }
+
+#countdownTimer, #recordingStartedMessage {
+  color: white;
+  text-align: center;
+  position: relative;
+  top: 0;
+  -webkit-animation-duration: 3s;
+  -o-animation-duration: 3s;
+  animation-duration: 3s;
+  font-size: 20px;
+}
+
+

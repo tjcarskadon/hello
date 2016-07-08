@@ -73,11 +73,19 @@ export class LeapTrainerService {
     this.trainer.on('gesture-created', (gestureName, trianingSkipped) => {
       //TODO: show the div element or component that renders this message on the page
       console.log('We are now recording...');
+      this.cpS.set('recordingLeft', 2);
     });
 
     this.trainer.on('training-countdown', (countdown) => {
       //TODO: display to user countdown
       console.log(countdown);
+      this.cpS.set('countdown', countdown);
+      if (countdown === 1) {
+        setTimeout(() => {
+          this.cpS.set('countdown', 0);
+        }, 1000);
+      }
+
     });
 
     this.trainer.on('training-gesture-saved', (gestureName, trainingGestures) => {
@@ -85,12 +93,17 @@ export class LeapTrainerService {
       this.trainer.stop();
       //start recording again
       this.trainer.startTraining(gestureName, this.trainer.trainingCountdown);
+
+      //TODO: change value '1' to a variable that can be flexibly changed if # of training gestures were to be varied
+        //right now # of training gestures is set to 2
+      this.cpS.set('recordingLeft', 1);
     });
 
     this.trainer.on('training-complete', (gestureName, trainingSet, isPose) => {
       //all training is complete and gesture is now added to the list of saved gestures
       //stop recording first
       this.trainer.stop();
+      this.cpS.set('countdown', null);
       //add name to listKeys array so gestures can be added to page with most recent on top
       var gestureListKeys = this.cpS.get('gestureListKeys');
       if (gestureListKeys.indexOf(gestureName) < 0) {
