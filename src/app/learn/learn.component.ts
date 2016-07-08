@@ -75,14 +75,7 @@ export class Learn implements OnInit {
         this.gColor[name] = 'primary'
       });
     });
-<<<<<<< 1a59af4cc3eb2f482e6a1ec50d83bcec875240d9
-
-    this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
-=======
   //  this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
-  }
->>>>>>> fix countdown and disconnect controller
-
   }
   
   ngOnInit() {}
@@ -117,7 +110,8 @@ export class Learn implements OnInit {
     setTimeout(() => {
       this.startTimer = false;
       this.changeLetterColor();
-    }, 6000);
+    }, 5000);
+    clearInterval(this.interval);
   }
 
   changeLetterColor() {
@@ -167,7 +161,6 @@ export class Learn implements OnInit {
     this.riggedHand = false;
     //disconnect ltrCtrl
     this.letterCheckingService.controller.disconnect();
-<<<<<<< 1a59af4cc3eb2f482e6a1ec50d83bcec875240d9
     this.ltrCtrlConnected = false;
     //TODO: playback plugin...
       //.....
@@ -186,6 +179,17 @@ export class Learn implements OnInit {
       document.dispatchEvent(new Event('ltContainerAdded'));
     }, 0);
 
+    this.startTimer = true;
+    this.sec = 5;
+    this.inetrval = setInterval(() => {
+      if (this.sec > 0) {
+        this.sec--;
+      }
+     }, 1000);
+    setTimeout(() => {
+      this.startTimer = false;
+    }, 5000);
+    clearInterval(this.interval);
   }
 
   private gestureCtrlConnected = false;
@@ -195,11 +199,9 @@ export class Learn implements OnInit {
       this.gestureCtrlConnected = true;
     }
     this.trainer.listening = true;
-
-=======
     this.letterCheckingService.target = '';
     clearInterval(this.interval);
->>>>>>> fix countdown and disconnect controller
+
   }
 
   private GestureRecCtrl;
