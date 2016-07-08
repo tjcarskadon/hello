@@ -76,7 +76,7 @@ export class Learn implements OnInit {
       });
     });
 
-    this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+  //  this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
 
   }
   
@@ -137,7 +137,7 @@ export class Learn implements OnInit {
     if (letter.count > 1) {
       this.mastered.push(letter.val);
     }
-    sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
+//    sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
   }
 
 
