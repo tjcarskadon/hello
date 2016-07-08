@@ -55,7 +55,7 @@ export class Play implements OnInit {
       }
 
       if (this.eraser >= 3) {
-        console.log('erasing...')
+        // console.log('erasing...')
         //throttled eraser is not as sensitive
           this.throttledEraser();
         // this.results.pop();

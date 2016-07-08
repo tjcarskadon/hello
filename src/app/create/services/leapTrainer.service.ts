@@ -28,13 +28,13 @@ export class LeapTrainerService {
   }
 
   deviceStopped_CB() {
-    console.log('device has stopped streaming');
+    // console.log('device has stopped streaming');
     this.connected = false;
     //TODO: handle UI 
   }
 
   deviceStreaming_CB() {
-    console.log('device has started streaming');
+    // console.log('device has started streaming');
     this.connected = true;
     //TODO: handle UI 
   }
@@ -49,6 +49,7 @@ export class LeapTrainerService {
       this.trainer.listening = false;
       //save the gesture information in createPage state to be saved when update function is called
       this.cpS.set('gestureData', gesture);
+
 
       console.log('unknown', allHits);
       let name = this.cpS.get('selectedGesture');
@@ -65,6 +66,7 @@ export class LeapTrainerService {
 
     this.trainer.on('gesture-recognized', (bestHit, closestGestureName, allHits) => {
       //TODO: handle UI message for this event
+
       console.log('Gesture recognized:', closestGestureName);
       this.cpS.set('testingMessage', 'recognized');
       this.cpS.set('showTestingMessage', true);
@@ -72,11 +74,13 @@ export class LeapTrainerService {
         this.cpS.set('showTestingMessage', false);
       }, 3000);
       this.cpS.set('currentlyTesting', false);
+
+      // console.log('Gesture recognized:', closestGestureName);
     });
 
     this.trainer.on('update-complete', (gestureName, trainingGestures, isPose) => {
       //TODO: handle UI message for this event
-      console.log("Ok, I think I got it! I'll make sure to recognize ", gestureName, ' better next time!');
+      // console.log("Ok, I think I got it! I'll make sure to recognize ", gestureName, ' better next time!');
       // console.log('data length: ', trainingGestures.length);
     });
   }
@@ -87,13 +91,13 @@ export class LeapTrainerService {
     this.trainer.trainingGestures = 2;
     this.trainer.on('gesture-created', (gestureName, trianingSkipped) => {
       //TODO: show the div element or component that renders this message on the page
-      console.log('We are now recording...');
+      // console.log('We are now recording...');
       this.cpS.set('recordingLeft', 2);
     });
 
     this.trainer.on('training-countdown', (countdown) => {
       //TODO: display to user countdown
-      console.log(countdown);
+      // console.log(countdown);
       this.cpS.set('countdown', countdown);
       if (countdown === 1) {
         setTimeout(() => {

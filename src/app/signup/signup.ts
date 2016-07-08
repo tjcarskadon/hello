@@ -38,7 +38,7 @@ export class Signup implements OnInit {
     if ( form.password !== form.confirm || !form.password || !form.email) {
        //do something else here to handle the error
        //make sure to handle the form fields
-      console.log('no match');
+      // console.log('no match');
       return;
     }
     this.signupService.saveUser(form)

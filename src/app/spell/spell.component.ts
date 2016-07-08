@@ -61,11 +61,11 @@ export class Spell implements OnInit {
   }
 
   skippedClick(event) {
-    console.log(event.target.innerText);
+    // console.log(event.target.innerText);
   }
 
   correctClick(event) {
-    console.log(event.target.innerText);
+    // console.log(event.target.innerText);
   }
 
   checkLetter() {

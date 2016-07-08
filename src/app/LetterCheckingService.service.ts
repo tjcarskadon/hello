@@ -27,16 +27,19 @@ export class LetterCheckingService {
   _initCheckingService() {
     this.controller.connect();
     this.controller.on('connect', () => {
-      console.log('connecting ltr checker....')
+      // console.log('connecting ltr checker....')
     })
     this.controller.on('disconnect', () => {
-      console.log('disconnecting ltr checker....');
+      // console.log('disconnecting ltr checker....');
     })
     this.watch();
   }
 
   watch() {
     this.controller.on ('frame', (frame) => {
+
+
+      // if (frame.hands.length) console.log('frame!')
 
       frame.hands.forEach((hand) => {
         let data = [];
@@ -96,7 +99,7 @@ export class LetterCheckingService {
   }
 
   getIsLetter() {
-    console.log('getisletter was called');
+    // console.log('getisletter was called');
     return this.isLetter;
   }
 
@@ -324,7 +327,7 @@ export class LetterCheckingService {
           //  console.log('true');
             response = true;
             this.isLetter = true;
-            console.log('isLetter in service = ', this.isLetter);
+            // console.log('isLetter in service = ', this.isLetter);
           } else {
             this.results = [];
           //  console.log('false');

@@ -213,13 +213,13 @@ export class Learn implements OnInit {
   private LeapTrainer = require('../lib/leap-trainer.js');
   private connected;
    deviceStopped_CB() {
-      console.log('device has stopped streaming');
+      // console.log('device has stopped streaming');
       this.connected = false;
       //TODO: handle UI 
     }
 
     deviceStreaming_CB() {
-      console.log('device has started streaming');
+      // console.log('device has started streaming');
       this.connected = true;
       //TODO: handle UI 
     }
@@ -229,18 +229,18 @@ export class Learn implements OnInit {
     this.GestureRecCtrl.connect();
     this.GestureRecCtrl.on('disconnect', () => {
       this.trainer.listening = false;
-      console.log('disconnecting g ctrl!!!!!!...');
+      // console.log('disconnecting g ctrl!!!!!!...');
     })
 
-    console.log('testing...');
+    // console.log('testing...');
 
 
-    console.log(this.localState.gestures);
+    // console.log(this.localState.gestures);
     var poses = {};
     this.gestureNames.forEach(name => {
       poses[name] = false;
     })
-    console.log(poses, 'poses');
+    // console.log(poses, 'poses');
     this.trainer = new this.LeapTrainer.Controller({
       controller: this.GestureRecCtrl,
       gestures: this.localState.gestures,
@@ -259,9 +259,9 @@ export class Learn implements OnInit {
       this.recMessageToShow = 'incorrect';
       let percentage = allHits[this.clickedGesture];
       if (percentage <= 0.5) {
-        console.log('Not quite', this.clickedGesture,'...', allHits)
+        // console.log('Not quite', this.clickedGesture,'...', allHits)
       } else {
-        console.log('Almost', this.clickedGesture,'...', allHits)
+        // console.log('Almost', this.clickedGesture,'...', allHits)
       }
 
     });
@@ -273,13 +273,13 @@ export class Learn implements OnInit {
       this.trainer.listening = false;
       this.showRecFinalMessage = true;
       if (closestGestureName === this.clickedGesture) {
-        console.log(this.clickedGesture + '!');
+        // console.log(this.clickedGesture + '!');
         this.gColor[this.clickedGesture] = 'white';
         this.recMessageToShow = 'correct';
       } else {
         this.recMessageToShow = 'incorrect';
-        console.log('Not quite...', this.clickedGesture)
-        console.log('That\'s more like ', closestGestureName);
+        // console.log('Not quite...', this.clickedGesture)
+        // console.log('That\'s more like ', closestGestureName);
       }
     });
   }

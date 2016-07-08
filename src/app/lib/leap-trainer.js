@@ -246,14 +246,14 @@ LeapTrainer.Controller = Class.extend({
         watching = false;
         idleTimer = 0;
         // console.log(gesture);
-        console.log(gesture, 'now checking...')
+        // console.log(gesture, 'now checking...')
         !!gesture.length && frameCount >=this.minGestureFrames && this.recognize(gesture, frameCount);
         !!gesture.length ? this.lastHit = new Date().getTime() : null;
         gesture = [], frameCount = 0;
       }
       if (this.recordableFrame(frame, this.minVelocity)) {
         idleTimer = 0;
-        console.log('begin watching....');
+        // console.log('begin watching....');
         watching = true;
       } else if (frame.pointables.length) {
         incTimer();
@@ -278,19 +278,19 @@ LeapTrainer.Controller = Class.extend({
         //   this.playbackJSON(frame);
         // }
 
-        console.log('recording');
+        // console.log('recording');
         if (!gestureBegan && this.recordableFrame(frame, this.minVelocity)) {
           gestureBegan = true;
-          console.log('first frame');
+          // console.log('first frame');
         }
 
         if (gestureBegan) {
           frameCount++;
           this.recordFrame(frame, null, recordVector, recordValue);
-          console.log('recording frames...')
+          // console.log('recording frames...')
         }
       } else if (gestureBegan) {
-          console.log('stopping recording...');
+          // console.log('stopping recording...');
           gestureBegan = false;
 
           this.saveTrainingGesture(this.trainingGesture, gesture, false /*recording pose flag*/);
@@ -298,7 +298,7 @@ LeapTrainer.Controller = Class.extend({
           frameCount = 0;
       } else if (this.listening) {
         //check for gestures...
-        console.log('listening...');
+        // console.log('listening...');
         this.gestureCheck.bind(this)(frame);
       }
       
@@ -657,7 +657,7 @@ LeapTrainer.Controller = Class.extend({
 
   updateTrainingData: function(gestureName, gesture) {
     this.gestures[gestureName].push(gesture);
-    console.log('updating...');
+    // console.log('updating...');
     this.fire('update-complete', gestureName, this.gestures[gestureName], false);
   },
 
@@ -763,12 +763,13 @@ LeapTrainer.Controller = Class.extend({
       /*
        * We don't actually attempt to compare gestures to poses
        */
-      if (this.poses[gestureName] != recognizingPose) { console.log('this is a pose...');
+      if (this.poses[gestureName] != recognizingPose) { 
+        // console.log('this is a pose...');
         
         hit = 0.0;
         
       } else {
-        console.log('correlating...')
+        // console.log('correlating...')
         /*
          * For each know gesture we generate a correlation value between the parameter gesture and a saved 
          * set of training gestures. This correlation value is a numeric value between 0.0 and 1.0 describing how similar 
@@ -801,7 +802,7 @@ LeapTrainer.Controller = Class.extend({
       this.fire(closestGestureName); 
     
     } else {
-      console.log('unknowng');
+      // console.log('unknowng');
       this.fire('gesture-unknown', allHits, gesture);
     }
   },
@@ -825,7 +826,7 @@ LeapTrainer.Controller = Class.extend({
 
     for (var i = 0, l = trainingGestures.length; i < l; i++) {
       distance = this.templateMatcher.match(gesture, trainingGestures[i]);
-      console.log('checking distances...', distance)
+      // console.log('checking distances...', distance)
       
       if (distance < nearest) {
 
@@ -994,7 +995,9 @@ LeapTrainer.Controller = Class.extend({
    * This function unbinds the controller from the leap frame event cycle - making it inactive and ready 
    * for cleanup.
    */
-  destroy: function(fn) { console.log(this, fn); this.controller.removeListener('frame', fn); },
+  destroy: function(fn) { 
+    // console.log(this, fn); this.controller.removeListener('frame', fn); 
+  },
 
   stop: function() { this.recording = false; return this; }
 });

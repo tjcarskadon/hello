@@ -45,7 +45,7 @@ export class Profile {
     this.localState.email1 = email1;
     this.localState.email2 = email2;
     let url = this.url + this.localState.name;
-    console.log('url', url);
+    // console.log('url', url);
     if (this.localState.email1 === this.localState.email2 && this.localState.email1.length) {
       this.http.get(url).forEach(response => {
         let r = response.json();
