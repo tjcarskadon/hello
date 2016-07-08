@@ -59,11 +59,6 @@ export class Play implements OnInit {
 
   ngOnDestroy() {
     this.letterCheckingService.controller.disconnect();
-    clearInterval(this.checkInterval);
-  }
-
-  ngOnDestroy() {
-    this.letterCheckingService.controller.disconnect();
     clearInterval(this.checkLetterTimer);
   }
 

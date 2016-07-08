@@ -17,6 +17,7 @@ export class Learn implements OnInit {
   private localState = {gestures: {}};
   //leapCtrl;
   GestureRecCtrl;
+  gestureNames;
   ltrCtrlConnected:boolean = false;
   private riggedHand: boolean = false;
   private imageUrl: string = '';

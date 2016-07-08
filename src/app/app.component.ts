@@ -14,6 +14,7 @@ import { Create } from './create';
 // import { RouterActive } from './router-active';
 import { AuthService } from './auth.service';
 import './rxjs-operators';
+import { WelcomeStateService } from './welcomeState/welcomeState.service';
 /*
  * App Component
  * Top Level Component
@@ -22,7 +23,7 @@ import './rxjs-operators';
 @Component({
   selector: 'app',
   pipes: [ ],
-  providers: [ AuthService, AppState ],
+  providers: [ AuthService, AppState, WelcomeStateService ],
   // directives: [ ROUTER_DIRECTIVES, Welcome, Profile, Learn, Spell, Play, Create ],
   directives: [ ROUTER_DIRECTIVES, Welcome, Profile, Learn, Spell, Create ],
   encapsulation: ViewEncapsulation.None,
@@ -47,7 +48,9 @@ export class App {
   constructor(
     public appState: AppState,
     public authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private ws: WelcomeStateService
+    ) { }
 
   ngDoCheck() {
     // console.log('browser history saved state...: ', window.history.state);
@@ -68,6 +71,15 @@ export class App {
   ngOnInit() {
     // console.log('Initial App State', this.appState.state);
     // console.log('app comp loaded', this.appState.get('authenticated'));
+  }
+
+  routeToWelcome() {
+    this.appState.set('welcome', true);
+    this.appState.set('welcomePage', true);
+    var state = this.appState._state;
+    this.router.navigate(['/welcome']);
+    window.history.pushState(state, null, 'welcome');
+    //this.ws.changeView('signup');
   }
 
   // logout() {
