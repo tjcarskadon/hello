@@ -24,6 +24,7 @@ export class Learn implements OnInit {
   private color: string = 'warn';
   private mastered = [];
   private gestureNames: string[] = [];
+  private gColor = {};
   private letters = [
     {val: 'A', color:'primary', count: 0},
     {val: 'B', color:'primary', count: 0},
@@ -58,9 +59,7 @@ export class Learn implements OnInit {
     private authService: AuthService,
     private appState: AppState,
     private letterCheckingService: LetterCheckingService) {
-  }
 
-  ngOnInit() {
     this.appState.retreiveGestures().subscribe(result => {
       var gest = {}
       for (var name in result) {
@@ -72,8 +71,13 @@ export class Learn implements OnInit {
       }
       this.gestureNames = names;
       this.localState.gestures = gest;
+      this.gestureNames.forEach(name => {
+        this.gColor[name] = 'primary'
+      });
     });
+
     this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+
   }
   
   clicked(ltr) {
@@ -126,6 +130,7 @@ export class Learn implements OnInit {
     sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
   }
 
+
   showRiggedHandLtr() {
     this.riggedHand = true;
 
@@ -154,6 +159,7 @@ export class Learn implements OnInit {
       //.....
      // this.GestureRecCtrl.use('playback');
      //  document.getElementById('connect-leap').remove();
+     console.log('this is gesturename', gestureName);
     this.clickedGesture = gestureName;
   }
 
@@ -171,9 +177,11 @@ export class Learn implements OnInit {
   private gestureCtrlConnected = false;
   initGCtrl() {
     if (!this.gestureCtrlConnected) {
-      this._initGestureRecognition(this.clickedGesture);
+      this._initGestureRecognition();
       this.gestureCtrlConnected = true;
     }
+    this.trainer.listening = true;
+
   }
 
   private GestureRecCtrl;
@@ -191,7 +199,8 @@ export class Learn implements OnInit {
       this.connected = true;
       //TODO: handle UI 
     }
-  _initGestureRecognition(gestureName) {
+
+  _initGestureRecognition() {
     this.GestureRecCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
     this.GestureRecCtrl.connect();
     this.GestureRecCtrl.on('disconnect', () => {
@@ -220,11 +229,13 @@ export class Learn implements OnInit {
       ...if it is < 50% send message to user accordingly. ie: 'Not quite...'
       ...if it is <65% send message to user accordingly. ie: 'Almost...'
       */
-      let percentage = allHits[gestureName];
+      this.trainer.listening = false;
+      this.gColor[this.clickedGesture] = 'warn';
+      let percentage = allHits[this.clickedGesture];
       if (percentage <= 0.5) {
-        console.log('Not quite...', allHits)
+        console.log('Not quite', this.clickedGesture,'...', allHits)
       } else {
-        console.log('Almost...', allHits)
+        console.log('Almost', this.clickedGesture,'...', allHits)
       }
 
     });
@@ -233,10 +244,12 @@ export class Learn implements OnInit {
       /*TODO: check to see if recognized gesture is the gesture clicked
       ...if so, then send message to user accordingly. ie: 'Congratulations!' or '{Gesture Name}!'
       */
-      if (closestGestureName === gestureName) {
-        console.log(gestureName + '!');
+      this.trainer.listening = false;
+      if (closestGestureName === this.clickedGesture) {
+        console.log(this.clickedGesture + '!');
+        this.gColor[this.clickedGesture] = 'white';
       } else {
-        console.log('Not quite...')
+        console.log('Not quite...', this.clickedGesture)
         console.log('That\'s more like ', closestGestureName);
       }
     });
@@ -245,7 +258,7 @@ export class Learn implements OnInit {
   ngOnDestroy() {
     !!this.letterCheckingService.controller && this.letterCheckingService.controller.disconnect();
     this.letterCheckingService.target = '';
-    // !!this.GestureRecCtrl && this.GestureRecCtrl.disconnect();
+    !!this.GestureRecCtrl && this.GestureRecCtrl.disconnect();
   }
 }
   // changeLetterColor() {

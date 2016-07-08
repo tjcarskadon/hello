@@ -17,7 +17,7 @@
       <template md-tab-label>Gestures!!</template>
       <template md-tab-content>
         <div class="gestures">
-          <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn jello" color="primary" (click)='startGestureRecognition(gestureName)'>{{gestureName}}!</button>
+          <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn jello" color="{{gColor[gestureName]}}" (click)='startGestureRecognition(gestureName)'>{{gestureName}}!</button>
         </div>
       </template>
     </md-tab>
@@ -27,15 +27,9 @@
     <div *ngIf="!riggedHand">
       <md-toolbar color="primary">
         <span class="fill"></span>
-<<<<<<< adfb5d08a49855ba74ae7f076c01519b5ad08c3a
-        <span *ngIf="!clickedLtr" class="animated bounce">
-          Click a letter to view a sign
-        </span>
-=======
-        <button *ngIf="!clickedLtr" md-button color="warn" class="hand-btn animated bounce">
+        <span *ngIf="!clickedLtr || !clickedGesture" class="hand-btn animated bounce">
           Click a letter or gesture to view it
-        </button>
->>>>>>> (feat) - gesture recognition complete for learn page
+        </span>
         <button *ngIf="clickedLtr" md-raised-button color="warn" class="hand-btn animated bounceIn" (click)="clickedLtr = ''">
           Hide the image
         </button>
@@ -76,7 +70,7 @@
       </div>
     </div>
       </div>
-      <div id='playbackStatus' [ngStyle]='{"color":"grey"}'> Playback Disabled.</div>
+      <div id='playbackStatus' [ngStyle]='{"color":"grey"}'> Playback Disabled. Please check your Leap settings</div>
   </div>
 
 </div>
