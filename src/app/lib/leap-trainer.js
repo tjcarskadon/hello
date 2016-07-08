@@ -234,7 +234,7 @@ LeapTrainer.Controller = Class.extend({
      * 
      */
     var gestureBegan = false, watching = false, idleTimer = 0;
-    var incTimer = _.throttle(() => {
+    var incTimer = _.throttle(function () {
       idleTimer++;
       // console.log('debounce?', idleTimer);
     }, 1000);

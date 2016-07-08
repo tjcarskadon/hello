@@ -15,6 +15,7 @@ import { LetterCheckingService } from '../LetterCheckingService.service';
 export class Play implements OnInit {
   leapCtrl;
   private results = [];
+
   checkInterval;
   private intervalId;
   private checkLetterTimer;

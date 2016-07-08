@@ -3,13 +3,12 @@
 
 # TEAM
 
-  <name> -- <role> -- <twitter>
+  <name> Digi- talk<twitter>
 
 # THANKS
 
   <name>
-  PatrickJS -- @gdi2290
-  AngularClass -- @AngularClass
+
 
 # TECHNOLOGY COLOPHON
 

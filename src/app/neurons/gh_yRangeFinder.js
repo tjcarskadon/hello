@@ -1,5 +1,4 @@
 let brain = require('brain');
-
 let net = new brain.NeuralNetwork();
 
 //takes difference between index tip x vector and middle tip x vector.  If large then G if small then H

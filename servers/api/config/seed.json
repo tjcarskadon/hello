@@ -2,7 +2,7 @@
 
   "development": {
     "User": [
-      {"email": "t@est.com", "password": "11111", "authFlag":"local"}
+      {"email": "demo@signhello.us", "password": "signhello", "authFlag":"local"}
     ]
   },
 
@@ -10,7 +10,7 @@
 
   "production": {
     "User": [
-      {"email": "t@est.com", "password": "11111", "authFlag":"local"}
+      {"email": "demo@signhello.us", "password": "signhello", "authFlag":"local"}
     ]
   }
 

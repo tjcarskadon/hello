@@ -50,6 +50,14 @@
     "preversion": "npm test",
     "version": "npm run build",
     "postversion": "git push && git push --tags",
+    "api-deps": "cd servers/api && npm install",
+    "deps":"npm install && npm run api-deps",
+    "db-build":"cd servers/api && nodal db:create",
+    "nodal": "cd servers/api && nodal s",
+    "setURL:prod": "NODE_URL=http://52.90.139.255:3333/",
+    "setURL:local": "NODE_URL=http://127.0.0.1:3333/",
+    "hello-prod": "npm run setURL:prod && npm run build:prod && cd severs/static node server.js",
+    "hello-dev": "npm run setURL:local && npm run server:dev:hmr",
     "image": "cd server && node server.js"
   },
   "dependencies": {
@@ -142,10 +150,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angularclass/angular2-webpack-starter.git"
+    "url": "https://github.com/digi-talk/hello"
   },
   "bugs": {
-    "url": "https://github.com/angularclass/angular2-webpack-starter/issues"
+    "url": "https://github.com/digi-talk/hello/issues"
   },
   "engines": {
     "node": ">= 4.2.1",

@@ -26,7 +26,7 @@ export class Spell implements OnInit {
   private showSkip:boolean = false;
   private skippedWords = [];
   private capturedLetter: string = '';
-  // private capturedLetterColor: string = '';
+  private capturedLetterColor: string = '';
   private nextLetter: string = '';
   private nextLetterIndex: number = 0;
   private rightPanelWord: string = '';

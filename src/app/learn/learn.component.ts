@@ -14,7 +14,7 @@ import { LetterCheckingService } from '../LetterCheckingService.service';
 export class Learn implements OnInit {
 
   leapCtrl;
-  private localState = {gestures: {}};
+  private localState = {gestures: {}, temp: {}};
   //leapCtrl;
   GestureRecCtrl;
   gestureNames;
@@ -28,6 +28,7 @@ export class Learn implements OnInit {
   private interval;
   private color:string = 'warn';
   private mastered = [];
+  private gestureNames;
  
   private letters = [
     {val: 'A', color:'primary', count: 0},
@@ -68,24 +69,19 @@ export class Learn implements OnInit {
 
   ngOnInit() {
 
-    //  this.letters.forEach( letter => {
-    //   if (sessionStorage.getItem(letter.val)) {
-    //     letter.color = sessionStorage.getItem(letter.val);
-    //   }
-    // });
-
     this.appState.retreiveGestures().subscribe(result => {
       var gest = {}
-      result.forEach(r => {
-        // console.log('@@@@@', r.data.name)
-        let name = r.data.name;
-        let data = r.data.gestureData;
-        gest[name] = data;
-        name && this.gestureNames.push(name);
-      });
+
+      for (var name in result) {
+        gest[name] = result[name];
+      }
+      let names = [];
+      for (var n in gest) {
+        names.push(n);
+      }
+      this.gestureNames = names;
       this.localState.gestures = gest;
     });
-    
     this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
   }
 
