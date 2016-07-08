@@ -135,9 +135,10 @@ The below instructions assume you have cloned or downloaded the repo to your loc
 - [ ] You can now access the app from your browser at `localhost:3000`
 
 ##System Architecture
-![architecture](https://dl.dropboxusercontent.com/s/0wm83gv8c6vax4x/Hello%20Architecture.png?dl=0)
+![architecture](https://dl.dropboxusercontent.com/s/febxrjnjxbdbsrh/Hello%20Architecture.png?dl=0)
 
-![aws architecture](https://dl.dropboxusercontent.com/s/zwwtlxx2f9uuvm8/AWS%20Archeticture%20.png?dl=0)
+![aws architecture](https://dl.dropboxusercontent.com/s/uc0tn315jitnkfu/AWS%20Archeticture.png?dl=0)
+
 ##Database Schema
 ![schema](https://dl.dropboxusercontent.com/s/q9vlwc7uwrn0knw/hello%20ERD.png?dl=0)
 

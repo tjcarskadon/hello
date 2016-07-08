@@ -20,8 +20,8 @@ export class Profile {
   // TypeScript public modifiers
   // urls = 'http://52.90.139.255:3333/users?email=';
   // urls = 'http://192.168.99.100:3333/users?email=';
-  // urls = `${process.env.NODE_URL}users?email=`;
-  urls = 'http://127.0.0.1:3333/users?email=';
+  urls = `${process.env.NODE_URL}users?email=`;
+  // urls = 'http://127.0.0.1:3333/users?email=';
   public url: string = this.urls;
 
   constructor(

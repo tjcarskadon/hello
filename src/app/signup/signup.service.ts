@@ -8,11 +8,11 @@ import { Signup } from './signup';
 export class SignupService {
   //local host
   // urls = 'http://127.0.0.1:3333/users';
-  // urls = `${process.env.NODE_URL}users`;
+  urls = `${process.env.NODE_URL}users`;
   //local docker machine 
   // urls = 'http://192.168.99.100:3333/users';
   //deployed URL
-  urls = 'http://52.90.139.255:3333/users';
+  // urls = 'http://52.90.139.255:3333/users';
 
   private url: string = this.urls; //
 

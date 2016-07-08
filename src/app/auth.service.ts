@@ -19,8 +19,8 @@ export class AuthService {
     let currentDate: Date = new Date();
     let tkn: string = localStorage.getItem('tkn')
     //deployed URL
-    let url: string = `http://52.90.139.255:3333/logins?access_token=${tkn}`;
-    // let url: string = `${process.env.NODE_URL}/logins?access_token=${tkn}`;
+    // let url: string = `http://52.90.139.255:3333/logins?access_token=${tkn}`;
+    let url: string = `${process.env.NODE_URL}/logins?access_token=${tkn}`;
 
 
     //Local Docker Machine URL
@@ -75,8 +75,8 @@ export class AuthService {
     // localhost
     // let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
     // deployed URL
-    let url: string = `http://52.90.139.255:3333/access_tokens?access_token=${tkn}`;
-    // let url: string = `${process.env.NODE_URL}access_tokens?access_token=${tkn}`;
+    // let url: string = `http://52.90.139.255:3333/access_tokens?access_token=${tkn}`;
+    let url: string = `${process.env.NODE_URL}access_tokens?access_token=${tkn}`;
 
     localStorage.clear();
     sessionStorage.clear();

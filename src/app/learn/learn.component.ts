@@ -14,7 +14,7 @@ import { LetterCheckingService } from '../LetterCheckingService.service';
 export class Learn implements OnInit {
 
   leapCtrl;
-  private localState = {gestures: {}, temp: {}};
+  private localState = {gestures: {}};
   //leapCtrl;
   GestureRecCtrl;
   ltrCtrlConnected:boolean = false;
@@ -27,7 +27,7 @@ export class Learn implements OnInit {
   private interval;
   private color:string = 'warn';
   private mastered = [];
-  private gestureNames;
+  private gestureNames: string[] = [];
  
   private letters = [
     {val: 'A', color:'primary', count: 0},
@@ -74,6 +74,7 @@ export class Learn implements OnInit {
       for (var name in result) {
         gest[name] = result[name];
       }
+      //TODO:Refactor to not use the 2nd loop
       let names = [];
       for (var n in gest) {
         names.push(n);
