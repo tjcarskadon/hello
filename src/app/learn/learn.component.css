@@ -90,6 +90,12 @@ canvas {
   bottom: 0;
   margin-left: 3px;
 }
+#playbackStatus {
+  float: left;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 
 #start-timer {
   color: white;

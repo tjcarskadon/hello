@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlphabetCaptureCheck } from './AlphabetCaptureCheck.service';
 import { AuthService } from '../auth.service';
 import { AppState } from '../app.service';
-<<<<<<< b0684dd1828574d9da6f74fd0550d870871d169f
 import { LetterCheckingService } from '../LetterCheckingService.service';
-=======
-import { LetterCheckingService } from '../LetterCheckingService.service'
->>>>>>> (feat) - gesture recognition complete for learn page
 
 @Component({
   selector: 'learn',
@@ -28,7 +24,6 @@ export class Learn implements OnInit {
   private color: string = 'warn';
   private mastered = [];
   private gestureNames: string[] = [];
-
   private letters = [
     {val: 'A', color:'primary', count: 0},
     {val: 'B', color:'primary', count: 0},
@@ -65,13 +60,9 @@ export class Learn implements OnInit {
     private letterCheckingService: LetterCheckingService) {
   }
 
-
-
   ngOnInit() {
     this.appState.retreiveGestures().subscribe(result => {
       var gest = {}
-<<<<<<< adfb5d08a49855ba74ae7f076c01519b5ad08c3a
-
       for (var name in result) {
         gest[name] = result[name];
       }
@@ -80,16 +71,6 @@ export class Learn implements OnInit {
         names.push(n);
       }
       this.gestureNames = names;
-=======
-      result.forEach(r => {
-        // console.log('@@@@@', r.data.name)
-        let name = r.data.name;
-        let data = r.data.gestureData;
-        gest[name] = data;
-        name && this.gestureNames.push(name);
-      });
-
->>>>>>> (feat) - gesture recognition complete for learn page
       this.localState.gestures = gest;
     });
     this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
@@ -98,18 +79,15 @@ export class Learn implements OnInit {
   clicked(ltr) {
     ltr = ltr.toLowerCase();
     // this.GestureRecCtrl.disconnect();
-    if (!this.ltrCtrlConnected) {
-      this.letterCheckingService._initCheckingService();
-      this.ltrCtrlConnected = true;
+    if (this.GestureRecCtrl) {
+      this.GestureRecCtrl.disconnect();
+      this.gestureCtrlConnected = false;
     }
+
     this.imageUrl = `assets/img/${ltr}.png`;
     this.clickedGesture = '';
     this.clickedLtr = ltr;
     this.riggedHand = false;
-  }
-
-  onTabChanges(tabNumber) {
-    // console.log('selected tab = ', tabNumber);
   }
 
   checkLetter() {
@@ -147,24 +125,61 @@ export class Learn implements OnInit {
     }
     sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
   }
-  showRiggedHand() {
+
+  showRiggedHandLtr() {
     this.riggedHand = true;
+
+    if (!this.ltrCtrlConnected) {
+      // !!this.GestureRecCtrl && this.GestureRecCtrl.disconnect();
+      this.letterCheckingService._initCheckingService();
+      this.ltrCtrlConnected = true;
+    }
+
     setTimeout(function() {
       document.dispatchEvent(new Event('ltContainerAdded'));
     }, 0);
+    
     this.checkLetter();
   }
 
-  ngOnDestroy() {
+   //logic for gesture recognition below
+  private clickedGesture = '';
+  startGestureRecognition(gestureName) {
+    this.clickedLtr = '';
+    this.riggedHand = false;
+    //disconnect ltrCtrl
     this.letterCheckingService.controller.disconnect();
-    this.letterCheckingService.target = '';
-    this.GestureRecCtrl.disconnect();
+    this.ltrCtrlConnected = false;
+    //TODO: playback plugin...
+      //.....
+     // this.GestureRecCtrl.use('playback');
+     //  document.getElementById('connect-leap').remove();
+    this.clickedGesture = gestureName;
   }
 
-  //logic for gesture recognition below
+  showRiggedHandGest() {
+    this.riggedHand = true;
+    
+    this.initGCtrl();
 
-  GestureRecCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
-  connected;
+    setTimeout(function() {
+      document.dispatchEvent(new Event('ltContainerAdded'));
+    }, 0);
+
+  }
+
+  private gestureCtrlConnected = false;
+  initGCtrl() {
+    if (!this.gestureCtrlConnected) {
+      this._initGestureRecognition(this.clickedGesture);
+      this.gestureCtrlConnected = true;
+    }
+  }
+
+  private GestureRecCtrl;
+  private trainer;
+  private LeapTrainer = require('../lib/leap-trainer.js');
+  private connected;
    deviceStopped_CB() {
       console.log('device has stopped streaming');
       this.connected = false;
@@ -176,17 +191,13 @@ export class Learn implements OnInit {
       this.connected = true;
       //TODO: handle UI 
     }
-
-   
-  clickedGesture = '';
-  trainer;
-  LeapTrainer = require('../lib/leap-trainer.js');
   _initGestureRecognition(gestureName) {
-
+    this.GestureRecCtrl = this.appState._initLeapController(this.deviceStopped_CB.bind(this), this.deviceStreaming_CB.bind(this));
     this.GestureRecCtrl.connect();
-    
-    // var player = this.GestureRecCtrl.plugins.playback.player;
-    // console.log('llllllll', player)
+    this.GestureRecCtrl.on('disconnect', () => {
+      this.trainer.listening = false;
+      console.log('disconnecting g ctrl!!!!!!...');
+    })
 
     console.log('testing...');
 
@@ -231,22 +242,11 @@ export class Learn implements OnInit {
     });
   }
 
-  startGestureRecognition(gestureName) {
-    this.clickedLtr = '';
-    this.riggedHand = false;
-    //TODO: playback plugin...
-      //.....
-     // this.GestureRecCtrl.use('playback');
-     //  document.getElementById('connect-leap').remove();
-    this.clickedGesture = gestureName;
-    if (this.GestureRecCtrl.streaming()) {}
-    else {
-      this._initGestureRecognition(gestureName);
-    }
-
-
+  ngOnDestroy() {
+    !!this.letterCheckingService.controller && this.letterCheckingService.controller.disconnect();
+    this.letterCheckingService.target = '';
+    // !!this.GestureRecCtrl && this.GestureRecCtrl.disconnect();
   }
-
 }
   // changeLetterColor() {
   //   let idx = this.clickedLtr.charCodeAt(0) - 97;

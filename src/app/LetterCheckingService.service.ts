@@ -26,11 +26,22 @@ export class LetterCheckingService {
 
   _initCheckingService() {
     this.controller.connect();
+<<<<<<< d071714d321177d29d8d90e5e0bc94f8faf1b416
+=======
+    this.controller.on('connect', () => {
+      console.log('connecting ltr checker....')
+    })
+    this.controller.on('disconnect', () => {
+      console.log('disconnecting ltr checker....');
+    })
+>>>>>>> (feat) - complete feature functionality for learn page. integrate letter+gesture recognition together
     this.watch();
   }
 
   watch() {
     this.controller.on ('frame', (frame) => {
+
+      if (frame.hands.length) console.log('frame!')
 
       frame.hands.forEach((hand) => {
         let data = [];
