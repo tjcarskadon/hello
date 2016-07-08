@@ -20,8 +20,6 @@ export class AuthService {
     let exp: Date = new Date(localStorage.getItem('exp'));
     let currentDate: Date = new Date();
     let tkn: string = localStorage.getItem('tkn')
-    //deployed URL
-    //urls = `http://ec2-52-205-170-83.compute-1.amazonaws.com/`;
     let url: string = `http://52.205.170.83:3333/logins?access_token=${tkn}`;
     // let url: string = `${process.env.NODE_URL}/logins?access_token=${tkn}`;
 
@@ -46,6 +44,7 @@ export class AuthService {
           this.appState.set('isDisabled', false);
           this.router.navigate(['/'+page]);
           tempState = _.extend(tempState, this.appState._state);
+          console.log('temp', tempState);
           window.history.pushState(tempState, null, page);
         }
       }).catch(err => console.log("ERROR:", err));
@@ -82,7 +81,7 @@ export class AuthService {
     // localhost
     // let url: string = 'http://127.0.0.1:3333/access_tokens?access_token=' + tkn;
     // deployed URL
-    let url: string = `http://52.90.139.255:3333/access_tokens?access_token=${tkn}`;
+    let url: string = `http://52.205.170.83:3333/access_tokens?access_token=${tkn}`;
     // let url: string = `${process.env.NODE_URL}access_tokens?access_token=${tkn}`;
 
     localStorage.clear();
