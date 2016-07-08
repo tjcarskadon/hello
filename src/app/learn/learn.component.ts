@@ -19,7 +19,7 @@ export class Learn implements OnInit {
   private clickedLtr: string;
   private _ = require('underscore');
   private startTimer: boolean = false;
-  private sec: number = 5;
+  private sec: number = 4;
   private interval;
   private color: string = 'warn';
   private mastered = [];
@@ -84,6 +84,7 @@ export class Learn implements OnInit {
 
   clicked(ltr) {
     ltr = ltr.toLowerCase();
+    this.ltrChecked = false;
     // this.GestureRecCtrl.disconnect();
     if (this.GestureRecCtrl) {
       this.GestureRecCtrl.disconnect();
@@ -101,23 +102,29 @@ export class Learn implements OnInit {
     const letter = this.letters[idx];
     this.letterCheckingService.target = letter.val;
     let isCorrectLetter;
-    this.timer();
   }
 
   timer() {
     this.startTimer = true;
-    this.sec = 5;
-    this.interval = setInterval(() => {
-      if (this.sec > 1) {
-        this.sec--;
-      }
-     }, 1000);
-
-    setTimeout(() => {
+    console.log('timer is at = ', this.sec);
+    if (this.sec > 0) {
+      this.sec--;
+      setTimeout(() => {
+        this.timer();
+      }, 1000);
+    } else {
       this.startTimer = false;
+      this.sec = 4;
       this.changeLetterColor();
-    }, 5000);
+    }
   }
+
+  private ltrChecked = false;
+
+  retryLtr() {
+    this.ltrChecked = false;
+    this.showRiggedHandLtr();
+  } 
 
   changeLetterColor() {
     let isCorrectLetter = this.letterCheckingService.getIsLetter();
@@ -133,6 +140,10 @@ export class Learn implements OnInit {
     } else {
       letter.color = 'warn';
     }
+
+    //stop listening have a retry button that starts listening again
+    this.ltrChecked = true;
+
     sessionStorage.setItem(letter.val, letter.color);
     if (letter.count > 1) {
       this.mastered.push(letter.val);
@@ -148,8 +159,8 @@ export class Learn implements OnInit {
       // !!this.GestureRecCtrl && this.GestureRecCtrl.disconnect();
       this.letterCheckingService._initCheckingService();
       this.ltrCtrlConnected = true;
-      this.timer();
     }
+    this.timer();
 
     setTimeout(function() {
       document.dispatchEvent(new Event('ltContainerAdded'));

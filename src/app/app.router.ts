@@ -13,7 +13,8 @@ export const routes: RouterConfig = [
   { path: 'learn',   component: Learn },
   { path: 'spell',   component: Spell },
   { path: 'play',    component: Play },
-  { path: 'profile', component: Profile }
+  { path: 'profile', component: Profile },
+  { path: '**', component: Welcome }
 ];
 
 export const APP_ROUTER_PROVIDERS = [

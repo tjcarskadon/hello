@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { LoginService } from '../login.service';
@@ -35,9 +37,41 @@ export class Play implements OnInit {
     this.connected = true;
   }
 
+
+  private eraser = 0;
+  private throttledEraser = _.throttle(() => {
+          this.results.pop()
+        }, 2000, true);
+
   ngOnInit() {
     this.authService.authenticate('play');
     this.letterCheckingService._initCheckingService();
+    this.letterCheckingService.controller.on('frame', (frame) => {
+
+      if (frame.gestures.length && frame.gestures[0].type === 'circle') {
+        this.eraser++;
+      } else {
+        this.eraser = 0;
+      }
+
+      if (this.eraser >= 3) {
+        console.log('erasing...')
+        //throttled eraser is not as sensitive
+          this.throttledEraser();
+        // this.results.pop();
+        this.eraser = 0;
+        clearInterval(this.checkLetterTimer);
+        this.letterCheckingService.letter = '';
+        setTimeout(this.checkFnIntervalized.bind(this), 1000);
+      }
+    })
+    // this.checkLetterTimer = setInterval(() => {
+    //   this.check();
+    // }, 1000);
+    this.checkFnIntervalized();
+  }
+
+  checkFnIntervalized() {
     this.checkLetterTimer = setInterval(() => {
       this.check();
     }, 1000);
@@ -48,7 +82,7 @@ export class Play implements OnInit {
   }
 
   check() {
-    console.log('results = ', this.results);
+    // console.log('results = ', this.results);
     let result = this.letterCheckingService.getLetter();
     if (result !== this.results[this.results.length - 1] && result !== '') {
       this.results.push(result);
