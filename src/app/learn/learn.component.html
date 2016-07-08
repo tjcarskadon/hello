@@ -51,7 +51,7 @@
     <div *ngIf="riggedHand" id="ltMainContainer">
       <md-toolbar color="primary">
         <span class="fill"></span>
-        <span *ngIf='clickedLtr' class="animated flipInY">
+        <span *ngIf='clickedLtr && !ltrChecked' class="animated flipInY">
           Try signing the letter {{clickedLtr.toUpperCase()}}
         </span>
         <button *ngIf='ltrChecked' md-raised-button color="warn" class="hand-btn animated bounceIn" (click)='retryLtr()'> Try again</button>
