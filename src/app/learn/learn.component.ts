@@ -75,7 +75,9 @@ export class Learn implements OnInit {
         this.gColor[name] = 'primary'
       });
     });
-  //  this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+
+    this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+
   }
   
   ngOnInit() {}
@@ -99,10 +101,14 @@ export class Learn implements OnInit {
     const letter = this.letters[idx];
     this.letterCheckingService.target = letter.val;
     let isCorrectLetter;
+    this.timer();
+  }
+
+  timer() {
     this.startTimer = true;
     this.sec = 5;
     this.interval = setInterval(() => {
-      if (this.sec > 0) {
+      if (this.sec > 1) {
         this.sec--;
       }
      }, 1000);
@@ -120,8 +126,6 @@ export class Learn implements OnInit {
      let idx = this.clickedLtr.charCodeAt(0) - 97;
      const letter = this.letters[idx];
 
-     this.letterCheckingService.controller.disconnect();
-
     if (isCorrectLetter) {
       // console.log('letter found');
       letter.count += 1;
@@ -133,7 +137,7 @@ export class Learn implements OnInit {
     if (letter.count > 1) {
       this.mastered.push(letter.val);
     }
- //   sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
+    sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
   }
 
 
@@ -144,6 +148,7 @@ export class Learn implements OnInit {
       // !!this.GestureRecCtrl && this.GestureRecCtrl.disconnect();
       this.letterCheckingService._initCheckingService();
       this.ltrCtrlConnected = true;
+      this.timer();
     }
 
     setTimeout(function() {
@@ -178,16 +183,6 @@ export class Learn implements OnInit {
       document.dispatchEvent(new Event('ltContainerAdded'));
     }, 0);
 
-    this.startTimer = true;
-    this.sec = 5;
-    this.interval = setInterval(() => {
-      if (this.sec > 0) {
-        this.sec--;
-      }
-     }, 1000);
-    setTimeout(() => {
-      this.startTimer = false;
-    }, 5000);
   }
 
   private gestureCtrlConnected = false;
@@ -197,8 +192,6 @@ export class Learn implements OnInit {
       this.gestureCtrlConnected = true;
     }
     this.trainer.listening = true;
-    this.letterCheckingService.target = '';
-    clearInterval(this.interval);
 
   }
 
