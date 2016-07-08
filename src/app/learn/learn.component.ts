@@ -211,7 +211,7 @@ export class Learn implements OnInit {
   private GestureRecCtrl;
   private trainer;
   private LeapTrainer = require('../lib/leap-trainer.js');
-  private connected;
+  private connected = false;
    deviceStopped_CB() {
       // console.log('device has stopped streaming');
       this.connected = false;
