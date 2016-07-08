@@ -14,7 +14,7 @@
       </template>
     </md-tab>
     <md-tab>
-      <template md-tab-label>Gestures!!</template>
+      <template md-tab-label>Gestures</template>
       <template md-tab-content>
         <div class="gestures">
           <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn jello" color="{{gColor[gestureName]}}" (click)='startGestureRecognition(gestureName)'>{{gestureName}}!</button>
@@ -27,7 +27,7 @@
     <div *ngIf="!riggedHand">
       <md-toolbar color="primary">
         <span class="fill"></span>
-        <span *ngIf="!clickedLtr || !clickedGesture" class="hand-btn animated bounce">
+        <span *ngIf="!clickedLtr " class="hand-btn animated bounce">
           Click a letter or gesture to view it
         </span>
         <button *ngIf="clickedLtr" md-raised-button color="warn" class="hand-btn animated bounceIn" (click)="clickedLtr = ''">
