@@ -13,7 +13,9 @@ export class CreatePageState {
     gestureData: [],
     recognizedGesture: '',
     trainingComplete: false,
-    displayGestureOptions: false
+    displayGestureOptions: false, 
+    countdown: null,
+    recordingLeft: 2
   };
 
   constructor(private appState: AppState) { }
@@ -29,7 +31,7 @@ export class CreatePageState {
   get(prop?: any) {
     // use our state getter for the clone
     const state = this._state;
-    return state[prop] || state;
+    return state[prop] !== undefined ? state[prop] : state;
   }
 
   set(prop: string, value: any) {

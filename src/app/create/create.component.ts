@@ -24,7 +24,6 @@ export class Create implements OnInit {
     private createPageState: CreatePageState,
     private authService: AuthService,
     private http: Http) {
-
     this.leapTrainerService._initLeapTrainer();
   }
 
