@@ -81,8 +81,6 @@ export class Learn implements OnInit {
   }
 
   ngOnInit() {}
-  
-  ngOnInit() {}
 
   clicked(ltr) {
     ltr = ltr.toLowerCase();
