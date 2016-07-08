@@ -51,10 +51,10 @@ export class Spell implements OnInit {
     this.nextLetter = this.spellingWord[this.nextLetterIndex].toLowerCase();
     setTimeout(() => {
       this.showWord = true;
-    }, 1500);
+    }, 1000);
     setTimeout(() => {
       this.showSkip = true;
-    }, 2500);
+    }, 2000);
     this.checkLetterTimer = setInterval(() => {
       this.checkLetter();
     }, 1000);

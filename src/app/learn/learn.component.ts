@@ -12,7 +12,6 @@ import { LetterCheckingService } from '../LetterCheckingService.service';
 })
 
 export class Learn implements OnInit {
-
   private localState = {gestures: {}};
   private ltrCtrlConnected: boolean = false;
   private riggedHand: boolean = false;

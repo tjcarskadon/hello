@@ -21,12 +21,11 @@ export class LetterCheckingService {
   }
 
   deviceStreaming_CB() {
-    this.connected = true;  
+    this.connected = true;
   }
 
   _initCheckingService() {
     this.controller.connect();
-    console.log('connected');
     this.watch();
   }
 
@@ -350,6 +349,6 @@ export class LetterCheckingService {
         }
       }
         return response;
-    
+
   }
 }
