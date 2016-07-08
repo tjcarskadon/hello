@@ -8,6 +8,7 @@ import { CreatePageState } from './createPageState.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
+
 @Component({
   selector: 'create',
   template: require('./create.component.html'),
@@ -104,6 +105,8 @@ export class Create implements OnInit {
   playback(gestureName) {
     let selection = this.createPageState.get('selectedGesture');
 
+    this.createPageState.set('showTestingMessage', false);
+
     if (selection === gestureName) {
       this.createPageState.set('selectedGesture', '');
       return;
@@ -117,11 +120,13 @@ export class Create implements OnInit {
 
   }
 
+
   test(gestureName) {
     //signal to Trainer that we are now listening to test a gesture
     console.log('gestures', this.leapTrainerService.trainer.gestures);
     this.leapTrainerService._initLeapTrainerWatch();
     this.leapTrainerService.trainer.listening = true;
+    this.createPageState.set('currentlyTesting', true);
   }
 
   update(gestureName) {

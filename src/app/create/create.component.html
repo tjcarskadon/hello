@@ -12,6 +12,9 @@
           <button md-raised-button color="warn" class="hand-btn" (click)="recordGesture(state.gestureNameInput)">Create</button>
           <button md-raised-button class="hand-btn white-btn" (click)="stopRecording(state.gestureNameInput)">Done</button>
         </div>
+        <div id="gestureListInstructions">
+           'Create' will start recording of gesture. Click 'Done' to stop each recording. We will capture two takes of each gesture recording. &nbsp;&nbsp;|&nbsp;&nbsp; Click on a gesture below to view its options
+        </div>
         <!-- </li> -->
       <!-- </ul> -->
         <div class='button-container'>
@@ -32,6 +35,13 @@
       <div *ngIf='createPageState.get("countdown")' class='animated flash' id='countdownTimer'>{{createPageState.get('countdown')}}</div>
       <div *ngIf='createPageState.get("countdown") === 0' id='recordingStartedMessage' class='animated flash'>Recording...</div>
       <div *ngIf='savedMessage' class="animated fadeOut" id='savedMessage'>Saved!</div>
+      <div *ngIf='createPageState.get("currentlyTesting")' id='testingInstructions'>To test out your gesture, create your gesture. Then pause your hand over your leap motion device and wait for your results</div>
+      <div *ngIf='createPageState.get("showTestingMessage")' id="testingMessage">
+        <span [ngSwitch]="createPageState.get('testingMessage')">
+          <div *ngSwitchWhen="'unknown'">That is not {{createPageState.get('selectedGesture')}}. Click Test to try again</div>
+          <div *ngSwitchWhen="'recognized'">Matched! You signed {{createPageState.get('selectedGesture')}}</div>
+      </span>
+      </div>
     </div>
     <div id='deviceStatus'> Leap Motion Device Status :
       <span [ngSwitch]="leapTrainerService.connected">

@@ -128,3 +128,26 @@ canvas {
   -o-animation-duration: 3s;
   animation-duration: 3s;
 }
+
+#testingMessage {
+  color: white;
+  text-align: center;
+  position: relative;
+  top: 0;
+  font-size: 20px;
+}
+
+
+#testingInstructions {
+  color: white;
+  text-align: center;
+  position: relative;
+  top: 0;
+}
+
+#gestureListInstructions {
+  color: grey;
+  font-size: 13px;
+  margin-left: 1.8vw;
+  margin-right: 1.8vw;
+}
