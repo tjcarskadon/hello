@@ -25,7 +25,7 @@ md-toolbar {
   height: 380px;
 }
 
-.letter-buttons {
+.letter-buttons, .gestureNames {
   float: left;
   margin: 3px;
 }
@@ -89,6 +89,12 @@ canvas {
   position: absolute;
   bottom: 0;
   margin-left: 3px;
+}
+#playbackStatus {
+  float: left;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 #start-timer {

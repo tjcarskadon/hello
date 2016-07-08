@@ -246,7 +246,7 @@ LeapTrainer.Controller = Class.extend({
         watching = false;
         idleTimer = 0;
         // console.log(gesture);
-        console.log(gesture.length, 'now checking...')
+        console.log(gesture, 'now checking...')
         !!gesture.length && frameCount >=this.minGestureFrames && this.recognize(gesture, frameCount);
         !!gesture.length ? this.lastHit = new Date().getTime() : null;
         gesture = [], frameCount = 0;
@@ -273,7 +273,11 @@ LeapTrainer.Controller = Class.extend({
     this.onFrame = function(frame) {  
 
       if (this.recording) {
-        
+
+        // if (frame.hands.length) {
+        //   this.playbackJSON(frame);
+        // }
+
         console.log('recording');
         if (!gestureBegan && this.recordableFrame(frame, this.minVelocity)) {
           gestureBegan = true;
@@ -288,6 +292,7 @@ LeapTrainer.Controller = Class.extend({
       } else if (gestureBegan) {
           console.log('stopping recording...');
           gestureBegan = false;
+
           this.saveTrainingGesture(this.trainingGesture, gesture, false /*recording pose flag*/);
           gesture = [];
           frameCount = 0;
@@ -314,8 +319,9 @@ LeapTrainer.Controller = Class.extend({
       this.controller.on('focus', this.resume.bind(this));      
     }
   },
-
   
+
+
   /**
    * This function returns TRUE if the provided frame should trigger recording and FALSE if it should stop recording.  
    * 
@@ -555,6 +561,7 @@ LeapTrainer.Controller = Class.extend({
     if (storedGestures) {
       
       storedGestures.length = 0;
+      delete this.playback[gestureName];
 
       this.startTraining(gestureName, this.trainingCountdown);
       
@@ -756,17 +763,18 @@ LeapTrainer.Controller = Class.extend({
       /*
        * We don't actually attempt to compare gestures to poses
        */
-      if (this.poses[gestureName] != recognizingPose) { 
+      if (this.poses[gestureName] != recognizingPose) { console.log('this is a pose...');
         
         hit = 0.0;
         
       } else {
-
+        console.log('correlating...')
         /*
          * For each know gesture we generate a correlation value between the parameter gesture and a saved 
          * set of training gestures. This correlation value is a numeric value between 0.0 and 1.0 describing how similar 
          * this gesture is to the training set.
          */
+
         hit = this.correlate(gestureName, gestures[gestureName], gesture);        
       }
 
@@ -816,8 +824,8 @@ LeapTrainer.Controller = Class.extend({
     var nearest = +Infinity, foundMatch = false, distance;
 
     for (var i = 0, l = trainingGestures.length; i < l; i++) {
-      
       distance = this.templateMatcher.match(gesture, trainingGestures[i]);
+      console.log('checking distances...', distance)
       
       if (distance < nearest) {
 
@@ -1081,7 +1089,8 @@ LeapTrainer.TemplateMatcher = Class.extend({
       minf    = Math.min;
     
     for (var i = 0; i < l; i += step) {
-
+      // debugger;
+      if (!trainingGesture.length) { continue;}
       min = minf(min, minf(this.gestureDistance(gesture, trainingGesture, i), this.gestureDistance(trainingGesture, gesture, i)));
     }
 

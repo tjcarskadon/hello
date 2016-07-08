@@ -5,7 +5,7 @@
   </div>
 
   <md-tab-group class="alphabet-container animated pulse">
-    <md-tab md-on-select="onTabChanges(tabNumber)">
+    <md-tab>
       <template md-tab-label>Alphabet</template>
       <template md-tab-content>
         <div class="letters">
@@ -13,11 +13,11 @@
         </div>
       </template>
     </md-tab>
-    <md-tab md-on-select="onTabChanges(tabNumber)">
-      <template md-tab-label>Gestures</template>
+    <md-tab>
+      <template md-tab-label>Gestures!!</template>
       <template md-tab-content>
         <div class="gestures">
-          <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn" color="primary">{{gestureName}}</button>
+          <button md-raised-button *ngFor="let gestureName of gestureNames" class="letter-buttons animated zoomIn jello" color="{{gColor[gestureName]}}" (click)='startGestureRecognition(gestureName)'>{{gestureName}}!</button>
         </div>
       </template>
     </md-tab>
@@ -27,14 +27,17 @@
     <div *ngIf="!riggedHand">
       <md-toolbar color="primary">
         <span class="fill"></span>
-        <span *ngIf="!clickedLtr" class="animated bounce">
-          Click a letter to view a sign
+        <span *ngIf="!clickedLtr || !clickedGesture" class="hand-btn animated bounce">
+          Click a letter or gesture to view it
         </span>
         <button *ngIf="clickedLtr" md-raised-button color="warn" class="hand-btn animated bounceIn" (click)="clickedLtr = ''">
           Hide the image
         </button>
         <span *ngIf="clickedLtr" class="fill"></span>
-        <button *ngIf="clickedLtr" md-raised-button color="warn" class="hand-btn animated bounceIn" (click)="showRiggedHand()">
+        <button *ngIf="clickedLtr" md-raised-button color="warn" class="hand-btn animated bounceIn" (click)="showRiggedHandLtr()">
+          Try it with Leap Motion
+        </button>
+        <button *ngIf="clickedGesture" md-raised-button color="warn" class="hand-btn animated bounceIn" (click)="showRiggedHandGest()">
           Try it with Leap Motion
         </button>
         <span class="fill"></span>
@@ -48,22 +51,26 @@
     <div *ngIf="riggedHand" id="ltMainContainer">
       <md-toolbar color="primary">
         <span class="fill"></span>
-        <span class="animated flipInY">
+        <span *ngIf='clickedLtr' class="hand-btn animated flipInY">
           Try signing the letter {{clickedLtr.toUpperCase()}}
+        </span>
+        <span *ngIf='clickedGesture' class="hand-btn animated flipInY">
+          Try signing the gesture {{clickedGesture.toUpperCase()}}
         </span>
         <span class="fill"></span>
       </md-toolbar>
       <div id="ltContainer">
         <div id="start-timer" *ngIf="startTimer">Ready ? {{ sec }} seconds to go </div>
         <div id="recognizedGesture"></div>
-        <div id='deviceStatus'> Leap Motion Device Status :
-          <span [ngSwitch]="letterCheckingService.connected">
-            <span *ngSwitchWhen='true' [ngStyle]='{"color":"green"}'>Connected</span>
-            <span *ngSwitchWhen='false' [ngStyle]='{"color":"red"}'>Disconnected</span>
-          </span>
-        </div>
+      <div id='deviceStatus'> Leap Motion Device Status :
+        <span [ngSwitch]="letterCheckingService.connected || connected">
+          <span *ngSwitchWhen='true' [ngStyle]='{"color":"green"}'>Connected</span>
+          <span *ngSwitchWhen='false' [ngStyle]='{"color":"red"}'>Disconnected</span>
+        </span>
       </div>
     </div>
+      </div>
+      <div id='playbackStatus' [ngStyle]='{"color":"grey"}'> Playback Disabled. Please check your Leap settings</div>
   </div>
 
 </div>

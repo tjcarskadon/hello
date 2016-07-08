@@ -26,11 +26,19 @@ export class LetterCheckingService {
 
   _initCheckingService() {
     this.controller.connect();
+    this.controller.on('connect', () => {
+      console.log('connecting ltr checker....')
+    })
+    this.controller.on('disconnect', () => {
+      console.log('disconnecting ltr checker....');
+    })
     this.watch();
   }
 
   watch() {
     this.controller.on ('frame', (frame) => {
+
+      if (frame.hands.length) console.log('frame!')
 
       frame.hands.forEach((hand) => {
         let data = [];
