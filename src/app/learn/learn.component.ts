@@ -79,6 +79,8 @@ export class Learn implements OnInit {
   //  this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
 
   }
+
+  ngOnInit() {}
   
   ngOnInit() {}
 

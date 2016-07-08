@@ -25,7 +25,7 @@ An interactive portal for learning american sign languge. Unauthenticated users 
 ##Tech Stack, API's and Third-party Tools
 * [Angular 2](https://angular.io/) for the front end framework
 * [Angular Material](https://material.angular.io/)- a styling framework for google material design and Angular 2
-* [Webpack](https://webpack.github.io/) & [Babel](https://babeljs.io/)
+* [Webpack](https://webpack.github.io/)
 * [Node.js](https://nodejs.org/en/) and [Express](http://expressjs.com/) for serving static pages. 
 * [Nodal](http://www.nodaljs.com/) for API 
 * [Postgres](http://www.postgresql.org/) for database
@@ -135,7 +135,7 @@ The below instructions assume you have cloned or downloaded the repo to your loc
 - [ ] You can now access the app from your browser at `localhost:3000`
 
 ##System Architecture
-![architecture](https://dl.dropboxusercontent.com/s/0wm83gv8c6vax4x/Hello%20Architecture.png?dl=0)
+![architecture](https://dl.dropboxusercontent.com/s/febxrjnjxbdbsrh/Hello%20Architecture.png?dl=0)
 
 ![aws architecture](https://dl.dropboxusercontent.com/s/zwwtlxx2f9uuvm8/AWS%20Archeticture%20.png?dl=0)
 ##Database Schema

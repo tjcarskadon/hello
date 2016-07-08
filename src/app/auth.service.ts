@@ -20,6 +20,8 @@ export class AuthService {
     let exp: Date = new Date(localStorage.getItem('exp'));
     let currentDate: Date = new Date();
     let tkn: string = localStorage.getItem('tkn')
+
+    //deployed URL
     let url: string = `http://52.205.170.83:3333/logins?access_token=${tkn}`;
     // let url: string = `${process.env.NODE_URL}/logins?access_token=${tkn}`;
 
