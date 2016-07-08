@@ -75,8 +75,13 @@ export class Learn implements OnInit {
         this.gColor[name] = 'primary'
       });
     });
+<<<<<<< 1a59af4cc3eb2f482e6a1ec50d83bcec875240d9
 
     this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+=======
+  //  this.mastered = JSON.parse(sessionStorage.getItem('mastered')) || [];
+  }
+>>>>>>> fix countdown and disconnect controller
 
   }
   
@@ -102,8 +107,12 @@ export class Learn implements OnInit {
     this.letterCheckingService.target = letter.val;
     let isCorrectLetter;
     this.startTimer = true;
-    // this.inetrval = setInterval(() => {
-    // }, 1000);
+    this.sec = 5;
+    this.inetrval = setInterval(() => {
+      if (this.sec > 0) {
+        this.sec--;
+      }
+     }, 1000);
 
     setTimeout(() => {
       this.startTimer = false;
@@ -118,6 +127,8 @@ export class Learn implements OnInit {
      let idx = this.clickedLtr.charCodeAt(0) - 97;
      const letter = this.letters[idx];
 
+     this.letterCheckingService.controller.disconnect();
+
     if (isCorrectLetter) {
       // console.log('letter found');
       letter.count += 1;
@@ -129,7 +140,7 @@ export class Learn implements OnInit {
     if (letter.count > 1) {
       this.mastered.push(letter.val);
     }
-    sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
+ //   sessionStorage.setItem('mastered', JSON.stringify(this.mastered));
   }
 
 
@@ -156,6 +167,7 @@ export class Learn implements OnInit {
     this.riggedHand = false;
     //disconnect ltrCtrl
     this.letterCheckingService.controller.disconnect();
+<<<<<<< 1a59af4cc3eb2f482e6a1ec50d83bcec875240d9
     this.ltrCtrlConnected = false;
     //TODO: playback plugin...
       //.....
@@ -184,6 +196,10 @@ export class Learn implements OnInit {
     }
     this.trainer.listening = true;
 
+=======
+    this.letterCheckingService.target = '';
+    clearInterval(this.interval);
+>>>>>>> fix countdown and disconnect controller
   }
 
   private GestureRecCtrl;
