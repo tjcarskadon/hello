@@ -34,6 +34,7 @@ export class Spell implements OnInit {
   private correctWords = [];
   checkLetterTimer;
   showSkipTimer;
+  capturedLetterColor;
 
   ngOnInit() {
     this.authService.authenticate('spell');
